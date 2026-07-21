@@ -86,18 +86,22 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
 
         <div className="mt-4 flex items-center justify-between rounded-xl bg-surface-alt p-3">
           <div className="flex items-center gap-3">
-            <img
-              src={agent.avatar}
-              alt={agent.name}
-              loading="lazy"
-              className="size-9 rounded-full object-cover"
-            />
+            <div className="relative size-9">
+              <img
+                src={agent.avatar}
+                alt={agent.name}
+                loading="lazy"
+                className="size-full rounded-full object-cover"
+              />
+              {agent.verified && (
+                <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-white">
+                  <VerifiedIcon className="size-3 text-black" />
+                </span>
+              )}
+            </div>
             <div>
-              <p className="flex items-center gap-1 text-sm font-bold text-brand-navy">
+              <p className="text-sm font-bold text-brand-navy">
                 {agent.name}
-                {agent.verified && (
-                  <VerifiedIcon className="size-4 text-brand" />
-                )}
               </p>
               <p className="text-xs text-brand-navy/50">{agent.role}</p>
             </div>
