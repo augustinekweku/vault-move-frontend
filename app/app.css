@@ -36,3 +36,13 @@ html,
 body {
   @apply bg-white text-ink antialiased;
 }
+
+/* Tailwind v4 preflight no longer sets pointer on buttons — restore it
+   globally for every interactive control (tabs, dropdowns, buttons). */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+}

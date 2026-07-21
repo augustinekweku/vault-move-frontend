@@ -5,8 +5,7 @@ import type { Property } from "~/types";
  * (or a CDN) when the backend is ready.
  */
 export const IMAGES = {
-  heroPrimary:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+  heroPrimary: "/images/hero-image.png",
   ctaHouse:
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
   avatar:
