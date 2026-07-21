@@ -6,8 +6,7 @@ import type { Property } from "~/types";
  */
 export const IMAGES = {
   heroPrimary: "/images/hero-image.png",
-  ctaHouse:
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+  ctaHouse: "/images/property-transactions.png",
   avatar:
     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
   listingA:
