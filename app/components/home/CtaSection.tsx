@@ -29,7 +29,7 @@ export function CtaSection() {
           </div>
         </div>
 
-        <div className="lg:h-[560px]">
+        <div className="lg:h-140">
           <img
             src={IMAGES.ctaHouse}
             alt="Secure property transactions"

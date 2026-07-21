@@ -49,7 +49,7 @@ export function FeaturedListings({ properties }: FeaturedListingsProps) {
 
           <div
             ref={trackRef}
-            className="grid snap-x snap-mandatory grid-flow-col auto-cols-[85%] gap-6 overflow-x-auto scroll-smooth pb-2 sm:auto-cols-[45%] lg:auto-cols-[calc(33.333%-1rem)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="grid snap-x snap-mandatory grid-flow-col auto-cols-[85%] gap-6 overflow-x-auto scroll-smooth pb-2 sm:auto-cols-[45%] lg:auto-cols-[calc(33.333%-1rem)] scrollbar-none [&::-webkit-scrollbar]:hidden"
           >
             {properties.map((property) => (
               <PropertyCard

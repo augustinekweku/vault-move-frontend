@@ -51,7 +51,7 @@ export function PropertySearchBar({
 
       <div
         className={cn(
-          "grid grid-cols-1 gap-4 border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)] md:grid-cols-[1fr_1fr_1fr_auto] md:items-end md:h-[117px]",
+          "grid grid-cols-1 gap-4 border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)] md:grid-cols-[1fr_1fr_1fr_auto] md:items-end md:h-29.25",
           showTabs ? "rounded-b-xl rounded-tr-xl" : "rounded-xl",
         )}
       >
