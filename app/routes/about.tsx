@@ -50,7 +50,7 @@ export default function About() {
           <img
             src={IMAGES.ctaHouse}
             alt="Our mission"
-            className="h-80 w-full rounded-3xl object-cover lg:h-[420px]"
+            className="h-80 w-full rounded-3xl object-cover lg:h-105"
           />
           <div>
             <SectionHeading align="left" underline title="Our Mission" />
@@ -63,9 +63,7 @@ export default function About() {
 
         <div className="mt-20">
           <SectionHeading align="left" underline title="Our Team" />
-          <p className="mt-6 max-w-3xl text-[15px] leading-7 text-ink/60">
-            {LOREM}
-          </p>
+          <p className="mt-6 text-[15px] leading-7 text-ink/60">{LOREM}</p>
 
           <div className="mt-10 grid gap-8 sm:grid-cols-3">
             {TEAM.map((member, i) => (

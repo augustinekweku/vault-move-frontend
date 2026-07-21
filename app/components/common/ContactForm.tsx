@@ -43,7 +43,7 @@ export function ContactForm() {
         onChange={update("message")}
         required
       />
-      <Button type="submit" variant="dark" className="w-full">
+      <Button type="submit" variant="primary" className="w-full">
         Next
       </Button>
       {submitted && (

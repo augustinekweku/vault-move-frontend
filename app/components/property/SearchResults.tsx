@@ -4,7 +4,7 @@ import { Container } from "~/components/ui/Container";
 import { PropertyGrid } from "~/components/property/PropertyGrid";
 import { PropertySearchBar } from "~/components/property/PropertySearchBar";
 import { Badge } from "~/components/ui/Badge";
-import { LocationIcon } from "~/components/ui/icons";
+import { FilterIcon, MapIcon } from "~/components/ui/icons";
 
 interface SearchResultsProps {
   properties: Property[];
@@ -39,13 +39,14 @@ export function SearchResults({
               onClick={() => setShowFilters((s) => !s)}
               className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-ink"
             >
+              <FilterIcon className="size-4" />
               Filters
             </button>
             <button
               type="button"
               className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-ink"
             >
-              <LocationIcon className="size-4" />
+              <MapIcon className="size-4" />
               View on Map
             </button>
           </div>

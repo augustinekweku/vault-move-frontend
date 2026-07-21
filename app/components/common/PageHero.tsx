@@ -14,7 +14,8 @@ interface PageHeroProps {
   className?: string;
 }
 
-/** Blue banner used on About, Contact, FAQ, Privacy and Portals pages. */
+/** Blue banner used on About, Contact, FAQ, Privacy and Portals pages.
+ *  Pixel-exact to Figma Group 11675: 1440×434, dots bottom-left, rings top-right. */
 export function PageHero({
   title,
   subtitle,
@@ -48,16 +49,40 @@ export function PageHero({
           className,
         )}
       >
-        <div
-          aria-hidden
-          className="absolute right-0 top-1/2 hidden size-72 -translate-y-1/2 rounded-full border border-white/10 lg:block"
-        />
-        <Container className="py-16 text-center lg:py-20">
-          <h1 className="mx-auto max-w-3xl text-3xl font-bold sm:text-4xl lg:text-[42px]">
+        {/* Pixel-exact 1440px canvas (Figma coordinates) */}
+        <div className="relative mx-auto hidden h-108.5 w-360 min-[1440px]:block">
+          {/* Ornament 11 — dot grid, bottom-left */}
+          <img
+            src="/icons/ornament-11.svg"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute left-0 top-64 h-44.25 w-95.25 select-none"
+          />
+          {/* Ornament 12 — concentric rings, top-right (white at 12%) */}
+          <img
+            src="/images/footer-ornament.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute left-284.5 top-0 size-75 select-none"
+          />
+
+          <h1 className="absolute left-97.5 top-23 w-165 text-center text-[48px] font-bold leading-18 tracking-[-0.02em]">
             {title}
           </h1>
           {subtitle && (
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/80">
+            <p className="absolute left-91.25 top-72.5 w-177.5 text-center text-[18px] leading-8 text-white/80">
+              {subtitle}
+            </p>
+          )}
+        </div>
+
+        {/* Responsive fallback below 1440px */}
+        <Container className="py-16 text-center min-[1440px]:hidden lg:py-20">
+          <h1 className="mx-auto max-w-3xl text-3xl font-bold tracking-[-0.02em] sm:text-4xl lg:text-[42px] lg:leading-normal">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/80 lg:text-base">
               {subtitle}
             </p>
           )}
