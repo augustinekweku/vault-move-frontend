@@ -4,8 +4,12 @@ import { Heading, List } from "~/components/privacy/helpers";
 export function PrivacyContent() {
   return (
     <Container className="max-w-4xl py-16 lg:py-20">
-      <h2 className="inline-block border-b-2 border-accent pb-1 text-2xl font-bold text-brand-dark">
+      <h2 className="text-2xl font-bold text-brand-dark">
         Privacy Policy
+        <span
+          aria-hidden
+          className="mt-1 block h-1 w-11 rounded-full bg-brand"
+        />
       </h2>
       <div className="mt-6 space-y-4 text-[15px] leading-7 text-ink/70">
         <p>Last Updated: July 2026</p>
@@ -26,7 +30,9 @@ export function PrivacyContent() {
         marketplace.
       </p>
 
-      <h3 className="mt-6 font-semibold text-brand-dark">Personal Information</h3>
+      <h3 className="mt-6 font-semibold text-brand-dark">
+        Personal Information
+      </h3>
       <p className="mt-2 text-[15px] text-ink/70">
         When you create an account, we may collect:
       </p>
@@ -42,7 +48,9 @@ export function PrivacyContent() {
         ]}
       />
 
-      <h3 className="mt-6 font-semibold text-brand-dark">Property Information</h3>
+      <h3 className="mt-6 font-semibold text-brand-dark">
+        Property Information
+      </h3>
       <p className="mt-2 text-[15px] text-ink/70">
         If you list a property, we may collect:
       </p>
@@ -75,7 +83,9 @@ export function PrivacyContent() {
       />
 
       <Heading>2. How We Use Your Information</Heading>
-      <p className="mt-4 text-[15px] text-ink/70">We use your information to:</p>
+      <p className="mt-4 text-[15px] text-ink/70">
+        We use your information to:
+      </p>
       <List
         items={[
           "Create and manage your account",
