@@ -15,5 +15,6 @@ export default [
     route("portals", "routes/portals.tsx"),
     route("faq", "routes/faq.tsx"),
     route("privacy", "routes/privacy.tsx"),
+    route("terms", "routes/terms.tsx"),
   ]),
 ] satisfies RouteConfig;

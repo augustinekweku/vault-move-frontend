@@ -62,6 +62,12 @@ export interface FaqGroup {
   items: AccordionItem[];
 }
 
+export interface TermsSection {
+  /** Omit for the untitled intro block. */
+  heading?: string;
+  paragraphs: string[];
+}
+
 export interface PortalFeature {
   title: string;
   description: string;

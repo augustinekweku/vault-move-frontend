@@ -57,7 +57,7 @@ export const FOOTER_NAV: { title: string; links: NavLink[] }[] = [
     title: "Legal",
     links: [
       { label: "Privacy policy", href: "/privacy" },
-      { label: "Terms and Conditions", href: "/privacy" },
+      { label: "Terms and Conditions", href: "/terms" },
       { label: "Escrow terms", href: "/privacy" },
     ],
   },
