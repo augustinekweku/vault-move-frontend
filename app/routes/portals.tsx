@@ -43,9 +43,21 @@ export default function Portals() {
       ))}
 
       {/* TODO: replace with real pricing tiers */}
-      <section className="bg-brand py-16 text-center text-white">
-        <Container>
-          <h2 className="text-3xl font-bold">PRICING</h2>
+      <section className="relative overflow-hidden bg-brand py-16 text-center text-white">
+        <img
+          src="/icons/ornament-11.svg"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-0 hidden h-44.25 w-95.25 select-none lg:block"
+        />
+        <img
+          src="/images/footer-ornament.png"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute right-0 top-0 hidden size-75 select-none lg:block"
+        />
+        <Container className="relative">
+          <h2 className="text-3xl font-bold lg:text-[48px]">PRICING</h2>
         </Container>
       </section>
 

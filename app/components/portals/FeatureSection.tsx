@@ -25,7 +25,7 @@ export function FeatureSection({ block, alt }: FeatureSectionProps) {
                 <SearchIcon className="size-3.5" />
               </span>
               <div>
-                <h3 className="font-bold text-brand-dark">{f.title}</h3>
+                <h3 className="text-lg font-bold text-brand-dark">{f.title}</h3>
                 <p className="mt-1 text-[15px] leading-6 text-ink/60">
                   {f.description}
                 </p>

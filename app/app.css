@@ -45,4 +45,10 @@ body {
   select:not(:disabled) {
     cursor: pointer;
   }
+
+  /* Offset hash-anchor jumps (e.g. /portals#agents, /faq#escrow) so the
+     target heading clears the sticky 80px navbar instead of hiding under it. */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
 }
