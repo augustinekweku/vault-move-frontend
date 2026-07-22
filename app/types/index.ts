@@ -1,3 +1,5 @@
+import type { ComponentType, SVGProps } from "react";
+
 export type ListingCategory = "rent" | "buy";
 
 export interface Agent {
@@ -34,4 +36,23 @@ export interface NavLink {
   label: string;
   href: string;
   children?: NavLink[];
+}
+
+export interface PortalStep {
+  number: string;
+  title: string;
+  description: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
+export interface PortalFeature {
+  title: string;
+  description: string;
+}
+
+export interface PortalFeatureBlock {
+  id: string;
+  titleTop: string;
+  titleBottom: string;
+  features: PortalFeature[];
 }

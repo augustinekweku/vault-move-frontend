@@ -33,7 +33,7 @@ export default function About() {
         title={
           <>
             Property transactions,{" "}
-            <span className="text-accent">made simple and secure.</span>
+            <span className="block text-accent">made simple and secure.</span>
           </>
         }
         subtitle="Everything you need to market properties, manage enquiries, track offers, and close deals—all from one platform."

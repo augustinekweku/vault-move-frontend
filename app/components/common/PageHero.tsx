@@ -15,7 +15,9 @@ interface PageHeroProps {
 }
 
 /** Blue banner used on About, Contact, FAQ, Privacy and Portals pages.
- *  Pixel-exact to Figma Group 11675: 1440×434, dots bottom-left, rings top-right. */
+ *  Content is vertically centred in flow (no absolute text positioning) so
+ *  the title/subtitle spacing stays consistent no matter how many lines the
+ *  title wraps to. ~434px tall on desktop, dots bottom-left, rings top-right. */
 export function PageHero({
   title,
   subtitle,
@@ -49,40 +51,27 @@ export function PageHero({
           className,
         )}
       >
-        {/* Pixel-exact 1440px canvas (Figma coordinates) */}
-        <div className="relative mx-auto hidden h-108.5 w-360 min-[1440px]:block">
-          {/* Ornament 11 — dot grid, bottom-left */}
-          <img
-            src="/icons/ornament-11.svg"
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute left-0 top-64 h-44.25 w-95.25 select-none"
-          />
-          {/* Ornament 12 — concentric rings, top-right (white at 12%) */}
-          <img
-            src="/images/footer-ornament.png"
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute left-284.5 top-0 size-75 select-none"
-          />
+        {/* Ornament 11 — dot grid, bottom-left */}
+        <img
+          src="/icons/ornament-11.svg"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-0 hidden h-44.25 w-95.25 select-none lg:block"
+        />
+        {/* Ornament 12 — concentric rings, top-right (white at 12%) */}
+        <img
+          src="/images/footer-ornament.png"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute right-0 top-0 hidden size-75 select-none lg:block"
+        />
 
-          <h1 className="absolute left-97.5 top-23 w-165 text-center text-[48px] font-bold leading-18 tracking-[-0.02em]">
+        <Container className="relative flex flex-col items-center justify-center py-16 text-center lg:min-h-108.5 lg:py-20">
+          <h1 className="max-w-4xl text-3xl font-bold leading-[1.2] tracking-[-0.02em] sm:text-4xl lg:text-[48px]">
             {title}
           </h1>
           {subtitle && (
-            <p className="absolute left-91.25 top-72.5 w-177.5 text-center text-[18px] leading-8 text-white/80">
-              {subtitle}
-            </p>
-          )}
-        </div>
-
-        {/* Responsive fallback below 1440px */}
-        <Container className="py-16 text-center min-[1440px]:hidden lg:py-20">
-          <h1 className="mx-auto max-w-3xl text-3xl font-bold tracking-[-0.02em] sm:text-4xl lg:text-[42px] lg:leading-normal">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/80 lg:text-base">
+            <p className="mt-12 max-w-2xl text-sm leading-7 text-white/80 lg:text-lg lg:leading-8">
               {subtitle}
             </p>
           )}
