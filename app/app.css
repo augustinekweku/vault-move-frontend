@@ -47,8 +47,9 @@ body {
   }
 
   /* Offset hash-anchor jumps (e.g. /portals#agents, /faq#escrow) so the
-     target heading clears the sticky 80px navbar instead of hiding under it. */
+     target heading clears the sticky 80px navbar with breathing room
+     (80px navbar + 48px of air). */
   [id] {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 8rem;
   }
 }

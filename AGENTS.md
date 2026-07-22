@@ -42,10 +42,11 @@ app/
                           # Accordion, Badge, Container, SectionHeading, icons.tsx
     common/               # shared across pages: PageHero, ContactForm, WaitlistSection
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
-    home/                 # page-specific sections (one folder per page)
+    home/  about/  contact/  faq/  privacy/  portals/
+                          # page-specific sections (one folder per page)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults
-    portals/              # StepsSection, FeatureSection, CtaSection
-  data/                   # static/mock content: listings.ts, navigation.ts, portals.ts
+  data/                   # static/mock content: listings, navigation, portals,
+                          # about, contact, faq
   types/index.ts          # ALL shared interfaces/types live here
   services/               # api.ts (axios instance + `http` helper), listings.service.ts
   lib/utils.ts            # cn() classname joiner

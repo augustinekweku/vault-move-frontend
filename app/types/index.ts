@@ -1,4 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
+import type { AccordionItem } from "~/components/ui/Accordion";
 
 export type ListingCategory = "rent" | "buy";
 
@@ -43,6 +44,22 @@ export interface PortalStep {
   title: string;
   description: string;
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+}
+
+export interface ContactMethod {
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  value: string;
+}
+
+export interface FaqGroup {
+  id: string;
+  title: string;
+  items: AccordionItem[];
 }
 
 export interface PortalFeature {
