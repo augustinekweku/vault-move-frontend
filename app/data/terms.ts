@@ -1,7 +1,7 @@
-import type { TermsSection } from "~/types";
+import type { LegalSection } from "~/types";
 
 /** Terms & Conditions body copy (from the VAULTMOVE Figma), rendered in order. */
-export const TERMS_SECTIONS: TermsSection[] = [
+export const TERMS_SECTIONS: LegalSection[] = [
   {
     paragraphs: [
       "Effective Date: July 2026",

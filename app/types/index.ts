@@ -62,7 +62,7 @@ export interface FaqGroup {
   items: AccordionItem[];
 }
 
-export interface TermsSection {
+export interface LegalSection {
   /** Omit for the untitled intro block. */
   heading?: string;
   paragraphs: string[];

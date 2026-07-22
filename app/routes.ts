@@ -16,5 +16,6 @@ export default [
     route("faq", "routes/faq.tsx"),
     route("privacy", "routes/privacy.tsx"),
     route("terms", "routes/terms.tsx"),
+    route("escrow-terms", "routes/escrow-terms.tsx"),
   ]),
 ] satisfies RouteConfig;
