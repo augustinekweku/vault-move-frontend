@@ -23,7 +23,7 @@ export function CtaSection() {
             </Button>
           </div>
         </div>
-        <div className="lg:h-[480px]">
+        <div className="lg:h-120">
           <img
             src={IMAGES.ctaHouse}
             alt="List your property"

@@ -62,13 +62,13 @@ export function Footer() {
     <footer className="relative overflow-hidden bg-brand text-white">
       {/* ——— Pixel-exact Figma canvas (Group 11672, 1440x481) at 1440px+ ——— */}
       <div className="hidden min-[1440px]:block">
-        <div className="relative mx-auto h-[481px] w-[1440px]">
+        <div className="relative mx-auto h-120.25 w-360">
           {/* Ornament 12: white rings, (1141,0) 300x300 */}
           <img
             src={RINGS}
             alt=""
             aria-hidden
-            className="pointer-events-none absolute top-0 left-[1141px] size-[300px] select-none"
+            className="pointer-events-none absolute top-0 left-285.25 size-75 select-none"
           />
           {/* Ornament 11: dotted arcs above the copyright row, (614,300)
               381x177, white at 10% */}
@@ -76,7 +76,7 @@ export function Footer() {
             src={DOTS}
             alt=""
             aria-hidden
-            className="pointer-events-none absolute top-[300px] left-[614px] h-[177px] w-[381px] select-none"
+            className="pointer-events-none absolute top-75 left-153.5 h-44.25 w-95.25 select-none"
           />
           {/* Ornament 79: dashed-line wedge at (0,176), 155x191.
               The SVG natively points its apex to the right — no rotation. */}
@@ -84,21 +84,16 @@ export function Footer() {
             src={LINES}
             alt=""
             aria-hidden
-            className="pointer-events-none absolute top-[176px] left-0 h-[191px] w-[155px] select-none"
+            className="pointer-events-none absolute top-44 left-0 h-47.75 w-38.75 select-none"
           />
 
           {/* Logo: icon (81,80) 76x72 + wordmark at x=189 */}
           <Link
             to="/"
-            className="absolute top-[80px] left-[81px] flex items-center gap-8"
+            className="absolute top-20 left-20.25 flex items-center gap-8"
           >
-            <img
-              src={VAULT_ICON}
-              alt=""
-              aria-hidden
-              className="h-[72px] w-[76px]"
-            />
-            <span className="text-[30px] leading-[36px] font-semibold text-white">
+            <img src={VAULT_ICON} alt="" aria-hidden className="h-18 w-19" />
+            <span className="text-[30px] leading-9 font-semibold text-white">
               vault move
               <br />
               africa
@@ -106,43 +101,43 @@ export function Footer() {
           </Link>
 
           {/* Tagline: (189,176) 263 wide, 12/24 */}
-          <p className="absolute top-[176px] left-[189px] w-[263px] text-xs leading-6 text-muted-300">
+          <p className="absolute top-44 left-47.25 w-65.75 text-xs leading-6 text-muted-300">
             A hybrid property marketplace built to make every transaction safer
             and easier to complete.
           </p>
 
           <FooterColumn
             {...findProperty}
-            className="absolute top-[80px] left-[530px] w-[122px]"
+            className="absolute top-20 left-132.5 w-30.5"
           />
           <FooterColumn
             {...portals}
-            className="absolute top-[80px] left-[684px] w-[157px]"
+            className="absolute top-20 left-171 w-39.25"
           />
           <FooterColumn
             {...company}
-            className="absolute top-[80px] left-[891px] w-[104px]"
+            className="absolute top-20 left-222.75 w-26"
           />
           <FooterColumn
             {...resources}
-            className="absolute top-[80px] left-[1045px] w-[129px]"
+            className="absolute top-20 left-261.25 w-32.25"
           />
           <FooterColumn
             {...support}
-            className="absolute top-[80px] left-[1224px] w-[137px]"
+            className="absolute top-20 left-306 w-34.25"
           />
           <FooterColumn
             {...legal}
-            className="absolute top-[224px] left-[1224px] w-[137px]"
+            className="absolute top-56 left-306 w-34.25"
           />
 
           {/* Divider: y=400, spanning the content width */}
-          <div className="absolute top-[400px] right-[80px] left-[81px] h-px bg-[#e4e7ec]" />
+          <div className="absolute top-100 right-20 left-20.25 h-px bg-line-soft" />
 
-          <p className="absolute top-[433px] left-[81px] text-base leading-6 text-muted-400">
+          <p className="absolute top-108.25 left-20.25 text-base leading-6 text-muted-400">
             © 2026 VaultMove Africa . All rights reserved.
           </p>
-          <div className="absolute top-[433px] left-[1241px]">
+          <div className="absolute top-108.25 left-310.25">
             <SocialLinks />
           </div>
         </div>
@@ -154,26 +149,26 @@ export function Footer() {
           src={RINGS}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-0 right-0 size-[300px] select-none"
+          className="pointer-events-none absolute top-0 right-0 size-75 select-none"
         />
         <img
           src={LINES}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-[176px] left-0 h-[191px] w-[155px] select-none"
+          className="pointer-events-none absolute top-44 left-0 h-47.75 w-38.75 select-none"
         />
         <img
           src={DOTS}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute bottom-0 left-1/2 h-[177px] w-[381px] -translate-x-1/2 select-none"
+          className="pointer-events-none absolute bottom-0 left-1/2 h-44.25 w-95.25 -translate-x-1/2 select-none"
         />
 
         <Container className="relative py-14">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(6,1fr)]">
             <div className="lg:pr-8">
               <Logo variant="white" />
-              <p className="mt-5 max-w-[263px] text-xs leading-6 text-muted-300">
+              <p className="mt-5 max-w-65.75 text-xs leading-6 text-muted-300">
                 A hybrid property marketplace built to make every transaction
                 safer and easier to complete.
               </p>
@@ -184,7 +179,7 @@ export function Footer() {
             ))}
           </div>
 
-          <div className="mt-12 h-px w-full bg-[#e4e7ec]" />
+          <div className="mt-12 h-px w-full bg-line-soft" />
 
           <div className="mt-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-base leading-6 text-muted-400">

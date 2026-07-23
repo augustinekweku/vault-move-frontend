@@ -8,7 +8,7 @@ import { ResourceCard } from "~/components/resources/ResourceCard";
 export function ResourcesSection() {
   return (
     <Container className="py-16 lg:py-20">
-      <div className="mx-auto flex max-w-[974px] flex-col gap-13.75">
+      <div className="mx-auto flex max-w-243.5 flex-col gap-13.75">
         {RESOURCE_SECTIONS.map((section, i) => (
           <Fragment key={section.id}>
             {i > 0 && <div aria-hidden className="border-t border-muted-400" />}

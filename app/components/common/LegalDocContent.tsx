@@ -10,11 +10,14 @@ interface LegalDocContentProps {
  *  Escrow Terms pages. */
 export function LegalDocContent({ title, sections }: LegalDocContentProps) {
   return (
-    <div className="mx-auto w-full max-w-[976px] px-5 py-16 sm:px-8 lg:py-20">
+    <div className="mx-auto w-full max-w-244 px-5 py-16 sm:px-8 lg:py-20">
       <h2 className="text-2xl font-bold text-brand-dark">
         {title}
         {/* Short rounded brand bar, per Figma (Rectangle 896) */}
-        <span aria-hidden className="mt-1 block h-1 w-8 rounded-full bg-brand" />
+        <span
+          aria-hidden
+          className="mt-1 block h-1 w-8 rounded-full bg-brand"
+        />
       </h2>
 
       <div className="mt-6 space-y-8">
