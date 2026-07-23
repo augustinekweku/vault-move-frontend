@@ -36,7 +36,8 @@ prints a warning but still works.
 app/
   routes.ts               # manual route config (all pages under SiteLayout)
   routes/                 # one file per page: home, buy, rent, about, contact,
-                          # portals, faq, resources, privacy, terms, escrow-terms
+                          # portals, faq, resources, resource-detail (dynamic
+                          # /resources/:articleId), privacy, terms, escrow-terms
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
                           # Accordion, Badge, Container, SectionHeading, icons.tsx

@@ -1,5 +1,14 @@
 import type { ResourceSection } from "~/types";
 
+const LOREM_IPSUM_PARAGRAPH =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+/** Shared placeholder body — the Figma detail page is lorem ipsum throughout. */
+export const MOCK_ARTICLE_BODY: string[] = Array.from(
+  { length: 8 },
+  () => LOREM_IPSUM_PARAGRAPH,
+);
+
 /** Mock resource articles — grouped into sections separated by dividers,
  *  mirroring the Figma "Resources" page (duplicate cards are intentional,
  *  matching the deterministic mock-data approach used elsewhere). */
@@ -14,6 +23,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         date: "2nd July 2026",
         readTime: "3 mins read",
         image: "/images/resource-1-2.png",
+        body: MOCK_ARTICLE_BODY,
       },
       {
         id: "escrow-2",
@@ -22,6 +32,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         date: "2nd July 2026",
         readTime: "3 mins read",
         image: "/images/resource-1-2.png",
+        body: MOCK_ARTICLE_BODY,
       },
     ],
   },
@@ -35,6 +46,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         date: "2nd July 2026",
         readTime: "3 mins read",
         image: "/images/deal.png",
+        body: MOCK_ARTICLE_BODY,
       },
     ],
   },
@@ -48,6 +60,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         date: "2nd July 2026",
         readTime: "3 mins read",
         image: "/images/rental-laws.png",
+        body: MOCK_ARTICLE_BODY,
       },
       {
         id: "rental-laws-2",
@@ -56,6 +69,7 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         date: "2nd July 2026",
         readTime: "3 mins read",
         image: "/images/rental-laws.png",
+        body: MOCK_ARTICLE_BODY,
       },
       {
         id: "rental-laws-3",
@@ -64,7 +78,13 @@ export const RESOURCE_SECTIONS: ResourceSection[] = [
         date: "2nd July 2026",
         readTime: "3 mins read",
         image: "/images/rental-laws.png",
+        body: MOCK_ARTICLE_BODY,
       },
     ],
   },
 ];
+
+/** Flat list of every resource article — detail pages key off `id`. */
+export const RESOURCE_ARTICLES = RESOURCE_SECTIONS.flatMap(
+  (section) => section.articles,
+);

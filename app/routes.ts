@@ -15,6 +15,7 @@ export default [
     route("portals", "routes/portals.tsx"),
     route("faq", "routes/faq.tsx"),
     route("resources", "routes/resources.tsx"),
+    route("resources/:articleId", "routes/resource-detail.tsx"),
     route("privacy", "routes/privacy.tsx"),
     route("terms", "routes/terms.tsx"),
     route("escrow-terms", "routes/escrow-terms.tsx"),

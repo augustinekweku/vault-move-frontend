@@ -75,6 +75,8 @@ export interface ResourceArticle {
   date: string;
   readTime: string;
   image: string;
+  /** Body paragraphs rendered on the article detail page. */
+  body: string[];
 }
 
 export interface ResourceSection {
