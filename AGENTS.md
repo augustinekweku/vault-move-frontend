@@ -36,18 +36,18 @@ prints a warning but still works.
 app/
   routes.ts               # manual route config (all pages under SiteLayout)
   routes/                 # one file per page: home, buy, rent, about, contact,
-                          # portals, faq, privacy, terms, escrow-terms
+                          # portals, faq, resources, privacy, terms, escrow-terms
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
                           # Accordion, Badge, Container, SectionHeading, icons.tsx
     common/               # shared across pages: PageHero, ContactForm,
                           # WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
-    home/  about/  contact/  faq/  privacy/  portals/
+    home/  about/  contact/  faq/  privacy/  portals/  resources/
                           # page-specific sections (one folder per page)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults
   data/                   # static/mock content: listings, navigation, portals,
-                          # about, contact, faq, terms, escrow-terms
+                          # about, contact, faq, resources, terms, escrow-terms
   types/index.ts          # ALL shared interfaces/types live here
   services/               # api.ts (axios instance + `http` helper), listings.service.ts
   lib/utils.ts            # cn() classname joiner

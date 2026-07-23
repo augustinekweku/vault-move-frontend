@@ -44,9 +44,9 @@ export const FOOTER_NAV: { title: string; links: NavLink[] }[] = [
   {
     title: "Resources",
     links: [
-      { label: "How Escrow works", href: "/faq#escrow" },
-      { label: "Deal room", href: "/faq" },
-      { label: "Rental Laws in Ghana", href: "/faq" },
+      { label: "How Escrow works", href: "/resources#escrow" },
+      { label: "Deal room", href: "/resources#deal-room" },
+      { label: "Rental Laws in Ghana", href: "/resources#rental-laws" },
     ],
   },
   {

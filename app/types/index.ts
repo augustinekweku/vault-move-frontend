@@ -68,6 +68,20 @@ export interface LegalSection {
   paragraphs: string[];
 }
 
+export interface ResourceArticle {
+  id: string;
+  category: string;
+  title: string;
+  date: string;
+  readTime: string;
+  image: string;
+}
+
+export interface ResourceSection {
+  id: string;
+  articles: ResourceArticle[];
+}
+
 export interface PortalFeature {
   title: string;
   description: string;
