@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { cn } from "~/lib/utils";
 import type { ListingCategory } from "~/types";
-import { PROPERTY_TYPES } from "~/data/navigation";
+import { PROPERTY_TYPES, PRICE_RANGES } from "~/data/navigation";
 import { Tabs } from "~/components/ui/Tabs";
 import { Select } from "~/components/ui/Select";
 import { Field } from "~/components/ui/Input";
@@ -13,8 +13,6 @@ interface PropertySearchBarProps {
   showTabs?: boolean;
   defaultCategory?: ListingCategory;
 }
-
-const PRICE_RANGES = ["0 - 500", "500 - 1000", "1000 - 2000", "2000+"];
 
 export function PropertySearchBar({
   className,

@@ -6,34 +6,7 @@ import { Input } from "~/components/ui/Input";
 import { PasswordField } from "~/components/auth/PasswordField";
 import { CheckIcon, CloseIcon } from "~/components/ui/icons";
 import type { SignUpDetails } from "~/components/auth/SignUpFlow";
-
-const PASSWORD_RULES = [
-  {
-    id: "length",
-    label: "At least 8 characters long",
-    test: (p: string) => p.length >= 8,
-  },
-  {
-    id: "uppercase",
-    label: "At least one uppercase letter",
-    test: (p: string) => /[A-Z]/.test(p),
-  },
-  {
-    id: "lowercase",
-    label: "At least one lowercase letter",
-    test: (p: string) => /[a-z]/.test(p),
-  },
-  {
-    id: "number",
-    label: "At least one number",
-    test: (p: string) => /\d/.test(p),
-  },
-  {
-    id: "special",
-    label: "At least one special character",
-    test: (p: string) => /[^A-Za-z0-9]/.test(p),
-  },
-];
+import { PASSWORD_RULES } from "~/data/auth";
 
 /** Sign-up step 1 (buyer/renter): account details. The password rules list
  *  appears while the password field is focused, ticking rules live. */

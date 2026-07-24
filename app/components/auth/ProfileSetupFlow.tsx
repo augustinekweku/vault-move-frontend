@@ -4,32 +4,18 @@ import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/Button";
 import { Field, Input } from "~/components/ui/Input";
 import { Select } from "~/components/ui/Select";
-
-const AREAS = [
-  "Achimota",
-  "Adjiringanor",
-  "Airport Residential",
-  "Cantonments",
-  "East Legon",
-  "Osu",
-  "Tema",
-  "Tesano",
-];
-
-const STEPS = [1, 2, 3] as const;
-type Step = (typeof STEPS)[number];
-
-const STEP_GUIDANCE: Record<Step, string> = {
-  1: "Tell us the areas you would like to find properties from. You can change this anytime.",
-  2: "Great! Now tell us your budget and your typical household size.",
-  3: "Almost done! Tell us how soon you plan to move in.",
-};
+import {
+  PROFILE_SETUP_AREAS,
+  PROFILE_SETUP_GUIDANCE,
+  PROFILE_SETUP_STEPS,
+  type ProfileSetupStep,
+} from "~/data/auth";
 
 /** Profile setup wizard for new buyers/renters: three preference steps with
  *  a dot stepper (completed steps stay filled). */
 export function ProfileSetupFlow() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<ProfileSetupStep>(1);
   const [area, setArea] = useState("");
   const [budget, setBudget] = useState("");
   const [householdSize, setHouseholdSize] = useState("");
@@ -37,7 +23,7 @@ export function ProfileSetupFlow() {
 
   function handleNext() {
     if (step < 3) {
-      setStep((step + 1) as Step);
+      setStep((step + 1) as ProfileSetupStep);
     } else {
       // TODO: persist the entered preferences before leaving the wizard.
       navigate("/dashboard", { state: { profileCompleted: true } });
@@ -55,7 +41,7 @@ export function ProfileSetupFlow() {
 
       {/* Dot stepper */}
       <ol className="mt-10 flex justify-between">
-        {STEPS.map((n) => (
+        {PROFILE_SETUP_STEPS.map((n) => (
           <li key={n} className="flex flex-col items-center gap-1.5">
             <span
               className={cn(
@@ -77,7 +63,7 @@ export function ProfileSetupFlow() {
 
       <div className="mt-10">
         <p className="text-[14px] leading-6 text-ink-soft">
-          {STEP_GUIDANCE[step]}
+          {PROFILE_SETUP_GUIDANCE[step]}
         </p>
 
         {step === 1 && (
@@ -85,7 +71,7 @@ export function ProfileSetupFlow() {
             wrapperClassName="mt-6"
             label="Area"
             placeholder="Select Area(s)"
-            options={AREAS}
+            options={PROFILE_SETUP_AREAS}
             value={area}
             onChange={setArea}
           />

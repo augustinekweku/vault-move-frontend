@@ -1,4 +1,4 @@
-import type { PortalFeatureBlock, PortalStep } from "~/types";
+import type { PortalFeatureBlock, NumberedStep } from "~/types";
 import {
   SearchIcon,
   DocumentIcon,
@@ -6,7 +6,7 @@ import {
 } from "~/components/ui/icons";
 
 /** "Three simple steps" shown under the Portals hero. */
-export const PORTAL_STEPS: PortalStep[] = [
+export const PORTAL_STEPS: NumberedStep[] = [
   {
     number: "01",
     title: "Create Your Account",

@@ -51,7 +51,7 @@ export function CompleteProfileModal({
         <Button
           variant="outline"
           onClick={onClose}
-          className="h-10.5 w-full border-line font-normal text-[#344054] hover:bg-surface"
+          className="h-10.5 w-full border-line font-normal text-muted-700 hover:bg-surface"
         >
           Do this later
         </Button>

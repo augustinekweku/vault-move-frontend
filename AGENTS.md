@@ -62,7 +62,9 @@ app/
                           # details-page sections: PropertyGallery, PropertySidePanel,
                           # PropertyOverview (facts bar + Details/Reviews tabs)
   data/                   # static/mock content: listings, navigation, portals,
-                          # about, contact, faq, resources, terms, escrow-terms
+                          # about, contact, faq, resources, terms, escrow-terms,
+                          # home (landing steps + stats), auth (profile-setup
+                          # wizard content, password rules)
   types/index.ts          # ALL shared interfaces/types live here
   services/               # api.ts (axios instance + `http` helper), listings.service.ts
   lib/utils.ts            # cn() classname joiner

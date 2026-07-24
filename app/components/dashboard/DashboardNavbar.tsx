@@ -6,12 +6,7 @@ import {
   ChevronDownIcon,
   MessageCircleIcon,
 } from "~/components/ui/icons";
-
-const APP_NAV = [
-  { label: "Home", href: "/dashboard" },
-  { label: "Buy", href: "/buy" },
-  { label: "Rent", href: "/rent" },
-];
+import { APP_NAV } from "~/data/navigation";
 
 /** Header for the signed-in buyer/renter area: logo, centred Home/Buy/Rent
  *  nav (active item gets the small brand underline bar), notification and
@@ -19,7 +14,7 @@ const APP_NAV = [
 export function DashboardNavbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-[#aaaaaa]/40 bg-white">
-      <div className="relative mx-auto flex h-20 max-w-[1280px] items-center justify-between px-5 sm:px-8">
+      <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
         <Logo />
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
@@ -67,10 +62,7 @@ export function DashboardNavbar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="hidden items-center gap-1 sm:flex"
-            >
+            <button type="button" className="hidden items-center gap-1 sm:flex">
               <span className="text-base font-medium text-ink">Jane Doe</span>
               <ChevronDownIcon className="size-5 text-ink" />
             </button>

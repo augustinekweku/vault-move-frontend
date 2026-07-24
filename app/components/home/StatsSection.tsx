@@ -1,16 +1,5 @@
 import { Container } from "~/components/ui/Container";
-
-interface Stat {
-  value: string;
-  label: string;
-}
-
-const STATS: Stat[] = [
-  { value: "110+", label: "Verified Property Listings" },
-  { value: "60+", label: "Renters and Sellers" },
-  { value: "80+", label: "Offers Managed" },
-  { value: "100%", label: "Protected Deal Tracking" },
-];
+import { TRUST_STATS } from "~/data/home";
 
 export function StatsSection() {
   return (
@@ -21,7 +10,7 @@ export function StatsSection() {
         </h2>
 
         <div className="mt-12 grid grid-cols-2 gap-8 lg:grid-cols-4">
-          {STATS.map((stat) => (
+          {TRUST_STATS.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
               <span className="text-5xl font-bold text-[#263238] lg:text-6xl">
                 {stat.value}

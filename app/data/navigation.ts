@@ -69,3 +69,13 @@ export const PROPERTY_TYPES = [
   "Single Family house",
   "Flats",
 ];
+
+/** Price range options in the property search bar. */
+export const PRICE_RANGES = ["0 - 500", "500 - 1000", "1000 - 2000", "2000+"];
+
+/** Signed-in buyer/renter navbar (dashboard area). */
+export const APP_NAV: NavLink[] = [
+  { label: "Home", href: "/dashboard" },
+  { label: "Buy", href: "/buy" },
+  { label: "Rent", href: "/rent" },
+];

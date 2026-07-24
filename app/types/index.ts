@@ -77,11 +77,25 @@ export interface NavLink {
   children?: NavLink[];
 }
 
-export interface PortalStep {
+/** A numbered step with an icon — portal onboarding steps, the landing
+ *  "How it works" steps, etc. */
+export interface NumberedStep {
   number: string;
   title: string;
   description: string;
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
+}
+
+/** A sign-up password requirement, ticked live while typing. */
+export interface PasswordRule {
+  id: string;
+  label: string;
+  test: (password: string) => boolean;
 }
 
 export interface TeamMember {

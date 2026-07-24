@@ -48,7 +48,7 @@ export function LoginForm() {
         </div>
 
         <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-[13px] text-[#344054]">
+          <label className="flex items-center gap-2 text-[13px] text-muted-700">
             <input
               type="checkbox"
               name="remember"
