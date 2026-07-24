@@ -46,7 +46,7 @@ app/
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
                           # Accordion, Badge, Container, SectionHeading, Toast,
-                          # icons.tsx
+                          # Modal, icons.tsx
     common/               # shared across pages: PageHero, ContactForm,
                           # WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
