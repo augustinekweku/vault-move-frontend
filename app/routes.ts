@@ -23,4 +23,8 @@ export default [
   // Auth pages render without the site navbar/footer.
   route("signup", "routes/signup.tsx"),
   route("login", "routes/login.tsx"),
+  // Signed-in buyer/renter area with its own navbar.
+  layout("components/dashboard/DashboardLayout.tsx", [
+    route("dashboard", "routes/dashboard.tsx"),
+  ]),
 ] satisfies RouteConfig;

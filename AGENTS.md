@@ -41,7 +41,8 @@ app/
                           # /resources/:articleId), privacy, terms, escrow-terms,
                           # signup (buyer/renter wizard — steps render as
                           # components via auth/SignUpFlow, not per-step routes),
-                          # login
+                          # login, dashboard (signed-in buyer/renter landing,
+                          # under DashboardLayout)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
                           # Accordion, Badge, Container, SectionHeading, Toast,
@@ -50,8 +51,9 @@ app/
                           # WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
     home/  about/  contact/  faq/  privacy/  portals/  resources/  auth/
-                          # page-specific sections (one folder per page; auth/
-                          # holds the shared AuthLayout + sign-up step forms)
+    dashboard/            # page-specific sections (one folder per page; auth/
+                          # holds the shared AuthLayout + sign-up step forms;
+                          # dashboard/ the signed-in navbar, hero + layout)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults
   data/                   # static/mock content: listings, navigation, portals,
                           # about, contact, faq, resources, terms, escrow-terms
