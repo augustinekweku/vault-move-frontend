@@ -194,6 +194,63 @@ export function FilterIcon(props: IconProps) {
   );
 }
 
+export function ShareIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <circle cx="18" cy="5" r="3" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="18" cy="19" r="3" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="m8.6 10.7 6.8-3.9M8.6 13.3l6.8 3.9"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
+
+export function HomeIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <path
+        d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2V10Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function SofaIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <path
+        d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 18v-3a2 2 0 0 1 4 0v1h10v-1a2 2 0 0 1 4 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function BuildingIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
+      <path
+        d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h3a2 2 0 0 1 2 2v10M2 21h20M8 7h4M8 11h4M8 15h4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function MapIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>

@@ -1,4 +1,4 @@
-import type { Property, FilterBlock } from "~/types";
+import type { Property, PropertyDetails, FilterBlock } from "~/types";
 
 /**
  * Central place for placeholder imagery. Swap these URLs for real assets
@@ -15,6 +15,10 @@ export const IMAGES = {
     "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
   listingC:
     "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80",
+  listingD:
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+  listingE:
+    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=80",
 } as const;
 
 const AGENT = {
@@ -44,6 +48,71 @@ export const MOCK_LISTINGS: Property[] = Array.from({ length: 12 }).map(
     agent: AGENT,
   }),
 );
+
+/**
+ * Shared details-page content for every mock listing (they are all the same
+ * "Willow Apartments" placeholder). Keyed per listing once the API is live.
+ */
+export const MOCK_PROPERTY_DETAILS: PropertyDetails = {
+  gallery: [
+    IMAGES.listingA,
+    IMAGES.listingB,
+    IMAGES.listingC,
+    IMAGES.listingD,
+    IMAGES.listingE,
+  ],
+  address: "Achimota, Accra",
+  availability: "Available in 3 months",
+  charges: [
+    { label: "Monthly service charge", amount: "0.00 ghc" },
+    { label: "Monthly utility fees", amount: "0.00 ghc" },
+  ],
+  facts: [
+    { label: "Property Type", value: "Townhouse", icon: "home" },
+    { label: "Bedrooms", value: "3", icon: "bed" },
+    { label: "Bathrooms", value: "3.5", icon: "bath" },
+    { label: "Furnishing Status", value: "Semi Furnished", icon: "sofa" },
+    { label: "Building Condition", value: "Newly Built", icon: "building" },
+  ],
+  description: [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  ],
+  featureGroups: [
+    {
+      title: "Interior Features",
+      items: [
+        "Furnished Kitchen",
+        "Air conditioning",
+        "Wi-Fi",
+        "Laundry",
+        "Storage rooms",
+      ],
+    },
+    { title: "Parking", items: ["Private parking", "EV Charging"] },
+    {
+      title: "Building Features",
+      items: ["Elevator/ Lift", "Concierge", "Gym", "Security", "Roof top terrace"],
+    },
+  ],
+  amenities: [
+    "Water supply",
+    "Electricity",
+    "Internet",
+    "Back up power",
+    "Waste disposal",
+    "Smart Home features",
+  ],
+  houseRules: [
+    "Pets allowed",
+    "Smoking allowed",
+    "Parties and events allowed",
+    "Maximum occupancy – 8 persons",
+    "Quiet hours apply",
+    "Noise restrictions apply",
+    "Overnight guests allowed",
+  ],
+};
 
 const ROOM_COUNTS = ["1", "2", "3", "4", "5", "6+"];
 

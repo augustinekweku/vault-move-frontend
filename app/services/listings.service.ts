@@ -1,5 +1,9 @@
-import type { Property, SearchListingsParams } from "~/types";
-import { MOCK_LISTINGS } from "~/data/listings";
+import type {
+  Property,
+  PropertyDetails,
+  SearchListingsParams,
+} from "~/types";
+import { MOCK_LISTINGS, MOCK_PROPERTY_DETAILS } from "~/data/listings";
 
 /**
  * Listings data access. Currently backed by mock data; swap the bodies for
@@ -32,4 +36,16 @@ export async function searchListings(
   }
   // return http.get<Property[]>("/listings", { params });
   return [];
+}
+
+export async function getListingById(
+  id: string,
+): Promise<{ property: Property; details: PropertyDetails } | undefined> {
+  if (USE_MOCK) {
+    const property = MOCK_LISTINGS.find((l) => l.id === id);
+    if (!property) return undefined;
+    return delay({ property, details: MOCK_PROPERTY_DETAILS });
+  }
+  // return http.get<{ property: Property; details: PropertyDetails }>(`/listings/${id}`);
+  return undefined;
 }

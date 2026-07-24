@@ -37,7 +37,8 @@ app/
                           # auth pages (signup, login) are top-level, no navbar/footer)
   routes/                 # one file per page: home, buy, rent, about, contact,
                           # portals, faq, resources, resource-detail (dynamic
-                          # /resources/:articleId), privacy, terms, escrow-terms,
+                          # /resources/:articleId), property-detail (dynamic
+                          # /properties/:propertyId), privacy, terms, escrow-terms,
                           # signup (buyer/renter wizard — steps render as
                           # components via auth/SignUpFlow, not per-step routes),
                           # login, setup-profile (preference wizard —
@@ -57,7 +58,9 @@ app/
                           # dashboard/ the signed-in navbar, hero + layout)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
-                          # from data/listings.ts FILTER_COLUMNS)
+                          # from data/listings.ts FILTER_COLUMNS), plus the
+                          # details-page sections: PropertyGallery, PropertySidePanel,
+                          # PropertyOverview (facts bar + Details/Reviews tabs)
   data/                   # static/mock content: listings, navigation, portals,
                           # about, contact, faq, resources, terms, escrow-terms
   types/index.ts          # ALL shared interfaces/types live here
@@ -80,9 +83,10 @@ public/
   cross-page pieces in `common/`; generic primitives in `ui/`. Route files should be
   thin composition + `meta()` only.
 - **Styling**: utility-first Tailwind v4. Use theme tokens, not raw hex:
-  `brand` (#1e347a), `brand-dark`, `brand-navy`, `accent` (#04ce9d), `accent-soft`,
-  `success-soft` (#eefaf6, toast bg), `ink`, `ink-muted`, `surface`, `surface-alt`,
-  `line`. Font is Poppins (set in
+  `brand` (#1e347a), `brand-dark`, `brand-navy`, `brand-blue` (#0000b0, details-page
+  fact icons), `accent` (#04ce9d), `accent-soft`,
+  `success-soft` (#eefaf6, toast bg), `ink`, `ink-muted`, `muted-700` (#344054),
+  `surface`, `surface-alt`, `line`. Font is Poppins (set in
   `@theme`, loaded via Google Fonts in `app/root.tsx`).
   Arbitrary numeric spacing values work (e.g. `h-108.5`).
 - **Layout**: wrap page content in `<Container>` (max-w-1280px, responsive px).
@@ -104,6 +108,11 @@ public/
 - **SSR**: components render on the server — no unguarded `window`/`localStorage`.
 - **Mock data is deterministic** on purpose (`MOCK_LISTINGS` uses a fixed pattern, no
   `Math.random()`), so SSR and client markup match — keep it that way.
+- **Loader data must stay JSON-serialisable** — anything returned from a route loader
+  (e.g. `PropertyDetails`) cannot carry component refs, so icon choices are stored as
+  string keys (`PropertyFactIcon`) and mapped to components in the UI. Component refs in
+  data files are fine only when the data is imported directly by components (like
+  `data/portals.ts`).
 - **Route changes**: register new pages in `app/routes.ts` (not file-system routing).
 - **Deployment**: Dockerfile provided; serve `build/server/index.js`.
 - If you change structure, tokens, or conventions described here, update this file.

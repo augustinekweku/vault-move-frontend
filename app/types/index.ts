@@ -26,6 +26,44 @@ export interface Property {
   agent: Agent;
 }
 
+/** Icon keys for property facts — kept as strings (not component refs) so
+ *  PropertyDetails stays JSON-serialisable across the loader boundary. */
+export type PropertyFactIcon = "home" | "bed" | "bath" | "sofa" | "building";
+
+export interface PropertyFact {
+  label: string;
+  value: string;
+  icon: PropertyFactIcon;
+}
+
+export interface PropertyCharge {
+  label: string;
+  amount: string;
+}
+
+export interface PropertyFeatureGroup {
+  title: string;
+  items: string[];
+}
+
+/** Extra content shown on the property details page (beyond the card data). */
+export interface PropertyDetails {
+  /** First image is the large one; the rest fill the 2x2 thumbnail grid. */
+  gallery: string[];
+  /** Full location line, e.g. "Achimota, Accra". */
+  address: string;
+  availability: string;
+  charges: PropertyCharge[];
+  facts: PropertyFact[];
+  description: string[];
+  /** Chip groups under the "Building features" heading. */
+  featureGroups: PropertyFeatureGroup[];
+  /** Chips under "Amenities and Utilities". */
+  amenities: string[];
+  /** Bullet list under "House Rules". */
+  houseRules: string[];
+}
+
 export interface SearchListingsParams {
   category?: ListingCategory;
   propertyType?: string;

@@ -8,6 +8,7 @@
   --color-brand: #1e347a;
   --color-brand-dark: #171725;
   --color-brand-navy: #10284b;
+  --color-brand-blue: #0000b0;
   --color-accent: #04ce9d;
   --color-accent-strong: #05c69b;
   --color-accent-soft: #f0f9f5;
@@ -21,6 +22,7 @@
   /* Neutrals */
   --color-line: #d0d5dd;
   --color-line-soft: #e4e7ec;
+  --color-muted-700: #344054;
   --color-muted-500: #667085;
   --color-muted-400: #98a2b3;
   --color-muted-300: #d9d9d9;

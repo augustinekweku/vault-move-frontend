@@ -1,4 +1,5 @@
 import type { Property } from "~/types";
+import { Link } from "react-router";
 import { cn } from "~/lib/utils";
 import { Badge } from "~/components/ui/Badge";
 import {
@@ -17,6 +18,7 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property, className }: PropertyCardProps) {
   const {
+    id,
     title,
     location,
     price,
@@ -29,6 +31,7 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
     tag,
     agent,
   } = property;
+  const detailsHref = `/properties/${id}`;
 
   return (
     <article
@@ -39,12 +42,14 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
     >
       <div className="relative p-2">
         <div className="relative h-56 overflow-hidden rounded-xl">
-          <img
-            src={image}
-            alt={title}
-            loading="lazy"
-            className="size-full object-cover"
-          />
+          <Link to={detailsHref} aria-label={`View ${title}`}>
+            <img
+              src={image}
+              alt={title}
+              loading="lazy"
+              className="size-full object-cover"
+            />
+          </Link>
           <Badge className="absolute left-3 top-3 bg-white/90 text-[10px]">
             {tag}
           </Badge>
@@ -60,7 +65,11 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
 
       <div className="flex flex-1 flex-col px-4 pb-4">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-xl font-bold text-brand-navy">{title}</h3>
+          <h3 className="text-xl font-bold text-brand-navy">
+            <Link to={detailsHref} className="hover:text-brand">
+              {title}
+            </Link>
+          </h3>
           <span className="mt-1 flex items-center gap-1 text-xs font-semibold text-brand-navy/60">
             <StarIcon className="size-3 text-star" />
             {rating.toFixed(1)} /5.0
