@@ -1,20 +1,34 @@
 import { useState } from "react";
 import { Button } from "~/components/ui/Button";
 import { Field } from "~/components/ui/Input";
+import { Toast } from "~/components/ui/Toast";
 import { OtpInput } from "~/components/auth/OtpInput";
 
 /** Sign-up step 2: enter the 4-digit code emailed after account creation.
  *  The email is handed down from step 1 by the wizard. */
 export function VerifyEmailForm({ email }: { email?: string }) {
   const [code, setCode] = useState("");
+  const [status, setStatus] = useState<"idle" | "verifying" | "success">(
+    "idle",
+  );
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO(step 3): verify the code and advance the sign-up flow.
+    // TODO(step 3): call the real verify endpoint, then advance the flow.
+    setStatus("verifying");
+    setTimeout(() => setStatus("success"), 1200);
   }
 
   return (
     <div>
+      {status === "success" && (
+        <Toast
+          title="Success!"
+          message="Your email address has been verified!"
+          onClose={() => setStatus("idle")}
+        />
+      )}
+
       <h1 className="text-[29.08px] leading-9 font-semibold text-ink">
         Verify your Email Address
       </h1>
@@ -27,8 +41,12 @@ export function VerifyEmailForm({ email }: { email?: string }) {
           <OtpInput value={code} onChange={setCode} />
         </Field>
 
-        <Button type="submit" className="mt-15 md:mt-20 w-full">
-          Verify
+        <Button
+          type="submit"
+          className="mt-15 md:mt-20 w-full"
+          disabled={status === "verifying"}
+        >
+          {status === "verifying" ? "Loading…" : "Verify"}
         </Button>
       </form>
 

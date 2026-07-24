@@ -22,4 +22,5 @@ export default [
   ]),
   // Auth pages render without the site navbar/footer.
   route("signup", "routes/signup.tsx"),
+  route("login", "routes/login.tsx"),
 ] satisfies RouteConfig;

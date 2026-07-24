@@ -35,15 +35,17 @@ prints a warning but still works.
 ```
 app/
   routes.ts               # manual route config (marketing pages under SiteLayout;
-                          # auth pages like signup are top-level, no navbar/footer)
+                          # auth pages (signup, login) are top-level, no navbar/footer)
   routes/                 # one file per page: home, buy, rent, about, contact,
                           # portals, faq, resources, resource-detail (dynamic
                           # /resources/:articleId), privacy, terms, escrow-terms,
                           # signup (buyer/renter wizard — steps render as
-                          # components via auth/SignUpFlow, not per-step routes)
+                          # components via auth/SignUpFlow, not per-step routes),
+                          # login
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
-                          # Accordion, Badge, Container, SectionHeading, icons.tsx
+                          # Accordion, Badge, Container, SectionHeading, Toast,
+                          # icons.tsx
     common/               # shared across pages: PageHero, ContactForm,
                           # WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
@@ -74,7 +76,8 @@ public/
   thin composition + `meta()` only.
 - **Styling**: utility-first Tailwind v4. Use theme tokens, not raw hex:
   `brand` (#1e347a), `brand-dark`, `brand-navy`, `accent` (#04ce9d), `accent-soft`,
-  `ink`, `ink-muted`, `surface`, `surface-alt`, `line`. Font is Poppins (set in
+  `success-soft` (#eefaf6, toast bg), `ink`, `ink-muted`, `surface`, `surface-alt`,
+  `line`. Font is Poppins (set in
   `@theme`, loaded via Google Fonts in `app/root.tsx`).
   Arbitrary numeric spacing values work (e.g. `h-108.5`).
 - **Layout**: wrap page content in `<Container>` (max-w-1280px, responsive px).
