@@ -27,8 +27,7 @@ npm run typecheck  # react-router typegen && tsc  ← run this after changes
 ```
 
 There is no test suite or linter configured — `npm run typecheck` + `npm run build`
-are the verification gates. Note: React Router 8 wants Node > 22.22.0; older 22.x
-prints a warning but still works.
+are the verification gates.
 
 ## Directory Structure
 
@@ -56,7 +55,9 @@ app/
     dashboard/            # page-specific sections (one folder per page; auth/
                           # holds the shared AuthLayout + sign-up step forms;
                           # dashboard/ the signed-in navbar, hero + layout)
-    property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults
+    property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
+                          # FiltersModal (opened from SearchResults; block content
+                          # from data/listings.ts FILTER_COLUMNS)
   data/                   # static/mock content: listings, navigation, portals,
                           # about, contact, faq, resources, terms, escrow-terms
   types/index.ts          # ALL shared interfaces/types live here
@@ -97,6 +98,9 @@ public/
 
 ## Gotchas
 
+- **`cn()` does not dedupe** — it only joins strings (no tailwind-merge). Conflicting
+  utilities (e.g. two `max-w-*`) are resolved by CSS order, not prop order, so
+  primitives must not bake in overridable-looking classes; leave sizing to callers.
 - **SSR**: components render on the server — no unguarded `window`/`localStorage`.
 - **Mock data is deterministic** on purpose (`MOCK_LISTINGS` uses a fixed pattern, no
   `Math.random()`), so SSR and client markup match — keep it that way.

@@ -105,37 +105,36 @@ export function WaitlistSection() {
           src={ORNAMENT}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-0 left-0 size-175 select-none"
+          className="pointer-events-none absolute top-0 left-0 size-80 select-none sm:size-125 lg:size-175"
         />
         <img
           src={ORNAMENT}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-0 -right-4.5 size-97 select-none"
+          className="pointer-events-none absolute top-0 -right-20 size-60 select-none sm:-right-4.5 sm:size-97"
         />
 
-        <Container className="relative grid items-center gap-10 py-16 lg:grid-cols-2 lg:gap-8 lg:py-0">
-          {/* Visual: blue vault card behind the iPhone mockup (scaled down
-              on smaller screens). */}
-          <div className="relative">
-            <div className="relative h-105 sm:h-140 lg:h-175">
-              <div className="absolute top-0 left-2 h-175 w-160 origin-top-left scale-[0.6] sm:left-6 sm:scale-[0.8] lg:left-0 lg:scale-100">
-                <img
-                  src={BLUE_VAULT}
-                  alt=""
-                  aria-hidden
-                  className="absolute top-9.25 left-15.75 h-127.5 w-60.75 rounded-[40px] select-none"
-                />
-                <img
-                  src={IPHONE}
-                  alt="Vault Move Africa mobile app preview"
-                  className="absolute top-18.25 left-26.25 h-156.75 w-132.75 select-none"
-                />
-              </div>
+        <Container className="relative grid grid-cols-1 items-center gap-10 py-16 lg:grid-cols-2 lg:gap-8 lg:py-0">
+          {/* Visual: blue vault card behind the iPhone mockup. The 640x700
+              composition is scaled as one canvas inside a wrapper sized to
+              the scaled result, so it stays centred at every breakpoint. */}
+          <div className="relative mx-auto h-87.5 w-80 sm:h-140 sm:w-128 lg:mx-0 lg:h-175 lg:w-160">
+            <div className="absolute top-0 left-0 h-175 w-160 origin-top-left scale-[0.5] sm:scale-[0.8] lg:scale-100">
+              <img
+                src={BLUE_VAULT}
+                alt=""
+                aria-hidden
+                className="absolute top-9.25 left-15.75 h-127.5 w-60.75 rounded-[40px] select-none"
+              />
+              <img
+                src={IPHONE}
+                alt="Vault Move Africa mobile app preview"
+                className="absolute top-18.25 left-26.25 h-156.75 w-132.75 select-none"
+              />
             </div>
           </div>
 
-          <div>
+          <div className="max-lg:order-first">
             <h2 className="text-4xl font-semibold leading-tight text-brand sm:text-5xl lg:text-[54px] lg:leading-18">
               Your next Property...{" "}
               <span className="text-accent">is Just a tap away.</span>

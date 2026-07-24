@@ -3,6 +3,7 @@ import type { Property, ListingCategory } from "~/types";
 import { Container } from "~/components/ui/Container";
 import { PropertyGrid } from "~/components/property/PropertyGrid";
 import { PropertySearchBar } from "~/components/property/PropertySearchBar";
+import { FiltersModal } from "~/components/property/FiltersModal";
 import { Badge } from "~/components/ui/Badge";
 import { FilterIcon, MapIcon } from "~/components/ui/icons";
 
@@ -17,7 +18,8 @@ export function SearchResults({
   category,
   breadcrumbLabel,
 }: SearchResultsProps) {
-  const [showFilters, setShowFilters] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [appliedFilters, setAppliedFilters] = useState(0);
 
   return (
     <>
@@ -36,7 +38,7 @@ export function SearchResults({
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => setShowFilters((s) => !s)}
+              onClick={() => setFiltersOpen(true)}
               className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-ink"
             >
               <FilterIcon className="size-4" />
@@ -54,12 +56,23 @@ export function SearchResults({
 
         <div className="mt-4">
           <Badge className="bg-surface-alt">
-            {showFilters ? "Filters open" : "No filters applied"}
+            {appliedFilters > 0
+              ? `${appliedFilters} ${appliedFilters === 1 ? "filter" : "filters"} applied`
+              : "No filters applied"}
           </Badge>
         </div>
 
         <PropertyGrid properties={properties} className="mt-8" />
       </Container>
+
+      <FiltersModal
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        onApply={(n) => {
+          setAppliedFilters(n);
+          setFiltersOpen(false);
+        }}
+      />
     </>
   );
 }

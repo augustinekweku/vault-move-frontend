@@ -18,7 +18,7 @@ export function CompleteProfileModal({
       open={open}
       onClose={onClose}
       labelledBy="complete-profile-title"
-      className="rounded-lg px-6 py-6 text-center"
+      className="max-w-125 rounded-lg px-6 py-6 text-center"
     >
       <button
         type="button"

@@ -37,7 +37,7 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
-        className={cn("relative w-full max-w-125 bg-white", className)}
+        className={cn("relative w-full bg-white", className)}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

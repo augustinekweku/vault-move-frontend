@@ -95,3 +95,31 @@ export interface PortalFeatureBlock {
   titleBottom: string;
   features: PortalFeature[];
 }
+
+export interface FilterOptionsGroup {
+  kind: "options";
+  id: string;
+  title: string;
+  options: string[];
+}
+
+export interface FilterSelectBlock {
+  kind: "select";
+  id: string;
+  title: string;
+  placeholder: string;
+  options: string[];
+}
+
+export interface FilterBudgetBlock {
+  kind: "budget";
+  id: string;
+  title: string;
+  placeholder: string;
+  suffix: string;
+}
+
+export type FilterBlock =
+  | FilterOptionsGroup
+  | FilterSelectBlock
+  | FilterBudgetBlock;
