@@ -123,7 +123,7 @@ export function SignUpForm() {
           required
         />
 
-        <p className="text-[13px] leading-6 text-ink-soft">
+        <p className="text-[13px] leading-6 text-ink-soft mt-5">
           By clicking the{" "}
           <strong className="font-semibold text-ink">
             &lsquo;Create account&rsquo;
