@@ -4,7 +4,7 @@ import { IMAGES } from "~/data/listings";
 export function HeroSection() {
   return (
     <section className="relative overflow-x-clip bg-surface">
-      {/* Desktop: exact Figma layout, centered 1440px canvas */}
+      {/* Desktop: centered 1440px canvas */}
       <div className="hidden lg:block">
         <div className="relative mx-auto h-193 max-w-360">
           <h1 className="absolute left-20 top-35 z-10 w-157 text-[54px] font-bold leading-18 text-brand">
@@ -23,8 +23,8 @@ export function HeroSection() {
             <PropertySearchBar />
           </div>
 
-          {/* Figma: left 732, top 128 (frame-relative, i.e. flush under nav),
-              708x772, left corners rounded 60px, right edge bleeding */}
+          {/* Hero image: flush under nav, left corners rounded, right edge
+              bleeding off-canvas */}
           <img
             src={IMAGES.heroPrimary}
             alt="Modern property"

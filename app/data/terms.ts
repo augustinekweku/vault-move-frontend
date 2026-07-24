@@ -1,6 +1,6 @@
 import type { LegalSection } from "~/types";
 
-/** Terms & Conditions body copy (from the VAULTMOVE Figma), rendered in order. */
+/** Terms & Conditions body copy, rendered in order. */
 export const TERMS_SECTIONS: LegalSection[] = [
   {
     paragraphs: [

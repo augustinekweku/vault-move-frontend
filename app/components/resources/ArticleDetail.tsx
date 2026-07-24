@@ -3,7 +3,7 @@ import { Container } from "~/components/ui/Container";
 import type { ResourceArticle } from "~/types";
 
 /** Article detail body: breadcrumbs (Home › Resources), category/title/meta
- *  header, hero image and body paragraphs, in the Figma's ~984px column.
+ *  header, hero image and body paragraphs in a ~984px column.
  *  No blue PageHero on this page — the header sits on white. */
 export function ArticleDetail({ article }: { article: ResourceArticle }) {
   return (

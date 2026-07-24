@@ -34,18 +34,21 @@ prints a warning but still works.
 
 ```
 app/
-  routes.ts               # manual route config (all pages under SiteLayout)
+  routes.ts               # manual route config (marketing pages under SiteLayout;
+                          # auth pages like signup are top-level, no navbar/footer)
   routes/                 # one file per page: home, buy, rent, about, contact,
                           # portals, faq, resources, resource-detail (dynamic
-                          # /resources/:articleId), privacy, terms, escrow-terms
+                          # /resources/:articleId), privacy, terms, escrow-terms,
+                          # signup (multi-step buyer/renter flow, step 1)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
                           # Accordion, Badge, Container, SectionHeading, icons.tsx
     common/               # shared across pages: PageHero, ContactForm,
                           # WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
-    home/  about/  contact/  faq/  privacy/  portals/  resources/
-                          # page-specific sections (one folder per page)
+    home/  about/  contact/  faq/  privacy/  portals/  resources/  auth/
+                          # page-specific sections (one folder per page; auth/
+                          # holds the shared AuthLayout + sign-up step forms)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults
   data/                   # static/mock content: listings, navigation, portals,
                           # about, contact, faq, resources, terms, escrow-terms

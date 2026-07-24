@@ -42,7 +42,7 @@ export function WaitlistSection() {
 
   return (
     <section className="relative overflow-hidden bg-surface">
-      {/* ——— Pixel-exact Figma canvas (Frame 3872, 1440x700) at 1440px+ ——— */}
+      {/* ——— Pixel-exact desktop canvas (1440x700) at 1440px+ ——— */}
       <div className="hidden min-[1440px]:block">
         <div className="relative mx-auto h-175 w-360">
           {/* Ornament 12: (0,0) 700x700 — composition sits centered on it */}
@@ -115,8 +115,8 @@ export function WaitlistSection() {
         />
 
         <Container className="relative grid items-center gap-10 py-16 lg:grid-cols-2 lg:gap-8 lg:py-0">
-          {/* Visual: blue vault card behind the iPhone mockup (content-relative
-              Figma coords, scaled down on smaller screens). */}
+          {/* Visual: blue vault card behind the iPhone mockup (scaled down
+              on smaller screens). */}
           <div className="relative">
             <div className="relative h-105 sm:h-140 lg:h-175">
               <div className="absolute top-0 left-2 h-175 w-160 origin-top-left scale-[0.6] sm:left-6 sm:scale-[0.8] lg:left-0 lg:scale-100">

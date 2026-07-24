@@ -2,9 +2,7 @@ import { Link } from "react-router";
 import type { ResourceArticle } from "~/types";
 
 /** Article card for the Resources page: image, category label, title and
- *  date/read-time meta, linking to the article detail page. Flow-based
- *  spacing follows the Figma card rhythm (240px image → 32px → label →
- *  16px → title → 2px → meta). */
+ *  date/read-time meta, linking to the article detail page. */
 export function ResourceCard({ article }: { article: ResourceArticle }) {
   return (
     <article>

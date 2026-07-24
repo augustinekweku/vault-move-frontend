@@ -60,7 +60,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-brand text-white">
-      {/* ——— Pixel-exact Figma canvas (Group 11672, 1440x481) at 1440px+ ——— */}
+      {/* ——— Pixel-exact desktop canvas (1440x481) at 1440px+ ——— */}
       <div className="hidden min-[1440px]:block">
         <div className="relative mx-auto h-120.25 w-360">
           {/* Ornament 12: white rings, (1141,0) 300x300 */}

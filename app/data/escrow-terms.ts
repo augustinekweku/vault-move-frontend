@@ -1,6 +1,6 @@
 import type { LegalSection } from "~/types";
 
-/** Escrow Terms body copy (from the VAULTMOVE Figma), rendered in order. */
+/** Escrow Terms body copy, rendered in order. */
 export const ESCROW_TERMS_SECTIONS: LegalSection[] = [
   {
     paragraphs: [

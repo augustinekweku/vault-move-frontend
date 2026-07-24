@@ -4,7 +4,7 @@ import { RESOURCE_SECTIONS } from "~/data/resources";
 import { ResourceCard } from "~/components/resources/ResourceCard";
 
 /** Article groups (2-col grid, 80px gaps) separated by full-width dividers,
- *  in the 974px content column from the Figma frame. */
+ *  in a centred 974px content column. */
 export function ResourcesSection() {
   return (
     <Container className="py-16 lg:py-20">

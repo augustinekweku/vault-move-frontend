@@ -3,15 +3,15 @@ import type { ResourceSection } from "~/types";
 const LOREM_IPSUM_PARAGRAPH =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-/** Shared placeholder body — the Figma detail page is lorem ipsum throughout. */
+/** Shared placeholder body for the mock articles. */
 export const MOCK_ARTICLE_BODY: string[] = Array.from(
   { length: 8 },
   () => LOREM_IPSUM_PARAGRAPH,
 );
 
-/** Mock resource articles — grouped into sections separated by dividers,
- *  mirroring the Figma "Resources" page (duplicate cards are intentional,
- *  matching the deterministic mock-data approach used elsewhere). */
+/** Mock resource articles — grouped into sections separated by dividers
+ *  (duplicate cards are intentional, matching the deterministic mock-data
+ *  approach used elsewhere). */
 export const RESOURCE_SECTIONS: ResourceSection[] = [
   {
     id: "escrow",

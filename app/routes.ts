@@ -20,4 +20,6 @@ export default [
     route("terms", "routes/terms.tsx"),
     route("escrow-terms", "routes/escrow-terms.tsx"),
   ]),
+  // Auth pages render without the site navbar/footer.
+  route("signup", "routes/signup.tsx"),
 ] satisfies RouteConfig;
