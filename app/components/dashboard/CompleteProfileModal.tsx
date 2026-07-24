@@ -45,8 +45,7 @@ export function CompleteProfileModal({
       </p>
 
       <div className="mx-auto mt-11 max-w-87.5 space-y-5">
-        {/* TODO: route to the profile setup flow once it exists. */}
-        <Button onClick={onClose} className="h-10.5 w-full">
+        <Button to="/setup-profile" className="h-10.5 w-full">
           Set up my account
         </Button>
         <Button

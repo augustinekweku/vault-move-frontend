@@ -41,7 +41,9 @@ app/
                           # /resources/:articleId), privacy, terms, escrow-terms,
                           # signup (buyer/renter wizard — steps render as
                           # components via auth/SignUpFlow, not per-step routes),
-                          # login, dashboard (signed-in buyer/renter landing,
+                          # login, setup-profile (preference wizard —
+                          # auth/ProfileSetupFlow),
+                          # dashboard (signed-in buyer/renter landing,
                           # under DashboardLayout)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,

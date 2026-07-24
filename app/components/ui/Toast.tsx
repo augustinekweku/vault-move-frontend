@@ -25,20 +25,22 @@ export function Toast({
   return (
     <div
       role="status"
-      className="fixed top-15 right-0 z-50 flex items-start gap-3 rounded-l-full border border-line bg-success-soft py-3.5 pr-6 pl-5 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
+      className="fixed top-20 right-0 z-50 flex min-h-25 items-center gap-6 rounded-l-[60px] border border-line bg-success-soft py-4 pr-8 pl-6 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
     >
-      <CheckCircleIcon className="mt-0.5 size-5 shrink-0 text-accent" />
-      <div>
-        <p className="text-sm font-semibold text-ink">{title}</p>
+      <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white">
+        <CheckCircleIcon className="size-6 text-[#48cc99]" />
+      </span>
+      <div className="pr-4">
+        <p className="text-lg leading-8 font-bold text-ink-soft">{title}</p>
         {message ? (
-          <p className="mt-0.5 text-[13px] text-ink-soft">{message}</p>
+          <p className="text-lg leading-8 text-ink-soft">{message}</p>
         ) : null}
       </div>
       <button
         type="button"
         onClick={onClose}
         aria-label="Dismiss notification"
-        className="mt-0.5 ml-2 text-muted-500 hover:text-ink"
+        className="ml-2 self-start text-brand-dark hover:text-ink"
       >
         <CloseIcon className="size-4" />
       </button>
