@@ -1,6 +1,6 @@
 import type { Route } from "./+types/signup";
 import { AuthLayout } from "~/components/auth/AuthLayout";
-import { SignUpForm } from "~/components/auth/SignUpForm";
+import { SignUpFlow } from "~/components/auth/SignUpFlow";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 export default function SignUp() {
   return (
     <AuthLayout>
-      <SignUpForm />
+      <SignUpFlow />
     </AuthLayout>
   );
 }

@@ -10,7 +10,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-svh bg-white">
       {/* Brand panel (desktop only) */}
-      <aside className="relative hidden w-[495px] shrink-0 overflow-hidden bg-brand lg:block">
+      <aside className="relative hidden w-123.75 shrink-0 overflow-hidden bg-brand lg:block">
         <img
           src="/images/footer-ornament.png"
           alt=""
@@ -25,7 +25,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
               aria-hidden
               className="h-13.5 w-14.25"
             />
-            <span className="text-[20px] leading-[27px] font-semibold text-white">
+            <span className="text-[20px] leading-6.75 font-semibold text-white">
               vault move
               <br />
               africa
@@ -42,7 +42,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       <main className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
-        <div className="w-full max-w-[351px]">
+        <div className="w-full max-w-87.75">
           <Logo className="mb-10 lg:hidden" />
           {children}
         </div>

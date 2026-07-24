@@ -39,7 +39,8 @@ app/
   routes/                 # one file per page: home, buy, rent, about, contact,
                           # portals, faq, resources, resource-detail (dynamic
                           # /resources/:articleId), privacy, terms, escrow-terms,
-                          # signup (multi-step buyer/renter flow, step 1)
+                          # signup (buyer/renter wizard — steps render as
+                          # components via auth/SignUpFlow, not per-step routes)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
                           # Accordion, Badge, Container, SectionHeading, icons.tsx

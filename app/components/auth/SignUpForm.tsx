@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/Button";
 import { Input } from "~/components/ui/Input";
 import { PasswordField } from "~/components/auth/PasswordField";
 import { CheckIcon, CloseIcon } from "~/components/ui/icons";
+import type { SignUpDetails } from "~/components/auth/SignUpFlow";
 
 const PASSWORD_RULES = [
   {
@@ -36,7 +37,11 @@ const PASSWORD_RULES = [
 
 /** Sign-up step 1 (buyer/renter): account details. The password rules list
  *  appears while the password field is focused, ticking rules live. */
-export function SignUpForm() {
+export function SignUpForm({
+  onNext,
+}: {
+  onNext: (details: SignUpDetails) => void;
+}) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +50,9 @@ export function SignUpForm() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO(step 2): persist step-1 details and advance the sign-up flow.
+    const passwordValid = PASSWORD_RULES.every((rule) => rule.test(password));
+    if (!passwordValid || password !== retypePassword) return;
+    onNext({ fullName, email, password });
   }
 
   return (
