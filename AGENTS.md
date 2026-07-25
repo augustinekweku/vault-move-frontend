@@ -60,7 +60,8 @@ app/
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), plus the
                           # details-page sections: PropertyGallery, PropertySidePanel,
-                          # PropertyOverview (facts bar + Details/Reviews tabs)
+                          # PropertyOverview (facts bar + Details/Reviews tabs),
+                          # PropertyReviews (Reviews tab: ratings summary + cards)
   data/                   # static/mock content: listings, navigation, portals,
                           # about, contact, faq, resources, terms, escrow-terms,
                           # home (landing steps + stats), auth (profile-setup
@@ -88,7 +89,9 @@ public/
   `brand` (#1e347a), `brand-dark`, `brand-navy`, `brand-blue` (#0000b0, details-page
   fact icons), `accent` (#04ce9d), `accent-soft`,
   `success-soft` (#eefaf6, toast bg), `ink`, `ink-muted`, `muted-700` (#344054),
-  `surface`, `surface-alt`, `line`. Font is Poppins (set in
+  `surface`, `surface-alt`, `line`, plus the reviews-tab tokens `star-yellow`
+  (#ffb919, rating stars/bars), `surface-gray` (#fafafb, review cards + bar
+  tracks), `ink-gray` (#666676, review body text). Font is Poppins (set in
   `@theme`, loaded via Google Fonts in `app/root.tsx`).
   Arbitrary numeric spacing values work (e.g. `h-108.5`).
 - **Layout**: wrap page content in `<Container>` (max-w-1280px, responsive px).

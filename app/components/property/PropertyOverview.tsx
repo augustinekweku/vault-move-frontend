@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import type { Property, PropertyDetails, PropertyFactIcon } from "~/types";
 import type { ComponentType, SVGProps } from "react";
 import { cn } from "~/lib/utils";
+import { PropertyReviews } from "~/components/property/PropertyReviews";
 import {
   BathIcon,
   BedIcon,
@@ -211,6 +212,12 @@ export function PropertyOverview({
             ))}
           </ul>
         </div>
+      ) : details.reviews.items.length > 0 ? (
+        <PropertyReviews
+          summary={details.reviews.summary}
+          reviews={details.reviews.items}
+          className="mt-8"
+        />
       ) : (
         <p className="mt-6 text-sm text-ink/60">
           No reviews yet for this property.

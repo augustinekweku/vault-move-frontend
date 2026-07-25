@@ -46,6 +46,36 @@ export interface PropertyFeatureGroup {
   items: string[];
 }
 
+/** One star band in the ratings breakdown (e.g. 5 stars → 182 ratings). */
+export interface RatingBreakdownRow {
+  stars: number;
+  count: number;
+}
+
+export interface PropertyReviewSummary {
+  /** Average score out of 5, shown in the donut gauge. */
+  average: number;
+  /** Total number of ratings, shown under the gauge. */
+  total: number;
+  /** One row per star band, ordered 5 → 1. */
+  breakdown: RatingBreakdownRow[];
+}
+
+export interface PropertyReview {
+  id: string;
+  author: string;
+  avatar: string;
+  /** Score out of 5 given by this reviewer. */
+  rating: number;
+  text: string;
+}
+
+/** Everything on the "Reviews" tab of the property details page. */
+export interface PropertyReviews {
+  summary: PropertyReviewSummary;
+  items: PropertyReview[];
+}
+
 /** Extra content shown on the property details page (beyond the card data). */
 export interface PropertyDetails {
   /** First image is the large one; the rest fill the 2x2 thumbnail grid. */
@@ -62,6 +92,8 @@ export interface PropertyDetails {
   amenities: string[];
   /** Bullet list under "House Rules". */
   houseRules: string[];
+  /** Rating summary + individual reviews for the "Reviews" tab. */
+  reviews: PropertyReviews;
 }
 
 export interface SearchListingsParams {

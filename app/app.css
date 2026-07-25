@@ -33,6 +33,10 @@
 
   /* Misc */
   --color-star: #ffa10c;
+  /* Reviews tab (property details) — Figma "Accent — Yellow", "G100", "G800" */
+  --color-star-yellow: #ffb919;
+  --color-surface-gray: #fafafb;
+  --color-ink-gray: #666676;
 }
 
 html,

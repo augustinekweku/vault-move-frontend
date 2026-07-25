@@ -9,6 +9,8 @@ export const IMAGES = {
   ctaHouse: "/images/property-transactions.png",
   avatar:
     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
+  reviewAvatar:
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80",
   listingA:
     "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
   listingB:
@@ -112,6 +114,26 @@ export const MOCK_PROPERTY_DETAILS: PropertyDetails = {
     "Noise restrictions apply",
     "Overnight guests allowed",
   ],
+  reviews: {
+    summary: {
+      average: 4,
+      total: 34,
+      breakdown: [
+        { stars: 5, count: 182 },
+        { stars: 4, count: 25 },
+        { stars: 3, count: 15 },
+        { stars: 2, count: 11 },
+        { stars: 1, count: 1 },
+      ],
+    },
+    items: Array.from({ length: 8 }).map((_, i) => ({
+      id: `review-${i + 1}`,
+      author: "Joan Appleseed",
+      avatar: IMAGES.reviewAvatar,
+      rating: 4,
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    })),
+  },
 };
 
 const ROOM_COUNTS = ["1", "2", "3", "4", "5", "6+"];
