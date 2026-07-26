@@ -40,7 +40,10 @@ app/
                           # results on a map, ?category=buy|rent), about, contact,
                           # portals, faq, resources, resource-detail (dynamic
                           # /resources/:articleId), property-detail (dynamic
-                          # /properties/:propertyId), landlord-profile (dynamic
+                          # /properties/:propertyId), property-contact (dynamic
+                          # /properties/:propertyId/contact — "Message Landlord"
+                          # enquiry chat with Enquiries / Property Viewing /
+                          # Offers tabs), landlord-profile (dynamic
                           # /landlords/:landlordId — linked from the property
                           # details "View Profile" button), privacy, terms, escrow-terms,
                           # signup (buyer/renter wizard — steps render as
@@ -62,6 +65,10 @@ app/
                           # dashboard/ the signed-in navbar, hero + layout)
     landlord/             # landlord profile page: LandlordHeader (avatar, name,
                           # rating, Message Landlord), LandlordStats (4-figure card)
+    enquiry/              # property-contact page: ConversationList ("Recent
+                          # Messages" sidebar), EnquiryChat (chat panel + composer),
+                          # EnquiryPropertyCard (shared listing), EnquiryForm
+                          # ("What would you like to know" card)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet
@@ -69,7 +76,8 @@ app/
                           # details-page sections: PropertyGallery, PropertySidePanel,
                           # PropertyOverview (facts bar + Details/Reviews tabs),
                           # PropertyReviews (Reviews tab: ratings summary + cards)
-  data/                   # static/mock content: listings, landlords, navigation, portals,
+  data/                   # static/mock content: listings, landlords, messages,
+                          # navigation, portals,
                           # about, contact, faq, resources, terms, escrow-terms,
                           # home (landing steps + stats), auth (profile-setup
                           # wizard content, password rules)
@@ -96,7 +104,8 @@ public/
 - **Styling**: utility-first Tailwind v4. Use theme tokens, not raw hex:
   `brand` (#1e347a), `brand-dark`, `brand-navy`, `brand-blue` (#0000b0, details-page
   fact icons), `accent` (#04ce9d), `accent-soft`,
-  `success-soft` (#eefaf6, toast bg), `ink`, `ink-muted`, `gray-900` (#101828,
+  `success-soft` (#eefaf6, toast bg), `success` (#12b76a, presence dot), `ink`,
+  `ink-muted`, `gray-900` (#101828,
   stat figures), `muted-700` (#344054),
   `surface`, `surface-alt`, `line`, plus the reviews-tab tokens `star-yellow`
   (#ffb919, rating stars/bars), `surface-gray` (#fafafb, review cards + bar

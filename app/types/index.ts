@@ -119,6 +119,20 @@ export interface LandlordProfile {
   reviews: PropertyReviews;
 }
 
+/** One conversation row in the "Recent Messages" sidebar (enquiry page). */
+export interface Conversation {
+  id: string;
+  name: string;
+  avatar: string;
+  verified: boolean;
+  /** e.g. "Verified Landlord". */
+  role: string;
+  /** Relative timestamp, e.g. "2 mins ago". */
+  time: string;
+  /** Shows the green presence dot next to the timestamp. */
+  online: boolean;
+}
+
 export interface SearchListingsParams {
   category?: ListingCategory;
   propertyType?: string;

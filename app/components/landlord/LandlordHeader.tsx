@@ -10,12 +10,24 @@ import {
 
 interface LandlordHeaderProps {
   landlord: LandlordProfile;
+  /** Where the "Message Landlord" button links (the enquiry chat). */
+  messageHref?: string;
   className?: string;
 }
 
 /** Identity block of the landlord profile page: avatar with verified badge,
  *  name, role, location, star rating and the "Message Landlord" action. */
-export function LandlordHeader({ landlord, className }: LandlordHeaderProps) {
+export function LandlordHeader({
+  landlord,
+  messageHref,
+  className,
+}: LandlordHeaderProps) {
+  const messageLabel = (
+    <>
+      <MailIcon className="size-4.5" />
+      Message Landlord
+    </>
+  );
   return (
     <div
       className={cn(
@@ -61,10 +73,13 @@ export function LandlordHeader({ landlord, className }: LandlordHeaderProps) {
           </p>
         </div>
       </div>
-      <Button className="shrink-0">
-        <MailIcon className="size-4.5" />
-        Message Landlord
-      </Button>
+      {messageHref ? (
+        <Button to={messageHref} className="shrink-0">
+          {messageLabel}
+        </Button>
+      ) : (
+        <Button className="shrink-0">{messageLabel}</Button>
+      )}
     </div>
   );
 }

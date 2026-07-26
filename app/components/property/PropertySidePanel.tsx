@@ -88,13 +88,13 @@ export function PropertySidePanel({
         </button>
       </div>
 
-      <button
-        type="button"
+      <Link
+        to={`/properties/${property.id}/contact`}
         className="flex h-11 w-full items-center justify-center gap-2.5 rounded-lg bg-brand text-lg text-white hover:bg-brand/90"
       >
         <MailIcon className="size-4.5" />
         Message Landlord
-      </button>
+      </Link>
       <Link
         to={`/landlords/${agent.id}`}
         className="flex h-11 w-full items-center justify-center rounded-lg border border-line bg-white text-sm text-ink shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"

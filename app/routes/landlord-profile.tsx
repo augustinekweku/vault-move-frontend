@@ -67,7 +67,15 @@ export default function LandlordProfile({ loaderData }: Route.ComponentProps) {
 
         <h1 className="mt-6 text-2xl font-bold text-ink">Landlords Profile</h1>
 
-        <LandlordHeader landlord={landlord} className="mt-8" />
+        <LandlordHeader
+          landlord={landlord}
+          messageHref={
+            listings.length > 0
+              ? `/properties/${listings[0].id}/contact`
+              : undefined
+          }
+          className="mt-8"
+        />
         <LandlordStats stats={landlord.stats} className="mt-10" />
 
         <div className="mt-10 border-b border-line">
