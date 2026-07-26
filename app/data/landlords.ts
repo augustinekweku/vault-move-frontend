@@ -2,8 +2,8 @@ import type { LandlordProfile } from "~/types";
 import { IMAGES, MOCK_PROPERTY_DETAILS } from "~/data/listings";
 
 /**
- * Mock landlord profile — matches the Figma "View landlord profile" frame.
- * Keyed per landlord (and backed by the API) once the backend is live.
+ * Mock landlord profile for the public landlord page — keyed per landlord
+ * (and backed by the API) once the backend is live.
  */
 export const MOCK_LANDLORD: LandlordProfile = {
   id: "john-doe",

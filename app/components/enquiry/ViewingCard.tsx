@@ -1,3 +1,4 @@
+import type { ViewingStatus } from "~/types";
 import { cn } from "~/lib/utils";
 import { CalendarIcon } from "~/components/ui/icons";
 
@@ -6,15 +7,26 @@ interface ViewingCardProps {
   date: string;
   /** e.g. "10:00 AM". */
   time: string;
+  /** Lifecycle status — drives the action row (see below). */
+  status?: ViewingStatus;
   className?: string;
 }
 
-/** The "Viewing Scheduled" card the landlord shares in the enquiry chat
- *  (Figma "Rectangle 18381"): brand-blue calendar in a tinted circle beside
- *  the label + date/time (split by a vertical divider), a primary confirm
- *  button and a bordered white "Cancel Viewing" button. Actions are visual
- *  mocks until the backend is live. */
-export function ViewingCard({ date, time, className }: ViewingCardProps) {
+const primaryButton =
+  "mt-4 w-full rounded-lg bg-brand py-3 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90";
+
+/** The "Viewing Scheduled" card the landlord shares in the enquiry chat: a
+ *  brand-blue calendar in a tinted circle beside the label + date/time
+ *  (split by a vertical divider). The action row depends on `status`:
+ *  confirm + cancel buttons (upcoming), a "Make an Offer" button
+ *  (completed) or a red "Cancelled" status bar. Actions are visual mocks
+ *  until the backend is live. */
+export function ViewingCard({
+  date,
+  time,
+  status = "upcoming",
+  className,
+}: ViewingCardProps) {
   return (
     <article
       className={cn(
@@ -35,18 +47,29 @@ export function ViewingCard({ date, time, className }: ViewingCardProps) {
           </p>
         </div>
       </div>
-      <button
-        type="button"
-        className="mt-4 w-full rounded-lg bg-brand py-3 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90"
-      >
-        I have viewed this property
-      </button>
-      <button
-        type="button"
-        className="mt-5 w-full rounded-lg border border-line bg-white py-2.5 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
-      >
-        Cancel Viewing
-      </button>
+      {status === "upcoming" && (
+        <>
+          <button type="button" className={primaryButton}>
+            I have viewed this property
+          </button>
+          <button
+            type="button"
+            className="mt-5 w-full rounded-lg border border-line bg-white py-2.5 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
+          >
+            Cancel Viewing
+          </button>
+        </>
+      )}
+      {status === "completed" && (
+        <button type="button" className={primaryButton}>
+          Make an Offer
+        </button>
+      )}
+      {status === "cancelled" && (
+        <p className="mt-4 w-full rounded-lg bg-[#d92d20] py-3 text-center text-sm text-white">
+          Cancelled
+        </p>
+      )}
     </article>
   );
 }

@@ -145,7 +145,7 @@ export const MOCK_PROPERTY_DETAILS: PropertyDetails = {
 
 const ROOM_COUNTS = ["1", "2", "3", "4", "5", "6+"];
 
-/** Filters modal content, laid out as the four columns in the Figma frame. */
+/** Filters modal content, laid out as four columns. */
 export const FILTER_COLUMNS: FilterBlock[][] = [
   [
     {

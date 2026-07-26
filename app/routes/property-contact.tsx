@@ -7,6 +7,7 @@ import { cn } from "~/lib/utils";
 import { Container } from "~/components/ui/Container";
 import { ConversationList } from "~/components/enquiry/ConversationList";
 import { EnquiryChat } from "~/components/enquiry/EnquiryChat";
+import { ViewingPanel } from "~/components/enquiry/ViewingPanel";
 import { WaitlistSection } from "~/components/common/WaitlistSection";
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -102,12 +103,14 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
               className="min-w-0 flex-1"
             />
           </div>
+        ) : tab === "viewing" ? (
+          <ViewingPanel
+            property={property}
+            address={details.address}
+            className="mt-8 pb-16"
+          />
         ) : (
-          <p className="mt-8 pb-16 text-sm text-ink/60">
-            {tab === "viewing"
-              ? "No property viewing requests yet."
-              : "No offers yet."}
-          </p>
+          <p className="mt-8 pb-16 text-sm text-ink/60">No offers yet.</p>
         )}
       </Container>
 

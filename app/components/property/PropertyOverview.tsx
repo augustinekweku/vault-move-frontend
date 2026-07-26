@@ -27,7 +27,7 @@ const FACT_ICONS: Record<
 };
 
 /** "Property Description" / "Property Location" / "Building features" —
- *  24px extrabold black per the Figma spec. */
+ *  24px extrabold black. */
 const sectionHeadingClass = "text-2xl font-extrabold leading-6 text-black";
 
 /** Outlined pill chips used for features and amenities. */

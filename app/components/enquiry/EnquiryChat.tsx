@@ -7,7 +7,7 @@ import { Toast } from "~/components/ui/Toast";
 import { VerifiedIcon } from "~/components/ui/icons";
 import { EnquiryPropertyCard } from "~/components/enquiry/EnquiryPropertyCard";
 import { EnquiryForm } from "~/components/enquiry/EnquiryForm";
-import { ViewingCard } from "~/components/enquiry/ViewingCard";
+import { PropertyViewingCard } from "~/components/enquiry/PropertyViewingCard";
 
 interface EnquiryChatProps {
   property: Property;
@@ -100,12 +100,12 @@ export function EnquiryChat({
                 Friday 2:40pm
               </span>
             </div>
-            {/* The landlord's share (Figma "Component 2"): both cards sit in
-                a translucent grey 20px-radius bubble. */}
-            <div className="flex flex-col gap-4 rounded-[20px] bg-line/24 p-4">
-              <EnquiryPropertyCard property={property} address={address} />
-              <ViewingCard date={MOCK_VIEWING.date} time={MOCK_VIEWING.time} />
-            </div>
+            <PropertyViewingCard
+              property={property}
+              address={address}
+              date={MOCK_VIEWING.date}
+              time={MOCK_VIEWING.time}
+            />
           </div>
           {sent.map((text, i) => (
             <p

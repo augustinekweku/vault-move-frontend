@@ -43,7 +43,7 @@ function FilterSection({
   );
 }
 
-/** Figma filters dialog opened from the search results page. Selections are
+/** Filters dialog opened from the search results page. Selections are
  *  local mock state — applying reports the count up and closes. */
 export function FiltersModal({ open, onClose, onApply }: FiltersModalProps) {
   const [selections, setSelections] = useState<Record<string, string[]>>({});

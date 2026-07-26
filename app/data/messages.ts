@@ -1,4 +1,4 @@
-import type { Conversation, ToastStep } from "~/types";
+import type { Conversation, ToastStep, ViewingStatus } from "~/types";
 import { IMAGES } from "~/data/listings";
 
 /**
@@ -53,8 +53,16 @@ export const ENQUIRY_PROGRESS_STEPS: ToastStep[] = [
 ];
 
 /** The mock scheduled viewing shown as a landlord card in the enquiry chat
- *  thread ("Viewing Scheduled" card). */
+ *  thread ("Viewing Scheduled" card) and in the Property Viewing tab grid. */
 export const MOCK_VIEWING = {
   date: "Monday, 2nd June 2026",
   time: "10:00 AM",
 };
+
+/** Status filter rows in the Property Viewing tab sidebar — the key drives
+ *  the ViewingCard action variant of the cards shown for that filter. */
+export const VIEWING_STATUSES: { key: ViewingStatus; label: string }[] = [
+  { key: "upcoming", label: "Upcoming" },
+  { key: "completed", label: "Completed" },
+  { key: "cancelled", label: "Cancelled" },
+];

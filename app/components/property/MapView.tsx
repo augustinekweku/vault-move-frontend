@@ -7,13 +7,13 @@ import "leaflet/dist/leaflet.css";
 /** Fallback centre (Achimota, Accra) when there are no pins to fit. */
 const DEFAULT_CENTER: [number, number] = [5.6145, -0.2269];
 
-/** Brand-blue teardrop pin, matching the Figma markers. Rendered as a
- *  divIcon so no image assets need to be resolved through the bundler. */
+/** Brand-blue teardrop pin. Rendered as a divIcon so no image assets need
+ *  to be resolved through the bundler. */
 const PIN_HTML = `<svg width="28" height="38" viewBox="0 0 28 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 0C6.27 0 0 6.27 0 14c0 10.5 14 24 14 24s14-13.5 14-24C28 6.27 21.73 0 14 0Z" fill="#1e347a"/><circle cx="14" cy="13.5" r="5.5" fill="#ffffff"/></svg>`;
 
 /** Popup card: 24px extrabold title over a nested bordered box holding the
- *  light price label and the 18px bold price, per the Figma (345×145).
- *  Tailwind classes in this string are picked up by the CSS scanner. */
+ *  light price label and the 18px bold price. Tailwind classes in this
+ *  string are picked up by the CSS scanner. */
 function popupHtml(property: Property): string {
   const priceLabel = property.category === "rent" ? "Rent Price" : "Sale Price";
   const priceSuffix = property.priceUnit === "month" ? " /month" : "";
@@ -75,7 +75,7 @@ export function MapView({ properties, className }: MapViewProps) {
           maxWidth: 345,
           offset: [0, -4],
         });
-        // The Figma shows the first property's popup open on load.
+        // The first property's popup opens on load.
         if (i === 0) marker.openPopup();
       });
 

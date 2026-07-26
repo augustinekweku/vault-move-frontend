@@ -126,6 +126,11 @@ export interface ToastStep {
   done: boolean;
 }
 
+/** Viewing lifecycle status — drives the action row of the ViewingCard
+ *  (confirm/cancel for upcoming, "Make an Offer" for completed, red
+ *  "Cancelled" bar for cancelled). */
+export type ViewingStatus = "upcoming" | "completed" | "cancelled";
+
 /** One conversation row in the "Recent Messages" sidebar (enquiry page). */
 export interface Conversation {
   id: string;

@@ -72,8 +72,12 @@ app/
                           # progress checklist — data/messages.ts
                           # ENQUIRY_PROGRESS_STEPS), EnquiryPropertyCard (shared
                           # listing), EnquiryForm ("What would you like to know"
-                          # card), ViewingCard ("Viewing Scheduled" card —
-                          # data/messages.ts MOCK_VIEWING)
+                          # card), ViewingCard ("Viewing Scheduled" card with
+                          # upcoming/completed/cancelled action variants —
+                          # data/messages.ts MOCK_VIEWING), PropertyViewingCard
+                          # (property + viewing cards in the grey bubble),
+                          # ViewingPanel (Property Viewing tab: search +
+                          # Upcoming/Completed/Cancelled sidebar + card grid)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet
@@ -128,6 +132,11 @@ public/
   (base URL from `VITE_API_URL`, bearer token from `localStorage.vm_token`).
   All browser-only access must stay `typeof window !== "undefined"`-guarded (SSR).
 - **Class merging**: use `cn()` from `~/lib/utils`.
+- **Comments**: docstrings describe what the code is/does — never reference
+  Figma frame names/numbers (e.g. "Rectangle 18339") or write "per the Figma"
+  in code comments; they go stale and are meaningless without the design file
+  open. (Rules about the design itself — like the PageHero note below — are
+  fine; frame-name citations are not.)
 
 ## Gotchas
 

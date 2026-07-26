@@ -3,12 +3,12 @@ import type { ToastStep } from "~/types";
 import { cn } from "~/lib/utils";
 import { CheckCircleIcon, CloseIcon } from "~/components/ui/icons";
 
-/** Success toast pinned to the top-right edge of the viewport (Figma
- *  "Rectangle 18339"): pale-green pill rounded on the left only, with a
- *  check icon, bold title, message and a close button. Pass `steps` to add
- *  the progress checklist below the message (enquiry-submitted variant on
- *  the message-landlord page). Auto-dismisses after `duration` ms (pass 0
- *  to keep it until manually closed). */
+/** Success toast pinned to the top-right edge of the viewport: a pale-green
+ *  pill rounded on the left only, with a check icon, bold title, message
+ *  and a close button. Pass `steps` to add the progress checklist below the
+ *  message (enquiry-submitted variant on the message-landlord page).
+ *  Auto-dismisses after `duration` ms (pass 0 to keep it until manually
+ *  closed). */
 export function Toast({
   title,
   message,
@@ -37,8 +37,8 @@ export function Toast({
         <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white">
           <CheckCircleIcon className="size-6 text-[#48cc99]" />
         </span>
-        {/* max-w-105 ≈ the Figma 421px supporting-text column — only kicks
-            in for long messages; short ones keep the pill hugging content. */}
+        {/* max-w-105 caps long messages at a readable width — only kicks in
+            for long messages; short ones keep the pill hugging content. */}
         <div className="max-w-105 pr-4">
           <p className="text-lg leading-8 font-bold text-ink-soft">{title}</p>
           {message ? (
