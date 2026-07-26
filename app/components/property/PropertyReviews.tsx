@@ -105,6 +105,9 @@ function ReviewCard({ review }: { review: PropertyReview }) {
 interface PropertyReviewsProps {
   summary: PropertyReviewSummary;
   reviews: PropertyReview[];
+  /** Defaults to "Property Reviews" (property details page); the landlord
+   *  profile passes "Landlord Reviews". */
+  heading?: string;
   className?: string;
 }
 
@@ -113,13 +116,14 @@ interface PropertyReviewsProps {
 export function PropertyReviews({
   summary,
   reviews,
+  heading = "Property Reviews",
   className,
 }: PropertyReviewsProps) {
   const maxCount = Math.max(...summary.breakdown.map((row) => row.count));
 
   return (
     <div className={className}>
-      <h2 className="text-xl font-bold text-ink">Property Reviews</h2>
+      <h2 className="text-xl font-bold text-ink">{heading}</h2>
       <h3 className="mt-4 text-xs font-semibold text-ink">Overall Ratings</h3>
 
       <div className="mt-3 flex flex-col gap-8 rounded-xl border border-line-soft p-6 sm:p-8 lg:flex-row lg:items-center lg:gap-14">

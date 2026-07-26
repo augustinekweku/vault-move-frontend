@@ -24,7 +24,8 @@ export const IMAGES = {
 } as const;
 
 const AGENT = {
-  name: "James Doe",
+  id: "john-doe",
+  name: "John Doe",
   avatar: IMAGES.avatar,
   verified: true,
   role: "Verified Landlord",

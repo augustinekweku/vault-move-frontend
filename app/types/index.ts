@@ -4,6 +4,7 @@ import type { AccordionItem } from "~/components/ui/Accordion";
 export type ListingCategory = "rent" | "buy";
 
 export interface Agent {
+  id: string;
   name: string;
   avatar: string;
   verified: boolean;
@@ -94,6 +95,26 @@ export interface PropertyDetails {
   amenities: string[];
   /** Bullet list under "House Rules". */
   houseRules: string[];
+  /** Rating summary + individual reviews for the "Reviews" tab. */
+  reviews: PropertyReviews;
+}
+
+/** Public landlord profile page (/landlords/:landlordId). */
+export interface LandlordProfile {
+  id: string;
+  name: string;
+  avatar: string;
+  verified: boolean;
+  /** e.g. "Verified Landlord". */
+  role: string;
+  /** e.g. "Achimota, Accra". */
+  location: string;
+  /** Average score out of 5, shown as stars next to the name. */
+  rating: number;
+  /** Body paragraphs on the "Landlord's Profile" tab. */
+  bio: string[];
+  /** The four figures in the stats card (Listed Properties, Views, ...). */
+  stats: Stat[];
   /** Rating summary + individual reviews for the "Reviews" tab. */
   reviews: PropertyReviews;
 }

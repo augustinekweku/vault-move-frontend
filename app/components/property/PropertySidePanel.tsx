@@ -1,4 +1,5 @@
 import type { Property, PropertyDetails } from "~/types";
+import { Link } from "react-router";
 import { cn } from "~/lib/utils";
 import { MailIcon, VerifiedIcon } from "~/components/ui/icons";
 
@@ -94,12 +95,12 @@ export function PropertySidePanel({
         <MailIcon className="size-4.5" />
         Message Landlord
       </button>
-      <button
-        type="button"
+      <Link
+        to={`/landlords/${agent.id}`}
         className="flex h-11 w-full items-center justify-center rounded-lg border border-line bg-white text-sm text-ink shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
       >
         View Profile
-      </button>
+      </Link>
     </aside>
   );
 }

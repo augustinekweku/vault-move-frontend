@@ -18,6 +18,7 @@ export default [
     route("resources", "routes/resources.tsx"),
     route("resources/:articleId", "routes/resource-detail.tsx"),
     route("properties/:propertyId", "routes/property-detail.tsx"),
+    route("landlords/:landlordId", "routes/landlord-profile.tsx"),
     route("privacy", "routes/privacy.tsx"),
     route("terms", "routes/terms.tsx"),
     route("escrow-terms", "routes/escrow-terms.tsx"),
