@@ -48,6 +48,12 @@ export const MOCK_LISTINGS: Property[] = Array.from({ length: 12 }).map(
     category: i % 2 === 0 ? "rent" : "buy",
     tag: i % 2 === 0 ? "Apartment for Rent" : "Apartment for Sale",
     agent: AGENT,
+    // Deterministic spread around Achimota, Accra (matches the details-page
+    // map) so the map-view pins render identically on server and client.
+    coordinates: {
+      lat: 5.6145 + ((i % 4) - 1.5) * 0.011,
+      lng: -0.2269 + ((i % 3) - 1) * 0.016,
+    },
   }),
 );
 

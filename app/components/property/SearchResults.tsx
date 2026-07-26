@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import type { Property, ListingCategory } from "~/types";
 import { Container } from "~/components/ui/Container";
 import { PropertyGrid } from "~/components/property/PropertyGrid";
@@ -44,13 +45,13 @@ export function SearchResults({
               <FilterIcon className="size-4" />
               Filters
             </button>
-            <button
-              type="button"
+            <Link
+              to={`/map-view?category=${category}`}
               className="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-ink"
             >
               <MapIcon className="size-4" />
               View on Map
-            </button>
+            </Link>
           </div>
         </div>
 

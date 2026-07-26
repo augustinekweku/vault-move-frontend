@@ -24,6 +24,8 @@ export interface Property {
   category: ListingCategory;
   tag: string;
   agent: Agent;
+  /** Approximate map position — used for the pins on the map view. */
+  coordinates: { lat: number; lng: number };
 }
 
 /** Icon keys for property facts — kept as strings (not component refs) so

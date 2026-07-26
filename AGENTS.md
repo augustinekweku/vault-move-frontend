@@ -15,6 +15,7 @@ some pages still contain lorem-ipsum placeholder copy and mock data.
 - **TypeScript** (strict, `verbatimModuleSyntax`)
 - **Tailwind CSS v4** via `@tailwindcss/vite` — theme tokens live in `app/app.css` under `@theme`
 - **axios** for the API layer
+- **leaflet** (+ OSM tiles) for interactive maps — see MapView gotcha below
 - **Vite 8**, path alias `~/*` → `./app/*` (tsconfig paths)
 
 ## Commands
@@ -35,7 +36,8 @@ are the verification gates.
 app/
   routes.ts               # manual route config (marketing pages under SiteLayout;
                           # auth pages (signup, login) are top-level, no navbar/footer)
-  routes/                 # one file per page: home, buy, rent, about, contact,
+  routes/                 # one file per page: home, buy, rent, map-view (search
+                          # results on a map, ?category=buy|rent), about, contact,
                           # portals, faq, resources, resource-detail (dynamic
                           # /resources/:articleId), property-detail (dynamic
                           # /properties/:propertyId), privacy, terms, escrow-terms,
@@ -58,7 +60,8 @@ app/
                           # dashboard/ the signed-in navbar, hero + layout)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
-                          # from data/listings.ts FILTER_COLUMNS), plus the
+                          # from data/listings.ts FILTER_COLUMNS), MapView (leaflet
+                          # map with pins + price popups for map-view), plus the
                           # details-page sections: PropertyGallery, PropertySidePanel,
                           # PropertyOverview (facts bar + Details/Reviews tabs),
                           # PropertyReviews (Reviews tab: ratings summary + cards)
@@ -93,7 +96,8 @@ public/
   (#ffb919, rating stars/bars), `surface-gray` (#fafafb, review cards + bar
   tracks), `ink-gray` (#666676, review body text). Font is Poppins (set in
   `@theme`, loaded via Google Fonts in `app/root.tsx`).
-  Arbitrary numeric spacing values work (e.g. `h-108.5`).
+  Arbitrary numeric spacing values work (e.g. `h-108.5`). A `no-scrollbar`
+  utility (defined in `app.css`) hides scrollbars on horizontal scroll rows.
 - **Layout**: wrap page content in `<Container>` (max-w-1280px, responsive px).
   Inner pages use `<PageHero>` (blue banner with breadcrumbs, title, subtitle) —
   it is flow-based; do NOT reintroduce Figma pixel-exact absolute positioning.
@@ -111,6 +115,11 @@ public/
   utilities (e.g. two `max-w-*`) are resolved by CSS order, not prop order, so
   primitives must not bake in overridable-looking classes; leave sizing to callers.
 - **SSR**: components render on the server — no unguarded `window`/`localStorage`.
+- **Leaflet crashes on server import** — never `import L from "leaflet"` at module
+  scope. `MapView` loads it via dynamic `import("leaflet")` inside `useEffect`
+  (type-only imports are fine); the server renders just the loading placeholder.
+  Tailwind classes used inside leaflet popup/divIcon HTML strings are still picked
+  up by the v4 scanner.
 - **Mock data is deterministic** on purpose (`MOCK_LISTINGS` uses a fixed pattern, no
   `Math.random()`), so SSR and client markup match — keep it that way.
 - **Loader data must stay JSON-serialisable** — anything returned from a route loader

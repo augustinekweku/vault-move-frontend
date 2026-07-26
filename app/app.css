@@ -60,3 +60,37 @@ body {
     scroll-margin-top: 8rem;
   }
 }
+
+/* Map-view popup (map-view page): strip leaflet's default popup chrome so the
+   Figma card — border, shadow, 12px radius, applied via Tailwind classes in
+   the popup HTML — is the only visible surface. Leaflet also forces its own
+   font stack inside the map container, so Poppins is restored here. */
+.vm-map-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+.vm-map-popup .leaflet-popup-content {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: normal;
+}
+/* Leaflet adds 1.3em vertical margins to every <p> in a popup — kill them so
+   the card's spacing comes only from the Tailwind classes in the markup. */
+.vm-map-popup .leaflet-popup-content p {
+  margin: 0;
+}
+.vm-map-popup .leaflet-popup-tip {
+  display: none;
+}
+
+/* Hide the scrollbar on horizontal scroll rows (e.g. the map-view "Properties
+   in this location" carousel) — scrolling still works via touch, wheel and
+   the prev/next arrow buttons. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
