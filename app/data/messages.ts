@@ -51,3 +51,10 @@ export const ENQUIRY_PROGRESS_STEPS: ToastStep[] = [
   { label: "Offer Submitted", done: false },
   { label: "Deal Room Created", done: false },
 ];
+
+/** The mock scheduled viewing shown as a landlord card in the enquiry chat
+ *  thread ("Viewing Scheduled" card). */
+export const MOCK_VIEWING = {
+  date: "Monday, 2nd June 2026",
+  time: "10:00 AM",
+};

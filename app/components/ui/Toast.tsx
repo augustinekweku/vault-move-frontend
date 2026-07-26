@@ -37,7 +37,9 @@ export function Toast({
         <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white">
           <CheckCircleIcon className="size-6 text-[#48cc99]" />
         </span>
-        <div className="pr-4">
+        {/* max-w-105 ≈ the Figma 421px supporting-text column — only kicks
+            in for long messages; short ones keep the pill hugging content. */}
+        <div className="max-w-105 pr-4">
           <p className="text-lg leading-8 font-bold text-ink-soft">{title}</p>
           {message ? (
             <p className="text-lg leading-8 text-ink-soft">{message}</p>

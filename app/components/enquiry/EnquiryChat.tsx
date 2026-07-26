@@ -1,12 +1,13 @@
 import { useState } from "react";
 import type { LandlordProfile, Property } from "~/types";
-import { ENQUIRY_PROGRESS_STEPS } from "~/data/messages";
+import { ENQUIRY_PROGRESS_STEPS, MOCK_VIEWING } from "~/data/messages";
 import { cn } from "~/lib/utils";
 import { Input } from "~/components/ui/Input";
 import { Toast } from "~/components/ui/Toast";
 import { VerifiedIcon } from "~/components/ui/icons";
 import { EnquiryPropertyCard } from "~/components/enquiry/EnquiryPropertyCard";
 import { EnquiryForm } from "~/components/enquiry/EnquiryForm";
+import { ViewingCard } from "~/components/enquiry/ViewingCard";
 
 interface EnquiryChatProps {
   property: Property;
@@ -17,9 +18,11 @@ interface EnquiryChatProps {
 }
 
 /** The chat panel of the enquiry page: landlord header, the shared property
- *  card, the structured enquiry form and the message composer. Sending is a
- *  mock — messages just appear in the thread, and each send pops the
- *  enquiry-submitted success toast. */
+ *  card, the structured enquiry form, the landlord's "Viewing Scheduled"
+ *  card and the message composer. Sending is a mock — messages just appear
+ *  in the thread. Toasts are mocked too: the "You're all set" viewing toast
+ *  shows on mount (the viewing is pre-scheduled in the mock thread), and
+ *  each send swaps it for the enquiry-submitted toast. */
 export function EnquiryChat({
   property,
   address,
@@ -28,14 +31,14 @@ export function EnquiryChat({
 }: EnquiryChatProps) {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState<string[]>([]);
-  const [toastOpen, setToastOpen] = useState(false);
+  const [toast, setToast] = useState<"viewing" | "enquiry" | null>("viewing");
 
   function send() {
     const text = message.trim();
     if (!text) return;
     setSent((prev) => [...prev, text]);
     setMessage("");
-    setToastOpen(true);
+    setToast("enquiry");
   }
 
   return (
@@ -79,6 +82,31 @@ export function EnquiryChat({
             </p>
           </div>
           <EnquiryForm className="ml-auto w-full max-w-107" />
+          <div className="mr-auto w-full max-w-107">
+            <div className="mb-2 flex items-center gap-2">
+              <span className="relative shrink-0">
+                <img
+                  src={landlord.avatar}
+                  alt=""
+                  className="size-6 rounded-full object-cover"
+                />
+                <span
+                  aria-hidden
+                  className="absolute right-0 bottom-0 size-2.5 rounded-full bg-success ring-2 ring-white"
+                />
+              </span>
+              <p className="text-xs font-semibold text-ink">{landlord.name}</p>
+              <span className="ml-auto text-xs text-muted-500">
+                Friday 2:40pm
+              </span>
+            </div>
+            {/* The landlord's share (Figma "Component 2"): both cards sit in
+                a translucent grey 20px-radius bubble. */}
+            <div className="flex flex-col gap-4 rounded-[20px] bg-line/24 p-4">
+              <EnquiryPropertyCard property={property} address={address} />
+              <ViewingCard date={MOCK_VIEWING.date} time={MOCK_VIEWING.time} />
+            </div>
+          </div>
           {sent.map((text, i) => (
             <p
               key={i}
@@ -112,12 +140,19 @@ export function EnquiryChat({
           </button>
         </form>
       </section>
-      {toastOpen && (
+      {toast === "viewing" && (
+        <Toast
+          title="Success!"
+          message="You're all set! After your viewing, confirm that you've visited the property to keep your transaction moving."
+          onClose={() => setToast(null)}
+        />
+      )}
+      {toast === "enquiry" && (
         <Toast
           title="Success!"
           message="Your enquiry has been submitted!"
           steps={ENQUIRY_PROGRESS_STEPS}
-          onClose={() => setToastOpen(false)}
+          onClose={() => setToast(null)}
         />
       )}
     </>
