@@ -1,4 +1,4 @@
-import type { Conversation } from "~/types";
+import type { Conversation, ToastStep } from "~/types";
 import { IMAGES } from "~/data/listings";
 
 /**
@@ -40,4 +40,14 @@ export const ENQUIRY_TOPICS = [
   "Is the property available",
   "I would like to view the property",
   "I would like to ask for more details",
+];
+
+/** Progress checklist in the enquiry-submitted success toast — "Enquiry
+ *  Sent" is the step just completed when the toast appears, the rest are
+ *  still pending. */
+export const ENQUIRY_PROGRESS_STEPS: ToastStep[] = [
+  { label: "Enquiry Sent", done: true },
+  { label: "Viewing Completed", done: false },
+  { label: "Offer Submitted", done: false },
+  { label: "Deal Room Created", done: false },
 ];

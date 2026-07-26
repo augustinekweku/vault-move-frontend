@@ -66,9 +66,12 @@ app/
     landlord/             # landlord profile page: LandlordHeader (avatar, name,
                           # rating, Message Landlord), LandlordStats (4-figure card)
     enquiry/              # property-contact page: ConversationList ("Recent
-                          # Messages" sidebar), EnquiryChat (chat panel + composer),
-                          # EnquiryPropertyCard (shared listing), EnquiryForm
-                          # ("What would you like to know" card)
+                          # Messages" sidebar), EnquiryChat (chat panel + composer;
+                          # sending pops the ui/Toast steps variant with the
+                          # enquiry progress checklist — data/messages.ts
+                          # ENQUIRY_PROGRESS_STEPS), EnquiryPropertyCard (shared
+                          # listing), EnquiryForm ("What would you like to know"
+                          # card)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet

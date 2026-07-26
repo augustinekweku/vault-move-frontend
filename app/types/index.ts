@@ -119,6 +119,13 @@ export interface LandlordProfile {
   reviews: PropertyReviews;
 }
 
+/** One checklist row in the ui/Toast `steps` variant (enquiry-submitted
+ *  success toast): done rows get the teal check, pending rows a grey ring. */
+export interface ToastStep {
+  label: string;
+  done: boolean;
+}
+
 /** One conversation row in the "Recent Messages" sidebar (enquiry page). */
 export interface Conversation {
   id: string;

@@ -44,10 +44,10 @@ export function EnquiryForm({ className }: { className?: string }) {
                 aria-hidden
                 className={cn(
                   "flex size-4 items-center justify-center rounded-full border",
-                  selected ? "border-brand" : "border-line bg-white",
+                  selected ? "border-accent" : "border-line bg-white",
                 )}
               >
-                {selected && <span className="size-2 rounded-full bg-brand" />}
+                {selected && <span className="size-2 rounded-full bg-accent" />}
               </span>
               {option}
             </label>
