@@ -8,6 +8,7 @@ import { Container } from "~/components/ui/Container";
 import { ConversationList } from "~/components/enquiry/ConversationList";
 import { EnquiryChat } from "~/components/enquiry/EnquiryChat";
 import { ViewingPanel } from "~/components/enquiry/ViewingPanel";
+import { OffersPanel } from "~/components/enquiry/OffersPanel";
 import { WaitlistSection } from "~/components/common/WaitlistSection";
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -110,7 +111,7 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
             className="mt-8 pb-16"
           />
         ) : (
-          <p className="mt-8 pb-16 text-sm text-ink/60">No offers yet.</p>
+          <OffersPanel className="mt-8 pb-16" />
         )}
       </Container>
 

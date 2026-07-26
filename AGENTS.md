@@ -77,7 +77,10 @@ app/
                           # data/messages.ts MOCK_VIEWING), PropertyViewingCard
                           # (property + viewing cards in the grey bubble),
                           # ViewingPanel (Property Viewing tab: search +
-                          # Upcoming/Completed/Cancelled sidebar + card grid)
+                          # Upcoming/Completed/Cancelled sidebar + card grid),
+                          # OffersPanel (Offers tab: search + status-filter
+                          # sidebar — data/messages.ts OFFER_FILTERS — with a
+                          # ghost-icon empty state until offers exist)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet

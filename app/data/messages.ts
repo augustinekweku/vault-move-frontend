@@ -1,4 +1,9 @@
-import type { Conversation, ToastStep, ViewingStatus } from "~/types";
+import type {
+  Conversation,
+  OfferFilter,
+  ToastStep,
+  ViewingStatus,
+} from "~/types";
 import { IMAGES } from "~/data/listings";
 
 /**
@@ -65,4 +70,14 @@ export const VIEWING_STATUSES: { key: ViewingStatus; label: string }[] = [
   { key: "upcoming", label: "Upcoming" },
   { key: "completed", label: "Completed" },
   { key: "cancelled", label: "Cancelled" },
+];
+
+/** Filter rows in the Offers tab sidebar — no offers have been made yet, so
+ *  every filter shows the same "nothing to show" empty state. */
+export const OFFER_FILTERS: { key: OfferFilter; label: string }[] = [
+  { key: "all", label: "All offers" },
+  { key: "accepted", label: "Accepted offers" },
+  { key: "pending", label: "Pending offers" },
+  { key: "declined", label: "Declined offers" },
+  { key: "drafts", label: "Drafts" },
 ];

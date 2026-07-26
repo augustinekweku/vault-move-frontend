@@ -131,6 +131,14 @@ export interface ToastStep {
  *  "Cancelled" bar for cancelled). */
 export type ViewingStatus = "upcoming" | "completed" | "cancelled";
 
+/** Offer-list filters in the Offers tab sidebar (property-contact page). */
+export type OfferFilter =
+  | "all"
+  | "accepted"
+  | "pending"
+  | "declined"
+  | "drafts";
+
 /** One conversation row in the "Recent Messages" sidebar (enquiry page). */
 export interface Conversation {
   id: string;
