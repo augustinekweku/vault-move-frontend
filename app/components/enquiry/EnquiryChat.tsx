@@ -20,9 +20,7 @@ interface EnquiryChatProps {
 /** The chat panel of the enquiry page: landlord header, the shared property
  *  card, the structured enquiry form, the landlord's "Viewing Scheduled"
  *  card and the message composer. Sending is a mock — messages just appear
- *  in the thread. Toasts are mocked too: the "You're all set" viewing toast
- *  shows on mount (the viewing is pre-scheduled in the mock thread), and
- *  each send swaps it for the enquiry-submitted toast. */
+ *  in the thread and pop the enquiry-submitted toast. */
 export function EnquiryChat({
   property,
   address,
@@ -31,7 +29,10 @@ export function EnquiryChat({
 }: EnquiryChatProps) {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState<string[]>([]);
-  const [toast, setToast] = useState<"viewing" | "enquiry" | null>("viewing");
+  // The designs pop a "You're all set" viewing toast when the page loads
+  // (the mock thread's viewing is pre-scheduled) — intentionally not shown;
+  // a toast only appears after sending a message.
+  const [toast, setToast] = useState<"enquiry" | null>(null);
 
   function send() {
     const text = message.trim();
@@ -140,13 +141,6 @@ export function EnquiryChat({
           </button>
         </form>
       </section>
-      {toast === "viewing" && (
-        <Toast
-          title="Success!"
-          message="You're all set! After your viewing, confirm that you've visited the property to keep your transaction moving."
-          onClose={() => setToast(null)}
-        />
-      )}
       {toast === "enquiry" && (
         <Toast
           title="Success!"

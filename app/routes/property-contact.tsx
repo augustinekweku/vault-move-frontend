@@ -9,6 +9,7 @@ import { ConversationList } from "~/components/enquiry/ConversationList";
 import { EnquiryChat } from "~/components/enquiry/EnquiryChat";
 import { ViewingPanel } from "~/components/enquiry/ViewingPanel";
 import { OffersPanel } from "~/components/enquiry/OffersPanel";
+import { MakeOfferModal } from "~/components/enquiry/MakeOfferModal";
 import { WaitlistSection } from "~/components/common/WaitlistSection";
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -40,6 +41,9 @@ const TABS = [
 export default function PropertyContact({ loaderData }: Route.ComponentProps) {
   const { property, details, landlord } = loaderData;
   const [tab, setTab] = useState("enquiries");
+  // The make-an-offer prompt pops on page load (mock: the viewing is already
+  // done in the thread). "Make an offer now" hops to the Offers tab.
+  const [offerOpen, setOfferOpen] = useState(true);
   const searchHref = property.category === "buy" ? "/buy" : "/rent";
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -116,6 +120,15 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
       </Container>
 
       <WaitlistSection />
+
+      <MakeOfferModal
+        open={offerOpen}
+        onClose={() => setOfferOpen(false)}
+        onMakeOffer={() => {
+          setOfferOpen(false);
+          setTab("offers");
+        }}
+      />
     </>
   );
 }

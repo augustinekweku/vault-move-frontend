@@ -67,9 +67,8 @@ app/
                           # rating, Message Landlord), LandlordStats (4-figure card)
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
-                          # mount pops the "You're all set" viewing toast, sending
-                          # swaps in the ui/Toast steps variant with the enquiry
-                          # progress checklist — data/messages.ts
+                          # sending pops the ui/Toast steps variant with the
+                          # enquiry progress checklist — data/messages.ts
                           # ENQUIRY_PROGRESS_STEPS), EnquiryPropertyCard (shared
                           # listing), EnquiryForm ("What would you like to know"
                           # card), ViewingCard ("Viewing Scheduled" card with
@@ -80,7 +79,9 @@ app/
                           # Upcoming/Completed/Cancelled sidebar + card grid),
                           # OffersPanel (Offers tab: search + status-filter
                           # sidebar — data/messages.ts OFFER_FILTERS — with a
-                          # ghost-icon empty state until offers exist)
+                          # ghost-icon empty state until offers exist),
+                          # MakeOfferModal ("Make an Offer" prompt — pops on page
+                          # load; "Make an offer now" hops to the Offers tab)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet
