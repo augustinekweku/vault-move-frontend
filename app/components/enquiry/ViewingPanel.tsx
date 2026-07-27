@@ -9,6 +9,9 @@ interface ViewingPanelProps {
   property: Property;
   /** Full location line shown on the property card. */
   address: string;
+  /** "Make an Offer" on a completed viewing — opens the offer form in the
+   *  Offers tab. */
+  onMakeOffer?: () => void;
   className?: string;
 }
 
@@ -17,7 +20,7 @@ interface ViewingPanelProps {
  *  viewing cards. Mock — every status shows the same two cards, with the
  *  card actions following the selected status; the search filters them by
  *  property title. */
-export function ViewingPanel({ property, address, className }: ViewingPanelProps) {
+export function ViewingPanel({ property, address, onMakeOffer, className }: ViewingPanelProps) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<ViewingStatus>(
     VIEWING_STATUSES[0].key,
@@ -81,6 +84,7 @@ export function ViewingPanel({ property, address, className }: ViewingPanelProps
                   date={MOCK_VIEWING.date}
                   time={MOCK_VIEWING.time}
                   status={status}
+                  onMakeOffer={onMakeOffer}
                 />
               ))}
             </div>

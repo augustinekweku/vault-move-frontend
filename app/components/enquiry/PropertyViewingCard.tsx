@@ -13,6 +13,9 @@ interface PropertyViewingCardProps {
   time: string;
   /** Passed through to the ViewingCard action row. */
   status?: ViewingStatus;
+  /** "Make an Offer" on the completed ViewingCard — opens the offer form
+   *  in the Offers tab. */
+  onMakeOffer?: () => void;
   className?: string;
 }
 
@@ -25,6 +28,7 @@ export function PropertyViewingCard({
   date,
   time,
   status,
+  onMakeOffer,
   className,
 }: PropertyViewingCardProps) {
   return (
@@ -35,7 +39,12 @@ export function PropertyViewingCard({
       )}
     >
       <EnquiryPropertyCard property={property} address={address} />
-      <ViewingCard date={date} time={time} status={status} />
+      <ViewingCard
+        date={date}
+        time={time}
+        status={status}
+        onMakeOffer={onMakeOffer}
+      />
     </div>
   );
 }

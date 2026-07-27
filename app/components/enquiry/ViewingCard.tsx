@@ -9,6 +9,9 @@ interface ViewingCardProps {
   time: string;
   /** Lifecycle status — drives the action row (see below). */
   status?: ViewingStatus;
+  /** "Make an Offer" (completed status) — opens the offer form in the
+   *  Offers tab. */
+  onMakeOffer?: () => void;
   className?: string;
 }
 
@@ -19,12 +22,13 @@ const primaryButton =
  *  brand-blue calendar in a tinted circle beside the label + date/time
  *  (split by a vertical divider). The action row depends on `status`:
  *  confirm + cancel buttons (upcoming), a "Make an Offer" button
- *  (completed) or a red "Cancelled" status bar. Actions are visual mocks
- *  until the backend is live. */
+ *  (completed — wired via `onMakeOffer`) or a red "Cancelled" status bar.
+ *  The remaining actions are visual mocks until the backend is live. */
 export function ViewingCard({
   date,
   time,
   status = "upcoming",
+  onMakeOffer,
   className,
 }: ViewingCardProps) {
   return (
@@ -61,7 +65,7 @@ export function ViewingCard({
         </>
       )}
       {status === "completed" && (
-        <button type="button" className={primaryButton}>
+        <button type="button" onClick={onMakeOffer} className={primaryButton}>
           Make an Offer
         </button>
       )}

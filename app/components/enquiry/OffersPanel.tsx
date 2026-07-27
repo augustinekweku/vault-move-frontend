@@ -1,31 +1,60 @@
 import { useState } from "react";
-import type { OfferFilter } from "~/types";
+import type { OfferFilter, OfferStatus, Property } from "~/types";
 import { OFFER_FILTERS } from "~/data/messages";
 import { cn } from "~/lib/utils";
-import { Button } from "~/components/ui/Button";
 import { SearchIcon } from "~/components/ui/icons";
+import { PropertyOfferCard } from "~/components/enquiry/PropertyOfferCard";
 
 interface OffersPanelProps {
-  /** Opens the "Make an Offer" form. */
-  onMakeOffer: () => void;
+  property: Property;
+  /** Full location line shown on the offer's property card. */
+  address: string;
+  /** The submitted offer amount — null until an offer is made, which keeps
+   *  the panel on the ghost empty state. */
+  offerAmount: string | null;
+  /** Passed through to the offer card's status bar + action row. */
+  offerStatus: OfferStatus;
+  /** "Cancel offer" on the offer card — withdraws the offer (mock). */
+  onCancelOffer: () => void;
   className?: string;
 }
 
 /** The "Offers" tab of the enquiry page: sidebar (search box + offer-status
- *  filter) and, since no offers have been made yet, a ghost empty state
- *  with a "Make an offer" CTA. On large screens both children share one
- *  grid cell, so the sidebar hugs the left edge while the empty state stays
- *  centred across the full panel width. */
-export function OffersPanel({ onMakeOffer, className }: OffersPanelProps) {
+ *  filter) and the offer list. Until an offer is made the list is a ghost
+ *  empty state (offers are started from the Property Viewing tab's
+ *  completed viewings); once submitted, the offer card shows instead (the
+ *  mock offer stays pending/countered, so only the All/Pending filters
+ *  list it). On large screens the empty state shares one grid cell with
+ *  the sidebar, so the sidebar hugs the left edge while the empty state
+ *  stays centred across the full panel width; the offer card switches to
+ *  a sidebar + list row. */
+export function OffersPanel({
+  property,
+  address,
+  offerAmount,
+  offerStatus,
+  onCancelOffer,
+  className,
+}: OffersPanelProps) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<OfferFilter>(OFFER_FILTERS[0].key);
+
+  const q = query.trim().toLowerCase();
+  const matchesQuery = !q || property.title.toLowerCase().includes(q);
+  const matchesFilter = filter === "all" || filter === "pending";
+  const showOffer = offerAmount !== null && matchesFilter;
 
   return (
     <section className={className}>
       <h2 className="text-2xl font-extrabold text-black">Offers</h2>
 
-      <div className="mt-6 flex flex-col gap-8 lg:grid">
-        <div className="w-full lg:col-start-1 lg:row-start-1 lg:w-78.25">
+      <div
+        className={cn(
+          "mt-6 flex flex-col gap-8",
+          showOffer ? "lg:flex-row lg:items-start" : "lg:grid",
+        )}
+      >
+        <div className="w-full shrink-0 lg:col-start-1 lg:row-start-1 lg:w-78.25">
           <div className="relative">
             <SearchIcon
               aria-hidden
@@ -64,20 +93,36 @@ export function OffersPanel({ onMakeOffer, className }: OffersPanelProps) {
           </div>
         </div>
 
-        <div className="mx-auto flex w-full max-w-108.25 flex-col items-center gap-4 py-8 text-center lg:col-start-1 lg:row-start-1 lg:pt-28 lg:pb-16">
-          <img
-            src="/icons/gravity-ui_ghost.svg"
-            alt=""
-            className="size-56.5"
-          />
-          <p className="text-lg leading-8 text-ink-soft">
-            There isn&apos;t anything to show right now. Start making offers
-            to get things moving.
-          </p>
-          <Button onClick={onMakeOffer} className="mt-2">
-            Make an offer
-          </Button>
-        </div>
+        {showOffer ? (
+          <div className="min-w-0 flex-1">
+            {matchesQuery ? (
+              <PropertyOfferCard
+                property={property}
+                address={address}
+                amount={offerAmount}
+                status={offerStatus}
+                onCancel={onCancelOffer}
+                className="mx-auto w-full max-w-106.75"
+              />
+            ) : (
+              <p className="text-sm text-ink/60">
+                No offers match your search.
+              </p>
+            )}
+          </div>
+        ) : (
+          <div className="mx-auto flex w-full max-w-108.25 flex-col items-center gap-4 py-8 text-center lg:col-start-1 lg:row-start-1 lg:pt-28 lg:pb-16">
+            <img
+              src="/icons/gravity-ui_ghost.svg"
+              alt=""
+              className="size-56.5"
+            />
+            <p className="text-lg leading-8 text-ink-soft">
+              There isn&apos;t anything to show right now. Start making offers
+              to get things moving.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

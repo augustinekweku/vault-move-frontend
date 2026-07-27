@@ -1,6 +1,7 @@
 import type { Route } from "./+types/property-contact";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import type { OfferStatus } from "~/types";
 import { getListingById } from "~/services/listings.service";
 import { getLandlordById } from "~/services/landlords.service";
 import { cn } from "~/lib/utils";
@@ -39,15 +40,35 @@ const TABS = [
   { value: "offers", label: "Offers" },
 ];
 
+/** The offer form is much taller than the offers/viewing lists, so closing
+ *  it mid-page would leave the shorter panel scrolled out of view — jump
+ *  back to the top on the transitions in and out of the form. */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 export default function PropertyContact({ loaderData }: Route.ComponentProps) {
   const { property, details, landlord } = loaderData;
   const [tab, setTab] = useState("enquiries");
   // The make-an-offer prompt pops on page load (mock: the viewing is already
-  // done in the thread). "Make an offer now" opens the offer form in the
-  // Offers tab; "< Back" returns to the offers list, and switching tabs
-  // resets the form.
+  // done in the thread). "Make an offer now" — or the completed viewing
+  // card's "Make an Offer" — opens the offer form in the Offers tab;
+  // "< Back" returns to the offers list, and switching tabs resets the
+  // form. A submitted offer (its rent amount) is listed in the Offers
+  // panel as a pending-review card until it is cancelled.
   const [offerOpen, setOfferOpen] = useState(true);
   const [makingOffer, setMakingOffer] = useState(false);
+  const [offerAmount, setOfferAmount] = useState<string | null>(null);
+  const [offerStatus, setOfferStatus] = useState<OfferStatus>("pending");
+
+  // Mock the landlord's response: a few seconds after the offer is
+  // submitted, the pending card flips to the counter-offer state.
+  useEffect(() => {
+    if (offerAmount === null) return;
+    setOfferStatus("pending");
+    const timer = setTimeout(() => setOfferStatus("countered"), 6000);
+    return () => clearTimeout(timer);
+  }, [offerAmount]);
   const searchHref = property.category === "buy" ? "/buy" : "/rent";
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -119,18 +140,35 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
           <ViewingPanel
             property={property}
             address={details.address}
+            onMakeOffer={() => {
+              setTab("offers");
+              setMakingOffer(true);
+              scrollToTop();
+            }}
             className="mt-8 pb-16"
           />
         ) : makingOffer ? (
           <MakeOfferForm
             property={property}
             address={details.address}
-            onBack={() => setMakingOffer(false)}
+            onBack={() => {
+              setMakingOffer(false);
+              scrollToTop();
+            }}
+            onSubmitted={(amount) => {
+              setOfferAmount(amount);
+              setMakingOffer(false);
+              scrollToTop();
+            }}
             className="mt-8 pb-16"
           />
         ) : (
           <OffersPanel
-            onMakeOffer={() => setMakingOffer(true)}
+            property={property}
+            address={details.address}
+            offerAmount={offerAmount}
+            offerStatus={offerStatus}
+            onCancelOffer={() => setOfferAmount(null)}
             className="mt-8 pb-16"
           />
         )}

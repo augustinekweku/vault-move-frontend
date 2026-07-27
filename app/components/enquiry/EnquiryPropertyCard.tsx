@@ -7,6 +7,9 @@ interface EnquiryPropertyCardProps {
   property: Property;
   /** Full location line, e.g. "Achimota, Accra". */
   address: string;
+  /** Hides the bottom price block (the offers-tab property card omits it —
+   *  the offered amount is already shown on the offer card below). */
+  hidePrice?: boolean;
   className?: string;
 }
 
@@ -15,6 +18,7 @@ interface EnquiryPropertyCardProps {
 export function EnquiryPropertyCard({
   property,
   address,
+  hidePrice = false,
   className,
 }: EnquiryPropertyCardProps) {
   return (
@@ -57,15 +61,17 @@ export function EnquiryPropertyCard({
             {property.rating.toFixed(1)}/5.0
           </span>
         </p>
-        <div className="mt-auto border-t border-muted-300 pt-2">
-          <p className="text-xs text-muted-500">
-            {property.category === "rent" ? "Monthly Rent" : "Sale Price"}
-          </p>
-          <p className="text-2xl font-bold text-ink">
-            {property.price} {property.currency}
-            {property.priceUnit === "month" ? "/month" : ""}
-          </p>
-        </div>
+        {hidePrice ? null : (
+          <div className="mt-auto border-t border-muted-300 pt-2">
+            <p className="text-xs text-muted-500">
+              {property.category === "rent" ? "Monthly Rent" : "Sale Price"}
+            </p>
+            <p className="text-2xl font-bold text-ink">
+              {property.price} {property.currency}
+              {property.priceUnit === "month" ? "/month" : ""}
+            </p>
+          </div>
+        )}
       </div>
     </article>
   );

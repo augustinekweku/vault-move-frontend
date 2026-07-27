@@ -12,6 +12,9 @@ interface MakeOfferFormProps {
   address: string;
   /** "< Back" — return to the offers list. */
   onBack: () => void;
+  /** Called with the entered rent amount once the submission toast
+   *  dismisses — the route then lists the offer in the Offers panel. */
+  onSubmitted: (amount: string) => void;
   className?: string;
 }
 
@@ -219,11 +222,14 @@ function DateField({
  *  centred form (rent amount, move-in date, stay duration, additional
  *  notes). Submit stays disabled until the required fields are filled.
  *  Submitting is a mock — the button flips to a disabled "Loading" state
- *  and the offer-submitted toast pops with the progress checklist. */
+ *  and the offer-submitted toast pops with the progress checklist; when the
+ *  toast dismisses, `onSubmitted` hands the entered amount to the route so
+ *  the Offers panel can list the pending offer. */
 export function MakeOfferForm({
   property,
   address,
   onBack,
+  onSubmitted,
   className,
 }: MakeOfferFormProps) {
   const [rent, setRent] = useState("");
@@ -295,7 +301,10 @@ export function MakeOfferForm({
           title="Success!"
           message="Your offer has been submitted! You will be notified once it is accepted."
           steps={OFFER_PROGRESS_STEPS}
-          onClose={() => setToastOpen(false)}
+          onClose={() => {
+            setToastOpen(false);
+            onSubmitted(rent.trim());
+          }}
         />
       )}
     </>

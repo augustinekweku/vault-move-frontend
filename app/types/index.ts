@@ -139,6 +139,11 @@ export type OfferFilter =
   | "declined"
   | "drafts";
 
+/** Lifecycle status of a submitted offer — drives the status bar and action
+ *  row of the OfferCard (awaiting the landlord's review, or the landlord
+ *  sent a counter offer). */
+export type OfferStatus = "pending" | "countered";
+
 /** One conversation row in the "Recent Messages" sidebar (enquiry page). */
 export interface Conversation {
   id: string;

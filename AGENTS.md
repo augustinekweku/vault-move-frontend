@@ -73,20 +73,37 @@ app/
                           # listing), EnquiryForm ("What would you like to know"
                           # card), ViewingCard ("Viewing Scheduled" card with
                           # upcoming/completed/cancelled action variants —
-                          # data/messages.ts MOCK_VIEWING), PropertyViewingCard
+                          # data/messages.ts MOCK_VIEWING; the completed
+                          # variant's "Make an Offer" opens the offer form in
+                          # the Offers tab), PropertyViewingCard
                           # (property + viewing cards in the grey bubble),
                           # ViewingPanel (Property Viewing tab: search +
                           # Upcoming/Completed/Cancelled sidebar + card grid),
                           # OffersPanel (Offers tab: search + status-filter
                           # sidebar — data/messages.ts OFFER_FILTERS — with a
-                          # ghost-icon empty state + "Make an offer" CTA until
-                          # offers exist), MakeOfferForm (Offers-tab offer form:
+                          # ghost-icon empty state until an offer is submitted,
+                          # then the PropertyOfferCard under the All/Pending
+                          # filters; "Cancel offer" returns to the empty
+                          # state), OfferCard (submitted-offer card: offer tag
+                          # icon + amount, status bar, action buttons — the
+                          # status is pending ("being reviewed by the
+                          # Landlord") and flips to countered ("The landlord
+                          # made a counter offer." + "View Counter Offer"
+                          # button) a few seconds after submission, mocking
+                          # the landlord's reply; status icons are
+                          # public/icons/offer-icon.svg + material-symbols.svg),
+                          # PropertyOfferCard
+                          # (property card — EnquiryPropertyCard with hidePrice —
+                          # + offer card in the grey bubble),
+                          # MakeOfferForm (Offers-tab offer form:
                           # property card + rent/move-in/stay/notes fields —
                           # move-in uses an in-page calendar popover DateField,
                           # not the native date input; mock
                           # submit flips the button to Loading and pops the
                           # offer-submitted ui/Toast steps variant —
-                          # data/messages.ts OFFER_PROGRESS_STEPS; "< Back"
+                          # data/messages.ts OFFER_PROGRESS_STEPS; when the
+                          # toast dismisses, onSubmitted hands the rent amount
+                          # to the route so the panel lists the offer; "< Back"
                           # returns to the panel),
                           # MakeOfferModal ("Make an Offer" prompt — pops on page
                           # load; "Make an offer now" opens the offer form)
