@@ -81,7 +81,9 @@ app/
                           # sidebar — data/messages.ts OFFER_FILTERS — with a
                           # ghost-icon empty state + "Make an offer" CTA until
                           # offers exist), MakeOfferForm (Offers-tab offer form:
-                          # property card + rent/move-in/stay/notes fields; mock
+                          # property card + rent/move-in/stay/notes fields —
+                          # move-in uses an in-page calendar popover DateField,
+                          # not the native date input; mock
                           # submit flips the button to Loading and pops the
                           # offer-submitted ui/Toast steps variant —
                           # data/messages.ts OFFER_PROGRESS_STEPS; "< Back"

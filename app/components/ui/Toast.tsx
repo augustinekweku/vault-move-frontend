@@ -6,7 +6,9 @@ import { CloseIcon, PendingIcon } from "~/components/ui/icons";
 /** Success toast pinned to the top-right edge of the viewport: a pale-green
  *  pill rounded on the left only, with a check icon, bold title, message
  *  and a close button. Pass `steps` to add the progress checklist below the
- *  message (enquiry-submitted variant on the message-landlord page).
+ *  message (enquiry/offer-submitted variants on the message-landlord page).
+ *  Width is content-driven but capped just under the viewport so small
+ *  screens keep the pill on-screen (the text column wraps instead).
  *  Auto-dismisses after `duration` ms (pass 0 to keep it until manually
  *  closed). */
 export function Toast({
@@ -31,7 +33,7 @@ export function Toast({
   return (
     <div
       role="status"
-      className="fixed top-20 right-0 z-50 rounded-l-[60px] border border-line bg-success-soft py-4 pr-8 pl-6 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
+        className="fixed top-20 right-0 z-50 max-w-[calc(100vw-1rem)] rounded-l-[60px] border border-line bg-success-soft py-4 pr-8 pl-6 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
     >
       <div className="flex items-start gap-6">
         {/* mt-2.5 parks the circle level with the title rather than centred
