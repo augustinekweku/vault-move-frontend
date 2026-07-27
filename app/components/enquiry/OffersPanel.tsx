@@ -2,18 +2,21 @@ import { useState } from "react";
 import type { OfferFilter } from "~/types";
 import { OFFER_FILTERS } from "~/data/messages";
 import { cn } from "~/lib/utils";
+import { Button } from "~/components/ui/Button";
 import { SearchIcon } from "~/components/ui/icons";
 
 interface OffersPanelProps {
+  /** Opens the "Make an Offer" form. */
+  onMakeOffer: () => void;
   className?: string;
 }
 
 /** The "Offers" tab of the enquiry page: sidebar (search box + offer-status
- *  filter) and, since no offers have been made yet, a ghost empty state.
- *  On large screens both children share one grid cell, so the sidebar hugs
- *  the left edge while the empty state stays centred across the full panel
- *  width. */
-export function OffersPanel({ className }: OffersPanelProps) {
+ *  filter) and, since no offers have been made yet, a ghost empty state
+ *  with a "Make an offer" CTA. On large screens both children share one
+ *  grid cell, so the sidebar hugs the left edge while the empty state stays
+ *  centred across the full panel width. */
+export function OffersPanel({ onMakeOffer, className }: OffersPanelProps) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<OfferFilter>(OFFER_FILTERS[0].key);
 
@@ -71,6 +74,9 @@ export function OffersPanel({ className }: OffersPanelProps) {
             There isn&apos;t anything to show right now. Start making offers
             to get things moving.
           </p>
+          <Button onClick={onMakeOffer} className="mt-2">
+            Make an offer
+          </Button>
         </div>
       </div>
     </section>

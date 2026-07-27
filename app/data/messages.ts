@@ -57,6 +57,15 @@ export const ENQUIRY_PROGRESS_STEPS: ToastStep[] = [
   { label: "Deal Room Created", done: false },
 ];
 
+/** Progress checklist in the offer-submitted success toast — everything up
+ *  to "Offer Submitted" is done; creating the Deal Room is still pending. */
+export const OFFER_PROGRESS_STEPS: ToastStep[] = [
+  { label: "Enquiry Sent", done: true },
+  { label: "Viewing Completed", done: true },
+  { label: "Offer Submitted", done: true },
+  { label: "Deal Room Created", done: false },
+];
+
 /** The mock scheduled viewing shown as a landlord card in the enquiry chat
  *  thread ("Viewing Scheduled" card) and in the Property Viewing tab grid. */
 export const MOCK_VIEWING = {

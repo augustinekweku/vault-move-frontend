@@ -1,5 +1,5 @@
 import { Modal } from "~/components/ui/Modal";
-import { CloseIcon, OfferTagIcon } from "~/components/ui/icons";
+import { CloseIcon } from "~/components/ui/icons";
 
 interface MakeOfferModalProps {
   open: boolean;
@@ -36,7 +36,7 @@ export function MakeOfferModal({
 
       <div className="flex flex-col items-center px-8 pt-6 pb-6 text-center">
         <span className="flex size-25 items-center justify-center rounded-full bg-surface-alt">
-          <OfferTagIcon className="size-20 text-brand" />
+          <img src="/icons/offer-icon.svg" alt="" className="size-9.25" />
         </span>
 
         <h2

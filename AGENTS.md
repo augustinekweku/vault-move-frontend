@@ -79,9 +79,15 @@ app/
                           # Upcoming/Completed/Cancelled sidebar + card grid),
                           # OffersPanel (Offers tab: search + status-filter
                           # sidebar — data/messages.ts OFFER_FILTERS — with a
-                          # ghost-icon empty state until offers exist),
+                          # ghost-icon empty state + "Make an offer" CTA until
+                          # offers exist), MakeOfferForm (Offers-tab offer form:
+                          # property card + rent/move-in/stay/notes fields; mock
+                          # submit flips the button to Loading and pops the
+                          # offer-submitted ui/Toast steps variant —
+                          # data/messages.ts OFFER_PROGRESS_STEPS; "< Back"
+                          # returns to the panel),
                           # MakeOfferModal ("Make an Offer" prompt — pops on page
-                          # load; "Make an offer now" hops to the Offers tab)
+                          # load; "Make an offer now" opens the offer form)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet

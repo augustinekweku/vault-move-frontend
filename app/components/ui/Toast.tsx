@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { ToastStep } from "~/types";
 import { cn } from "~/lib/utils";
-import { CheckCircleIcon, CloseIcon } from "~/components/ui/icons";
+import { CloseIcon, PendingIcon } from "~/components/ui/icons";
 
 /** Success toast pinned to the top-right edge of the viewport: a pale-green
  *  pill rounded on the left only, with a check icon, bold title, message
@@ -33,9 +33,11 @@ export function Toast({
       role="status"
       className="fixed top-20 right-0 z-50 rounded-l-[60px] border border-line bg-success-soft py-4 pr-8 pl-6 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
     >
-      <div className="flex min-h-25 items-center gap-6">
-        <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white">
-          <CheckCircleIcon className="size-6 text-[#48cc99]" />
+      <div className="flex items-start gap-6">
+        {/* mt-2.5 parks the circle level with the title rather than centred
+            against the whole title+message block. */}
+        <span className="mt-2.5 flex size-12 shrink-0 items-center justify-center rounded-full bg-white">
+          <img src="/icons/check-circle.svg" alt="" className="size-6" />
         </span>
         {/* max-w-105 caps long messages at a readable width — only kicks in
             for long messages; short ones keep the pill hugging content. */}
@@ -49,24 +51,29 @@ export function Toast({
           type="button"
           onClick={onClose}
           aria-label="Dismiss notification"
-          className="ml-2 self-start text-brand-dark hover:text-ink"
+          className="mt-2.25 ml-2 text-brand-dark hover:text-ink"
         >
           <CloseIcon className="size-4" />
         </button>
       </div>
       {steps?.length ? (
-        /* ml-18 + the container's pl-6 = 96px, aligning the checklist under
-           the title/message column. */
-        <ul className="mt-1 mb-2 ml-18 flex flex-col gap-2.5">
+        <ul className="mt-10 mb-3.25 ml-14.25 flex flex-col gap-1.5">
           {steps.map((step) => (
-            <li key={step.label} className="flex items-center gap-2 text-sm">
+            <li
+              key={step.label}
+              className="flex items-center gap-2 text-lg leading-8"
+            >
               {step.done ? (
-                <CheckCircleIcon className="size-4 shrink-0 text-[#48cc99]" />
-              ) : (
-                <span
-                  aria-hidden
-                  className="size-4 shrink-0 rounded-full border border-muted-400 bg-white"
+                <img
+                  src="/icons/check-circle.svg"
+                  alt=""
+                  className="size-4 shrink-0"
                 />
+              ) : (
+                /* The pending glyph is a 16px mark inset 4px in a 24px box —
+                   size-6 with -m-1 keeps its mark aligned with the 16px
+                   check icons of the done rows. */
+                <PendingIcon className="-m-1 size-6 shrink-0 text-black/24" />
               )}
               <span
                 className={cn(step.done ? "text-ink-soft" : "text-muted-500")}

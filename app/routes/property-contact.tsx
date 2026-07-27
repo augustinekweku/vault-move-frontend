@@ -9,6 +9,7 @@ import { ConversationList } from "~/components/enquiry/ConversationList";
 import { EnquiryChat } from "~/components/enquiry/EnquiryChat";
 import { ViewingPanel } from "~/components/enquiry/ViewingPanel";
 import { OffersPanel } from "~/components/enquiry/OffersPanel";
+import { MakeOfferForm } from "~/components/enquiry/MakeOfferForm";
 import { MakeOfferModal } from "~/components/enquiry/MakeOfferModal";
 import { WaitlistSection } from "~/components/common/WaitlistSection";
 
@@ -42,8 +43,11 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
   const { property, details, landlord } = loaderData;
   const [tab, setTab] = useState("enquiries");
   // The make-an-offer prompt pops on page load (mock: the viewing is already
-  // done in the thread). "Make an offer now" hops to the Offers tab.
+  // done in the thread). "Make an offer now" opens the offer form in the
+  // Offers tab; "< Back" returns to the offers list, and switching tabs
+  // resets the form.
   const [offerOpen, setOfferOpen] = useState(true);
+  const [makingOffer, setMakingOffer] = useState(false);
   const searchHref = property.category === "buy" ? "/buy" : "/rent";
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -82,7 +86,10 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
                 <button
                   key={value}
                   type="button"
-                  onClick={() => setTab(value)}
+                  onClick={() => {
+                    setTab(value);
+                    setMakingOffer(false);
+                  }}
                   aria-selected={active}
                   className={cn(
                     "-mb-px border-b-2 pb-3 text-sm font-semibold whitespace-nowrap transition-colors",
@@ -114,8 +121,18 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
             address={details.address}
             className="mt-8 pb-16"
           />
+        ) : makingOffer ? (
+          <MakeOfferForm
+            property={property}
+            address={details.address}
+            onBack={() => setMakingOffer(false)}
+            className="mt-8 pb-16"
+          />
         ) : (
-          <OffersPanel className="mt-8 pb-16" />
+          <OffersPanel
+            onMakeOffer={() => setMakingOffer(true)}
+            className="mt-8 pb-16"
+          />
         )}
       </Container>
 
@@ -127,6 +144,7 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
         onMakeOffer={() => {
           setOfferOpen(false);
           setTab("offers");
+          setMakingOffer(true);
         }}
       />
     </>
