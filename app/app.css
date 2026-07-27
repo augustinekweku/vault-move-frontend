@@ -33,6 +33,9 @@
   --color-surface: #f9f9fd;
   --color-surface-alt: #f7f8ff;
 
+  /* Radii */
+  --radius-bubble: 1.25rem;
+
   /* Misc */
   --color-star: #ffa10c;
   /* Reviews tab (property details): rating stars/bars, card surfaces, body text */

@@ -14,6 +14,9 @@ interface OffersPanelProps {
   offerAmount: string | null;
   /** Passed through to the offer card's status bar + action row. */
   offerStatus: OfferStatus;
+  /** "View Counter Offer" on the offer card (countered status) — opens the
+   *  Counter Offer sheet. */
+  onViewCounterOffer?: () => void;
   /** "Cancel offer" on the offer card — withdraws the offer (mock). */
   onCancelOffer: () => void;
   className?: string;
@@ -33,6 +36,7 @@ export function OffersPanel({
   address,
   offerAmount,
   offerStatus,
+  onViewCounterOffer,
   onCancelOffer,
   className,
 }: OffersPanelProps) {
@@ -101,6 +105,7 @@ export function OffersPanel({
                 address={address}
                 amount={offerAmount}
                 status={offerStatus}
+                onViewCounterOffer={onViewCounterOffer}
                 onCancel={onCancelOffer}
                 className="mx-auto w-full max-w-106.75"
               />

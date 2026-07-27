@@ -4,12 +4,14 @@ import { Link } from "react-router";
 import type { OfferStatus } from "~/types";
 import { getListingById } from "~/services/listings.service";
 import { getLandlordById } from "~/services/landlords.service";
+import { MOCK_COUNTER_OFFER } from "~/data/messages";
 import { cn } from "~/lib/utils";
 import { Container } from "~/components/ui/Container";
 import { ConversationList } from "~/components/enquiry/ConversationList";
 import { EnquiryChat } from "~/components/enquiry/EnquiryChat";
 import { ViewingPanel } from "~/components/enquiry/ViewingPanel";
 import { OffersPanel } from "~/components/enquiry/OffersPanel";
+import { CounterOfferPanel } from "~/components/enquiry/CounterOfferPanel";
 import { MakeOfferForm } from "~/components/enquiry/MakeOfferForm";
 import { MakeOfferModal } from "~/components/enquiry/MakeOfferModal";
 import { WaitlistSection } from "~/components/common/WaitlistSection";
@@ -55,11 +57,15 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
   // card's "Make an Offer" — opens the offer form in the Offers tab;
   // "< Back" returns to the offers list, and switching tabs resets the
   // form. A submitted offer (its rent amount) is listed in the Offers
-  // panel as a pending-review card until it is cancelled.
+  // panel as a pending-review card until it is cancelled. Once the mock
+  // landlord counters, "View Counter Offer" opens the Counter Offer sheet
+  // over the page — declining withdraws the offer, and "Make a counter
+  // offer" reopens the offer form.
   const [offerOpen, setOfferOpen] = useState(true);
   const [makingOffer, setMakingOffer] = useState(false);
   const [offerAmount, setOfferAmount] = useState<string | null>(null);
   const [offerStatus, setOfferStatus] = useState<OfferStatus>("pending");
+  const [viewingCounter, setViewingCounter] = useState(false);
 
   // Mock the landlord's response: a few seconds after the offer is
   // submitted, the pending card flips to the counter-offer state.
@@ -110,6 +116,7 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
                   onClick={() => {
                     setTab(value);
                     setMakingOffer(false);
+                    setViewingCounter(false);
                   }}
                   aria-selected={active}
                   className={cn(
@@ -168,7 +175,11 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
             address={details.address}
             offerAmount={offerAmount}
             offerStatus={offerStatus}
-            onCancelOffer={() => setOfferAmount(null)}
+            onViewCounterOffer={() => setViewingCounter(true)}
+            onCancelOffer={() => {
+              setOfferAmount(null);
+              setViewingCounter(false);
+            }}
             className="mt-8 pb-16"
           />
         )}
@@ -183,6 +194,25 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
           setOfferOpen(false);
           setTab("offers");
           setMakingOffer(true);
+        }}
+      />
+
+      <CounterOfferPanel
+        property={property}
+        address={details.address}
+        offer={MOCK_COUNTER_OFFER}
+        open={
+          viewingCounter && offerAmount !== null && offerStatus === "countered"
+        }
+        onClose={() => setViewingCounter(false)}
+        onDecline={() => {
+          setOfferAmount(null);
+          setViewingCounter(false);
+        }}
+        onMakeCounterOffer={() => {
+          setViewingCounter(false);
+          setMakingOffer(true);
+          scrollToTop();
         }}
       />
     </>

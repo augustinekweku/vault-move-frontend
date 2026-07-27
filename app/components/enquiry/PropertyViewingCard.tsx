@@ -20,8 +20,8 @@ interface PropertyViewingCardProps {
 }
 
 /** The property card + "Viewing Scheduled" card stacked in the translucent
- *  grey 20px-radius bubble — shared by the landlord's chat message and the
- *  Property Viewing tab grid. */
+ *  grey bubble — shared by the landlord's chat message and the Property
+ *  Viewing tab grid. */
 export function PropertyViewingCard({
   property,
   address,
@@ -34,7 +34,7 @@ export function PropertyViewingCard({
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 rounded-[20px] bg-line/24 p-4",
+        "flex flex-col gap-4 rounded-bubble bg-line/24 p-4",
         className,
       )}
     >

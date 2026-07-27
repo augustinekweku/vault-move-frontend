@@ -89,12 +89,26 @@ app/
                           # status is pending ("being reviewed by the
                           # Landlord") and flips to countered ("The landlord
                           # made a counter offer." + "View Counter Offer"
-                          # button) a few seconds after submission, mocking
-                          # the landlord's reply; status icons are
+                          # button — opens the CounterOfferPanel) a few
+                          # seconds after submission, mocking the landlord's
+                          # reply; status icons are
                           # public/icons/offer-icon.svg + material-symbols.svg),
                           # PropertyOfferCard
                           # (property card — EnquiryPropertyCard with hidePrice —
                           # + offer card in the grey bubble),
+                          # CounterOfferPanel ("Counter Offer" modal sheet
+                          # pinned to the right edge of the viewport over a
+                          # dimmed backdrop — same close-on-backdrop/Escape
+                          # pattern as ui/Modal; opened by the offer card's
+                          # "View Counter Offer": the landlord's countered
+                          # terms — data/messages.ts MOCK_COUNTER_OFFER — in
+                          # a card (amount / move-in / stay-duration icon
+                          # rows — public/icons/offer-icon.svg + home.svg +
+                          # watch.svg — + notes strip) with Decline offer (withdraws
+                          # the offer), Accept offer (closes the sheet and
+                          # pops the ui/Toast steps variant —
+                          # ACCEPT_OFFER_PROGRESS_STEPS) and "Make a counter
+                          # offer" (reopens the offer form)),
                           # MakeOfferForm (Offers-tab offer form:
                           # property card + rent/move-in/stay/notes fields —
                           # move-in uses an in-page calendar popover DateField,
@@ -148,8 +162,9 @@ public/
   `surface`, `surface-alt`, `line`, plus the reviews-tab tokens `star-yellow`
   (#ffb919, rating stars/bars), `surface-gray` (#fafafb, review cards + bar
   tracks), `ink-gray` (#666676, review body text). Font is Poppins (set in
-  `@theme`, loaded via Google Fonts in `app/root.tsx`).
-  Arbitrary numeric spacing values work (e.g. `h-108.5`). A `no-scrollbar`
+  `@theme`, loaded via Google Fonts in `app/root.tsx`). Non-color tokens:
+  `rounded-bubble` (the enquiry-page grey-bubble radius). Arbitrary numeric
+  spacing values work (e.g. `h-108.5`). A `no-scrollbar`
   utility (defined in `app.css`) hides scrollbars on horizontal scroll rows.
 - **Layout**: wrap page content in `<Container>` (max-w-1280px, responsive px).
   Inner pages use `<PageHero>` (blue banner with breadcrumbs, title, subtitle) —
@@ -161,6 +176,10 @@ public/
   (base URL from `VITE_API_URL`, bearer token from `localStorage.vm_token`).
   All browser-only access must stay `typeof window !== "undefined"`-guarded (SSR).
 - **Class merging**: use `cn()` from `~/lib/utils`.
+- **Comments**: docstrings describe what the code is/does — never cite design
+  measurements in comments or docstrings ("20px-radius bubble", "588px wide"),
+  and never use bracketed pixel utilities where the spacing/radius scale
+  covers the value (`rounded-5`, not `rounded-[20px]`).
 - **Comments**: docstrings describe what the code is/does — never reference
   Figma frame names/numbers (e.g. "Rectangle 18339") or write "per the Figma"
   in code comments; they go stale and are meaningless without the design file

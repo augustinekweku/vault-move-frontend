@@ -17,7 +17,7 @@ interface PageHeroProps {
 /** Blue banner used on About, Contact, FAQ, Privacy and Portals pages.
  *  Content is vertically centred in flow (no absolute text positioning) so
  *  the title/subtitle spacing stays consistent no matter how many lines the
- *  title wraps to. ~434px tall on desktop, dots bottom-left, rings top-right. */
+ *  title wraps to. Dots bottom-left, rings top-right. */
 export function PageHero({
   title,
   subtitle,

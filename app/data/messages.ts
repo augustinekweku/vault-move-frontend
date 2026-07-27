@@ -1,5 +1,6 @@
 import type {
   Conversation,
+  CounterOffer,
   OfferFilter,
   ToastStep,
   ViewingStatus,
@@ -65,6 +66,24 @@ export const OFFER_PROGRESS_STEPS: ToastStep[] = [
   { label: "Offer Submitted", done: true },
   { label: "Deal Room Created", done: false },
 ];
+
+/** Progress checklist in the counter-offer-accepted success toast — every
+ *  step through "Deal Room Created" is done. */
+export const ACCEPT_OFFER_PROGRESS_STEPS: ToastStep[] = [
+  { label: "Enquiry Sent", done: true },
+  { label: "Viewing Completed", done: true },
+  { label: "Offer Submitted", done: true },
+  { label: "Deal Room Created", done: true },
+];
+
+/** The mock counter offer the landlord sends back a few seconds after an
+ *  offer is submitted — reviewed in the Counter Offer panel. */
+export const MOCK_COUNTER_OFFER: CounterOffer = {
+  amount: "1350",
+  moveInDate: "18th July 2026",
+  stayDuration: "3 years",
+  notes: "I can allow small pets only",
+};
 
 /** The mock scheduled viewing shown as a landlord card in the enquiry chat
  *  thread ("Viewing Scheduled" card) and in the Property Viewing tab grid. */

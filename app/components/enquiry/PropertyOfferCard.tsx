@@ -11,27 +11,31 @@ interface PropertyOfferCardProps {
   amount: string;
   /** Passed through to the OfferCard status bar + action row. */
   status?: OfferStatus;
+  /** "View Counter Offer" (countered status) — opens the Counter Offer
+   *  sheet. */
+  onViewCounterOffer?: () => void;
   /** "Cancel offer" — withdraws the offer (mock). */
   onCancel?: () => void;
   className?: string;
 }
 
 /** The property card + submitted-offer card stacked in the translucent grey
- *  20px-radius bubble — the Offers-tab state once an offer has been made.
- *  The property card hides its price block since the offered amount is on
- *  the offer card. */
+ *  bubble — the Offers-tab state once an offer has been made. The property
+ *  card hides its price block since the offered amount is on the offer
+ *  card. */
 export function PropertyOfferCard({
   property,
   address,
   amount,
   status,
+  onViewCounterOffer,
   onCancel,
   className,
 }: PropertyOfferCardProps) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 rounded-[20px] bg-line/24 p-4",
+        "flex flex-col gap-4 rounded-bubble bg-line/24 p-4",
         className,
       )}
     >
@@ -41,6 +45,7 @@ export function PropertyOfferCard({
         currency={property.currency}
         unit={property.priceUnit}
         status={status}
+        onViewCounterOffer={onViewCounterOffer}
         onCancel={onCancel}
       />
     </div>

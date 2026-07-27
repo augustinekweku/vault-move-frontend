@@ -11,7 +11,8 @@ interface OfferCardProps {
   /** pending = awaiting the landlord's review; countered = the landlord
    *  sent a counter offer (adds the "View Counter Offer" action). */
   status?: OfferStatus;
-  /** "View Counter Offer" (countered status) — visual mock for now. */
+  /** "View Counter Offer" (countered status) — opens the Counter Offer
+   *  sheet. */
   onViewCounterOffer?: () => void;
   /** "Cancel offer" — withdraws the offer (mock). */
   onCancel?: () => void;

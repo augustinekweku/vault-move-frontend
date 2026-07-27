@@ -144,6 +144,20 @@ export type OfferFilter =
  *  sent a counter offer). */
 export type OfferStatus = "pending" | "countered";
 
+/** The landlord's counter offer under review in the Counter Offer panel
+ *  (Offers tab of the property-contact page) — the countered terms. */
+export interface CounterOffer {
+  /** Countered rent amount, e.g. "1350". */
+  amount: string;
+  /** e.g. "18th July 2026". */
+  moveInDate: string;
+  /** e.g. "3 years". */
+  stayDuration: string;
+  /** Landlord's note shown in the tinted strip, e.g. "I can allow small
+   *  pets only". */
+  notes: string;
+}
+
 /** One conversation row in the "Recent Messages" sidebar (enquiry page). */
 export interface Conversation {
   id: string;
