@@ -46,7 +46,7 @@ export function Toast({
         <div className="max-w-80 pr-2">
           <p className="text-sm leading-6 font-bold text-ink-soft">{title}</p>
           {message ? (
-            <p className="text-sm leading-6 text-ink-soft">{message}</p>
+            <p className="text-sm leading-6 text-ink-soft mt-1">{message}</p>
           ) : null}
         </div>
         <button
@@ -61,7 +61,7 @@ export function Toast({
       {steps?.length ? (
         /* ml-18 lines the checklist up with the title/message column
            (padding + circle + gap). */
-        <ul className="mt-5 md:mt-7 mb-1 ml-18 flex flex-col gap-1">
+        <ul className="mt-5 md:mt-6 mb-1 ml-18 flex flex-col gap-1">
           {steps.map((step) => (
             <li
               key={step.label}
