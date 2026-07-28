@@ -142,7 +142,7 @@ function RequirementRow({ requirement, reviewDelayMs }: RequirementRowProps) {
         )}
       </li>
       {upload && (
-        <li className="flex items-center gap-4 rounded-xl bg-surface-alt px-6 py-2">
+        <li className="flex items-center gap-5 rounded-xl bg-surface-alt px-6 py-2 sm:gap-8">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-4">
               <IdIcon aria-hidden className="size-6 shrink-0 text-brand" />
@@ -163,7 +163,7 @@ function RequirementRow({ requirement, reviewDelayMs }: RequirementRowProps) {
             onClick={handleDeleteClick}
             className="shrink-0 text-brand transition-opacity hover:opacity-70"
           >
-            <DeleteIcon aria-hidden className="size-6" />
+            <DeleteIcon aria-hidden className="size-5" />
           </button>
         </li>
       )}
