@@ -231,6 +231,22 @@ export interface DealRequirement {
   upload?: DealUpload;
 }
 
+/** One amount row in the Payment step's "Payment Summary" breakdown. */
+export interface PaymentBreakdownRow {
+  /** e.g. "Security Deposit (2 months)". */
+  label: string;
+  /** Formatted amount, e.g. "3,600.00". */
+  amount: string;
+}
+
+/** One milestone row in the Payment step's "Escrow Timeline" card — the
+ *  circle turns brand once the milestone is done. */
+export interface EscrowTimelineItem {
+  /** e.g. "Payment Made". */
+  label: string;
+  done: boolean;
+}
+
 /** Everything on the deal detail page (/deal-room/:dealId) beyond the
  *  list-card Deal data. */
 export interface DealDetails {
@@ -249,8 +265,19 @@ export interface DealDetails {
   renterRequirements: DealRequirement[];
   /** Documents awaited from the landlord. */
   landlordRequirements: DealRequirement[];
-  /** Body of the "What's Next?" card. */
-  whatsNext: string;
+  /** Contract step: documents the landlord shared for review. */
+  contractDocuments: DealRequirement[];
+  /** Contract step: signed copies the renter must upload. */
+  signedContracts: DealRequirement[];
+  /** Payment step: "Payment Summary" breakdown rows. */
+  paymentBreakdown: PaymentBreakdownRow[];
+  /** Payment step: total line, e.g. "GHS 5,580.00". */
+  paymentTotal: string;
+  /** Payment step: "Escrow Timeline" milestones, in order. */
+  escrowTimeline: EscrowTimelineItem[];
+  /** Body of the "What's Next?" card — one entry per step, in step order;
+   *  steps without an entry show no card. */
+  whatsNext: string[];
 }
 
 export interface SearchListingsParams {

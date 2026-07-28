@@ -56,8 +56,10 @@ app/
                           # list — status tabs + deal cards with the
                           # verification panel, under DashboardLayout),
                           # deal-detail (dynamic /deal-room/:dealId — deal
-                          # summary, Listed By card, Deal Progress step tabs
-                          # with the ID Verification panel, What's Next card)
+                          # summary, Listed By card, Deal Progress stepper
+                          # with the ID Verification + Renters Contract +
+                          # Payment panels, Escrow Timeline + What's Next
+                          # cards)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select,
                           # DateField (calendar-popover date input on
@@ -78,17 +80,30 @@ app/
                           # the "Complete your Verification" panel — overlay
                           # link to the detail page) and the detail-page
                           # sections: DealSummaryCard, ListedByCard,
-                          # WhatsNextCard, DealProgressSection (step tabs),
-                          # IdVerificationPanel (requirement rows — brand-navy/54
-                          # text, icon in a surface-alt circle; the Upload
-                          # action opens a file picker and the picked file
-                          # appears in a tinted surface-alt row under the
-                          # requirement — file name, simulated brand progress
-                          # bar on a bordered track, delete action; landlord
-                          # rows start as disabled Pending and flip to a Review
-                          # action a few seconds in, mocking the landlord
-                          # sending their documents — until the document flow
-                          # is wired) — data/deals.ts
+                          # WhatsNextCard, DealProgressSection (progress
+                          # stepper — steps up to the current one stay
+                          # underlined and re-viewable, later steps disabled),
+                          # IdVerificationPanel + RentersContractPanel (step
+                          # panels) and RequirementRows (the shared document
+                          # rows — brand-navy/54 text; RequirementRow is the
+                          # verification-step bordered card with the id icon
+                          # in a surface-alt circle, ContractDocumentRow the
+                          # contract-step bare row with a bottom divider and
+                          # the public/icons/document.svg icon; the Upload
+                          # action opens a file
+                          # picker and the picked file appears in a tinted
+                          # surface-alt row under the requirement — file name,
+                          # simulated brand progress bar on a bordered track,
+                          # delete action; landlord rows start as disabled
+                          # Pending and flip to a Review action a few seconds
+                          # in, mocking the landlord sending their documents —
+                          # until the document flow is wired), PaymentPanel
+                          # (escrow assurance checklist — ESCROW_ASSURANCES —
+                          # + Payment Summary breakdown + Make Payment card
+                          # with placeholder method boxes; exports the shared
+                          # CheckCircleBadge) and the EscrowTimelineCard
+                          # sidebar card (milestone rows, brand/gray check
+                          # badges) — data/deals.ts
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
                           # sending pops the ui/Toast steps variant with the

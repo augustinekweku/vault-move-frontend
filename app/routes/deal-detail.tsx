@@ -6,6 +6,7 @@ import { DealSummaryCard } from "~/components/deal-room/DealSummaryCard";
 import { ListedByCard } from "~/components/deal-room/ListedByCard";
 import { WhatsNextCard } from "~/components/deal-room/WhatsNextCard";
 import { DealProgressSection } from "~/components/deal-room/DealProgressSection";
+import { EscrowTimelineCard } from "~/components/deal-room/EscrowTimelineCard";
 
 export function meta({ loaderData }: Route.MetaArgs) {
   const title = loaderData?.deal.propertyTitle ?? "Deal";
@@ -46,6 +47,7 @@ function renderBreadcrumb(crumb: Breadcrumb, index: number, all: Breadcrumb[]) {
 
 export default function DealDetail({ loaderData }: Route.ComponentProps) {
   const { deal, details } = loaderData;
+  const whatsNext = details.whatsNext[details.currentStep - 1];
   const breadcrumbs: Breadcrumb[] = [
     { label: "Home", href: "/dashboard" },
     { label: "Deal Room", href: "/deal-room" },
@@ -80,7 +82,10 @@ export default function DealDetail({ loaderData }: Route.ComponentProps) {
             landlord={details.landlord}
             messageHref={`/properties/${details.propertyId}/contact`}
           />
-          <WhatsNextCard text={details.whatsNext} />
+          {details.escrowTimeline.length > 0 && (
+            <EscrowTimelineCard items={details.escrowTimeline} />
+          )}
+          {whatsNext && <WhatsNextCard text={whatsNext} />}
         </div>
       </div>
     </Container>
