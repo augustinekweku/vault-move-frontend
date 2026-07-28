@@ -4,6 +4,7 @@ import { cn } from "~/lib/utils";
 import { IdVerificationPanel } from "~/components/deal-room/IdVerificationPanel";
 import { RentersContractPanel } from "~/components/deal-room/RentersContractPanel";
 import { PaymentPanel } from "~/components/deal-room/PaymentPanel";
+import { HandoverPanel } from "~/components/deal-room/HandoverPanel";
 
 interface DealProgressSectionProps {
   details: DealDetails;
@@ -13,8 +14,9 @@ interface DealProgressSectionProps {
 /** "Deal Progress" section of the deal detail page: the heading with the
  *  "Step n of 5" line, the step tab bar (ID Verification … Closing) and the
  *  step panel. The tab bar is a progress stepper — every step up to the
- *  current one stays underlined and can be re-viewed; later steps are
- *  disabled. Only the first three steps have panels so far. */
+ *  current one stays underlined in full brand and can be re-viewed (the
+ *  viewed step's label goes bold brand-navy as its identifier); later
+ *  steps are disabled. Only the first four steps have panels so far. */
 export function DealProgressSection({
   details,
   className,
@@ -29,6 +31,7 @@ export function DealProgressSection({
 
   function renderStepTab(step: string, index: number) {
     const reached = index <= currentIndex;
+    const viewing = index === viewedStep;
     return (
       <button
         key={step}
@@ -36,9 +39,10 @@ export function DealProgressSection({
         data-step={index}
         onClick={handleStepClick}
         disabled={!reached}
-        aria-selected={index === viewedStep}
+        aria-selected={viewing}
         className={cn(
-          "-mb-px border-b-4 px-4 pb-3 text-sm font-semibold whitespace-nowrap transition-colors first:pl-0",
+          "-mb-px border-b-4 px-4 pb-3 text-sm whitespace-nowrap transition-colors first:pl-0",
+          viewing ? "font-bold text-brand-navy" : "font-semibold",
           reached
             ? "border-brand text-brand"
             : "border-transparent text-ink/50",
@@ -82,6 +86,8 @@ export function DealProgressSection({
           total={details.paymentTotal}
           className="mt-6"
         />
+      ) : viewedStep === 3 ? (
+        <HandoverPanel groups={details.handoverChecklist} className="mt-6" />
       ) : (
         <p className="mt-6 text-sm text-ink/60">
           This step hasn&apos;t started yet.

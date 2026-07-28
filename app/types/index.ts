@@ -247,6 +247,14 @@ export interface EscrowTimelineItem {
   done: boolean;
 }
 
+/** One checkbox group in the Handing Over step's checklist. */
+export interface HandoverGroup {
+  /** e.g. "Property Inspection". */
+  title: string;
+  /** Checkbox labels, e.g. "Property inspected". */
+  items: string[];
+}
+
 /** Everything on the deal detail page (/deal-room/:dealId) beyond the
  *  list-card Deal data. */
 export interface DealDetails {
@@ -275,8 +283,10 @@ export interface DealDetails {
   paymentTotal: string;
   /** Payment step: "Escrow Timeline" milestones, in order. */
   escrowTimeline: EscrowTimelineItem[];
+  /** Handing Over step: checklist groups (2×2 grid). */
+  handoverChecklist: HandoverGroup[];
   /** Body of the "What's Next?" card — one entry per step, in step order;
-   *  steps without an entry show no card. */
+   *  steps without copy use an empty string (no card). */
   whatsNext: string[];
 }
 

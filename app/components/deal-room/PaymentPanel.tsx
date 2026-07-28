@@ -65,7 +65,7 @@ export function PaymentPanel({
           Payment in Escrow
         </h3>
         <div className="mt-4 rounded-md bg-surface-alt p-5 shadow-[0_1px_4px_rgba(85,69,150,0.05)] sm:p-6">
-          <h4 className="text-base font-semibold text-brand">
+          <h4 className="text-sm sm:text-base font-semibold text-brand">
             Your Funds are secure
           </h4>
           <ul className="mt-6 space-y-4">
@@ -82,7 +82,9 @@ export function PaymentPanel({
           <ul>{breakdown.map(renderBreakdownRow)}</ul>
           <div className="py-4 text-right">
             <p className="text-sm text-muted-500">Total amount due</p>
-            <p className="mt-1 text-3xl font-bold text-muted-500">{total}</p>
+            <p className="mt-1 text-2xl sm:text-3xl font-bold text-muted-500">
+              {total}
+            </p>
           </div>
         </div>
       </article>

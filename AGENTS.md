@@ -58,8 +58,8 @@ app/
                           # deal-detail (dynamic /deal-room/:dealId — deal
                           # summary, Listed By card, Deal Progress stepper
                           # with the ID Verification + Renters Contract +
-                          # Payment panels, Escrow Timeline + What's Next
-                          # cards)
+                          # Payment + Handing Over panels, Escrow Timeline
+                          # (payment step only) + What's Next cards)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select,
                           # DateField (calendar-popover date input on
@@ -82,7 +82,9 @@ app/
                           # sections: DealSummaryCard, ListedByCard,
                           # WhatsNextCard, DealProgressSection (progress
                           # stepper — steps up to the current one stay
-                          # underlined and re-viewable, later steps disabled),
+                          # underlined in full brand and re-viewable, later
+                          # steps disabled; the viewed step's label goes bold
+                          # brand-navy as its identifier),
                           # IdVerificationPanel + RentersContractPanel (step
                           # panels) and RequirementRows (the shared document
                           # rows — brand-navy/54 text; RequirementRow is the
@@ -101,9 +103,13 @@ app/
                           # (escrow assurance checklist — ESCROW_ASSURANCES —
                           # + Payment Summary breakdown + Make Payment card
                           # with placeholder method boxes; exports the shared
-                          # CheckCircleBadge) and the EscrowTimelineCard
-                          # sidebar card (milestone rows, brand/gray check
-                          # badges) — data/deals.ts
+                          # CheckCircleBadge), HandoverPanel (2×2 checkbox
+                          # checklist — ticking is local state via a single
+                          # data-item handler, the confirm action unlocks when
+                          # every item is ticked, confirm itself a visual
+                          # mock) and the EscrowTimelineCard sidebar card
+                          # (milestone rows, brand/gray check badges) —
+                          # data/deals.ts
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
                           # sending pops the ui/Toast steps variant with the

@@ -82,7 +82,9 @@ export default function DealDetail({ loaderData }: Route.ComponentProps) {
             landlord={details.landlord}
             messageHref={`/properties/${details.propertyId}/contact`}
           />
-          {details.escrowTimeline.length > 0 && (
+          {/* The Escrow Timeline belongs to the payment step — the handover
+              and closing designs drop it from the sidebar. */}
+          {details.currentStep === 3 && details.escrowTimeline.length > 0 && (
             <EscrowTimelineCard items={details.escrowTimeline} />
           )}
           {whatsNext && <WhatsNextCard text={whatsNext} />}

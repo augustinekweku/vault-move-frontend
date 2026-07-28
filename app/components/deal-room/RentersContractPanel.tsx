@@ -37,7 +37,9 @@ export function RentersContractPanel({
         through the document carefully and, if you have any questions or
         concerns, contact the landlord before signing.
       </p>
-      <ul className="mt-4 space-y-4">{documents.map(renderDocumentRow)}</ul>
+      <ul className="mt-7 sm:mt-6 space-y-4">
+        {documents.map(renderDocumentRow)}
+      </ul>
 
       <h4 className="mt-8 text-sm font-bold text-ink">Signed Contracts</h4>
       <p className="mt-1 text-sm text-muted-500">

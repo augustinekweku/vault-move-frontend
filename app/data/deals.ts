@@ -12,8 +12,8 @@ export const DEAL_TABS: { value: DealTab; label: string }[] = [
 ];
 
 /** Deterministic mock deals — the same "Willow Apartment" placeholder deal
- *  twice, both on the payment step (verification and contract done, "Make
- *  Payment" next), so SSR and client markup match. */
+ *  twice, both on the handing-over step (payment done, "Confirm Handover"
+ *  next), so SSR and client markup match. */
 export const MOCK_DEALS: Deal[] = [
   {
     id: "deal-1",
@@ -24,9 +24,9 @@ export const MOCK_DEALS: Deal[] = [
     image: IMAGES.listingB,
     date: "4th July 2026",
     status: "pending",
-    stepsCompleted: 2,
+    stepsCompleted: 3,
     stepsTotal: 5,
-    nextStepLabel: "Make Payment",
+    nextStepLabel: "Confirm Handover",
   },
   {
     id: "deal-2",
@@ -37,9 +37,9 @@ export const MOCK_DEALS: Deal[] = [
     image: IMAGES.listingB,
     date: "4th July 2026",
     status: "pending",
-    stepsCompleted: 2,
+    stepsCompleted: 3,
     stepsTotal: 5,
-    nextStepLabel: "Make Payment",
+    nextStepLabel: "Confirm Handover",
   },
 ];
 
@@ -83,7 +83,7 @@ export const MOCK_DEAL_DETAILS: DealDetails = {
     role: "Verified Landlord",
   },
   steps: DEAL_STEPS,
-  currentStep: 3,
+  currentStep: 4,
   renterRequirements: [
     {
       id: "utility-bill",
@@ -124,8 +124,43 @@ export const MOCK_DEAL_DETAILS: DealDetails = {
     { label: "Release Confirmation", done: false },
     { label: "Funds Released", done: false },
   ],
+  handoverChecklist: [
+    {
+      title: "Property Inspection",
+      items: [
+        "Property inspected",
+        "Rooms match the agreed condition",
+        "Fixtures and fittings checked",
+        "Appliances tested",
+        "Existing damages recorded (if any)",
+      ],
+    },
+    {
+      title: "Utilities & Services",
+      items: [
+        "Electricity meter reading recorded",
+        "Water meter reading recorded",
+        "Utility accounts explained/transferred",
+        "Appliances tested",
+      ],
+    },
+    {
+      title: "Documents Received",
+      items: ["Signed tenancy agreement", "House rules received"],
+    },
+    {
+      title: "Final Confirmation",
+      items: [
+        "Tenant confirms property received",
+        "Landlord confirms successful handover",
+        "Escrow ready for release",
+      ],
+    },
+  ],
   whatsNext: [
     "Your offer was accepted! verify all the necessary documents and review those sent by the agents",
     "Once you've reviewed and signed the tenancy agreement, the landlord will be notified automatically. You'll then move to the Payment & Escrow stage, where your deposit will be securely held until the property handover is complete.",
+    "",
+    "Make sure everything is completed on the handing over checklist and confirm it is completed.",
   ],
 };
