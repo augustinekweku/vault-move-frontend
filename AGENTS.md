@@ -58,8 +58,8 @@ app/
                           # deal-detail (dynamic /deal-room/:dealId — deal
                           # summary, Listed By card, Deal Progress stepper
                           # with the ID Verification + Renters Contract +
-                          # Payment + Handing Over panels, Escrow Timeline
-                          # (payment step only) + What's Next cards)
+                          # Payment + Handing Over + Closing panels, Escrow
+                          # Timeline (payment step only) + What's Next cards)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select,
                           # DateField (calendar-popover date input on
@@ -105,11 +105,15 @@ app/
                           # with placeholder method boxes; exports the shared
                           # CheckCircleBadge), HandoverPanel (2×2 checkbox
                           # checklist — ticking is local state via a single
-                          # data-item handler, the confirm action unlocks when
-                          # every item is ticked, confirm itself a visual
-                          # mock) and the EscrowTimelineCard sidebar card
-                          # (milestone rows, brand/gray check badges) —
-                          # data/deals.ts
+                          # data-item handler, ticks are accent green; the
+                          # confirm action unlocks when every item is ticked
+                          # and pops the "Handover Confirmed" ui/Modal whose
+                          # Done advances the view to Closing), ClosingPanel
+                          # (centred success state — check-circle-navy icon,
+                          # HANDOVER_CONFIRMATION copy, Rate this experience +
+                          # Download Certificate mocks) and the
+                          # EscrowTimelineCard sidebar card (milestone rows,
+                          # brand/gray check badges) — data/deals.ts
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
                           # sending pops the ui/Toast steps variant with the

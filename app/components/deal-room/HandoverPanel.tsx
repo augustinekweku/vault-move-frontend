@@ -1,21 +1,32 @@
 import { useState } from "react";
 import type { HandoverGroup } from "~/types";
 import { cn } from "~/lib/utils";
-import { CheckIcon } from "~/components/ui/icons";
+import { HANDOVER_CONFIRMATION } from "~/data/deals";
+import { Modal } from "~/components/ui/Modal";
+import { CheckIcon, CloseIcon } from "~/components/ui/icons";
 
 interface HandoverPanelProps {
   /** Checklist groups (2×2 grid). */
   groups: HandoverGroup[];
+  /** Called when the confirmation modal's "Done" is clicked — advances the
+   *  view to the Closing step. */
+  onConfirmed?: () => void;
   className?: string;
 }
 
 /** The "Handing Over" step panel of the deal detail page: the handover
  *  checklist — ticking items is local state until the flow is wired — and
  *  the "Confirm Property Handover" section, whose action unlocks once every
- *  item is ticked (the confirm itself is a visual mock). */
-export function HandoverPanel({ groups, className }: HandoverPanelProps) {
+ *  item is ticked. Confirming pops the "Handover Confirmed" modal; its Done
+ *  action closes it and hands off to `onConfirmed`. */
+export function HandoverPanel({
+  groups,
+  onConfirmed,
+  className,
+}: HandoverPanelProps) {
   /* Tick state per item, keyed "group:label" — labels repeat across groups. */
   const [ticked, setTicked] = useState<Record<string, boolean>>({});
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
   const tickedCount = Object.values(ticked).filter(Boolean).length;
@@ -25,6 +36,19 @@ export function HandoverPanel({ groups, className }: HandoverPanelProps) {
     const { item } = event.currentTarget.dataset;
     if (!item) return;
     setTicked((current) => ({ ...current, [item]: !current[item] }));
+  }
+
+  function handleConfirmClick() {
+    setConfirmOpen(true);
+  }
+
+  function handleModalClose() {
+    setConfirmOpen(false);
+  }
+
+  function handleDoneClick() {
+    setConfirmOpen(false);
+    onConfirmed?.();
   }
 
   function renderItem(group: HandoverGroup) {
@@ -44,7 +68,7 @@ export function HandoverPanel({ groups, className }: HandoverPanelProps) {
             <span
               className={cn(
                 "flex size-4 shrink-0 items-center justify-center rounded-full border",
-                on ? "border-brand bg-brand" : "border-line bg-white",
+                on ? "border-accent bg-accent" : "border-line bg-white",
               )}
             >
               {on && <CheckIcon aria-hidden className="size-3 text-white" />}
@@ -90,11 +114,54 @@ export function HandoverPanel({ groups, className }: HandoverPanelProps) {
         <button
           type="button"
           disabled={!allTicked}
+          onClick={handleConfirmClick}
           className="w-full shrink-0 rounded-lg bg-brand px-6 py-2.5 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90 disabled:bg-brand/40 sm:w-64"
         >
           Confirm Property Handover
         </button>
       </div>
+
+      <Modal
+        open={confirmOpen}
+        onClose={handleModalClose}
+        labelledBy="handover-confirmed-title"
+        className="max-w-125 rounded-2xl"
+      >
+        <button
+          type="button"
+          onClick={handleModalClose}
+          aria-label="Close"
+          className="absolute top-4 right-4 text-ink hover:text-brand"
+        >
+          <CloseIcon className="size-4" />
+        </button>
+
+        <div className="flex flex-col items-center px-8 pt-10 pb-8 text-center">
+          <span className="flex size-25 items-center justify-center rounded-full bg-[#edf1fa]">
+            <img
+              src="/icons/check-circle-navy.svg"
+              alt=""
+              className="size-12"
+            />
+          </span>
+          <h2
+            id="handover-confirmed-title"
+            className="mt-6 text-2xl font-extrabold text-black"
+          >
+            {HANDOVER_CONFIRMATION.title}
+          </h2>
+          <p className="mt-3 text-base leading-7 text-muted-500">
+            {HANDOVER_CONFIRMATION.body}
+          </p>
+          <button
+            type="button"
+            onClick={handleDoneClick}
+            className="mt-8 flex h-12 w-full items-center justify-center rounded-lg bg-brand text-[15.5px] leading-6 font-medium text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90"
+          >
+            Done
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

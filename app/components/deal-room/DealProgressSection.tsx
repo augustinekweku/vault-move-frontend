@@ -5,6 +5,7 @@ import { IdVerificationPanel } from "~/components/deal-room/IdVerificationPanel"
 import { RentersContractPanel } from "~/components/deal-room/RentersContractPanel";
 import { PaymentPanel } from "~/components/deal-room/PaymentPanel";
 import { HandoverPanel } from "~/components/deal-room/HandoverPanel";
+import { ClosingPanel } from "~/components/deal-room/ClosingPanel";
 
 interface DealProgressSectionProps {
   details: DealDetails;
@@ -16,7 +17,7 @@ interface DealProgressSectionProps {
  *  step panel. The tab bar is a progress stepper — every step up to the
  *  current one stays underlined in full brand and can be re-viewed (the
  *  viewed step's label goes bold brand-navy as its identifier); later
- *  steps are disabled. Only the first four steps have panels so far. */
+ *  steps are disabled. */
 export function DealProgressSection({
   details,
   className,
@@ -27,6 +28,11 @@ export function DealProgressSection({
   function handleStepClick(event: React.MouseEvent<HTMLButtonElement>) {
     const { step } = event.currentTarget.dataset;
     if (step !== undefined) setViewedStep(Number(step));
+  }
+
+  /* The handover confirmation modal's Done advances the view to Closing. */
+  function handleHandoverConfirmed() {
+    setViewedStep(4);
   }
 
   function renderStepTab(step: string, index: number) {
@@ -42,7 +48,7 @@ export function DealProgressSection({
         aria-selected={viewing}
         className={cn(
           "-mb-px border-b-4 px-4 pb-3 text-sm whitespace-nowrap transition-colors first:pl-0",
-          viewing ? "font-bold text-brand-navy" : "font-semibold",
+          viewing ? "text-primary font-bold" : "font-semibold",
           reached
             ? "border-brand text-brand"
             : "border-transparent text-ink/50",
@@ -87,7 +93,13 @@ export function DealProgressSection({
           className="mt-6"
         />
       ) : viewedStep === 3 ? (
-        <HandoverPanel groups={details.handoverChecklist} className="mt-6" />
+        <HandoverPanel
+          groups={details.handoverChecklist}
+          onConfirmed={handleHandoverConfirmed}
+          className="mt-6"
+        />
+      ) : viewedStep === 4 ? (
+        <ClosingPanel className="mt-6" />
       ) : (
         <p className="mt-6 text-sm text-ink/60">
           This step hasn&apos;t started yet.

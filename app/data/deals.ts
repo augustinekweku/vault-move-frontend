@@ -12,7 +12,7 @@ export const DEAL_TABS: { value: DealTab; label: string }[] = [
 ];
 
 /** Deterministic mock deals — the same "Willow Apartment" placeholder deal
- *  twice, both on the handing-over step (payment done, "Confirm Handover"
+ *  twice, both on the closing step (handover done, "Rate Experience"
  *  next), so SSR and client markup match. */
 export const MOCK_DEALS: Deal[] = [
   {
@@ -24,9 +24,9 @@ export const MOCK_DEALS: Deal[] = [
     image: IMAGES.listingB,
     date: "4th July 2026",
     status: "pending",
-    stepsCompleted: 3,
+    stepsCompleted: 4,
     stepsTotal: 5,
-    nextStepLabel: "Confirm Handover",
+    nextStepLabel: "Rate Experience",
   },
   {
     id: "deal-2",
@@ -37,9 +37,9 @@ export const MOCK_DEALS: Deal[] = [
     image: IMAGES.listingB,
     date: "4th July 2026",
     status: "pending",
-    stepsCompleted: 3,
+    stepsCompleted: 4,
     stepsTotal: 5,
-    nextStepLabel: "Confirm Handover",
+    nextStepLabel: "Rate Experience",
   },
 ];
 
@@ -70,6 +70,13 @@ export const ESCROW_ASSURANCES = [
   "If an issue arises before hand over, the funds remain protected while it is resolved.",
 ];
 
+/** "Handover Confirmed" copy — shared by the confirmation modal (Handing
+ *  Over step) and the Closing step panel. */
+export const HANDOVER_CONFIRMATION = {
+  title: "Handover Confirmed",
+  body: "Your handover has been successfully confirmed. If all required confirmations have been received, the escrow process will now continue to the final settlement stage.",
+};
+
 /** Shared detail-page content for every mock deal (they are all the same
  *  "Willow Apartment" placeholder). Keyed per deal once the API is live. */
 export const MOCK_DEAL_DETAILS: DealDetails = {
@@ -83,7 +90,7 @@ export const MOCK_DEAL_DETAILS: DealDetails = {
     role: "Verified Landlord",
   },
   steps: DEAL_STEPS,
-  currentStep: 4,
+  currentStep: 5,
   renterRequirements: [
     {
       id: "utility-bill",
@@ -162,5 +169,6 @@ export const MOCK_DEAL_DETAILS: DealDetails = {
     "Once you've reviewed and signed the tenancy agreement, the landlord will be notified automatically. You'll then move to the Payment & Escrow stage, where your deposit will be securely held until the property handover is complete.",
     "",
     "Make sure everything is completed on the handing over checklist and confirm it is completed.",
+    "",
   ],
 };
