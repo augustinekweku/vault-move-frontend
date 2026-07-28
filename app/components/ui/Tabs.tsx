@@ -22,7 +22,7 @@ export function Tabs({ tabs, value, onChange, className }: TabsProps) {
               "rounded-t-xl border border-b-0 px-6 py-2.5 text-sm font-bold transition-colors",
               active
                 ? "border-line bg-white text-accent"
-                : "border-transparent bg-transparent text-[#344054]",
+                : "border-transparent bg-transparent text-muted-700",
             )}
           >
             {tab.label}

@@ -20,3 +20,13 @@ export function cn(...inputs: ClassValue[]): string {
 
   return out.join(" ");
 }
+
+/**
+ * Smooth-scroll the window back to the top — used when swapping panels of
+ * very different heights so the shorter one isn't left scrolled out of
+ * view. Browser-only: callers must stay on the client side of the SSR
+ * boundary.
+ */
+export function scrollToTop(): void {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}

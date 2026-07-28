@@ -53,7 +53,9 @@ app/
                           # dashboard (signed-in buyer/renter landing,
                           # under DashboardLayout)
   components/
-    ui/                   # primitives: Button, IconButton, Input, Select, Tabs,
+    ui/                   # primitives: Button, IconButton, Input, Select,
+                          # DateField (calendar-popover date input on
+                          # lib/date.ts helpers), Tabs,
                           # Accordion, Badge, Container, SectionHeading, Toast,
                           # Modal, icons.tsx
     common/               # shared across pages: PageHero, ContactForm,
@@ -83,7 +85,8 @@ app/
                           # sidebar — data/messages.ts OFFER_FILTERS — with a
                           # ghost-icon empty state until an offer is submitted,
                           # then the PropertyOfferCard under the All/Pending
-                          # filters; "Cancel offer" returns to the empty
+                          # filters (All/Accepted once accepted); "Cancel
+                          # offer" returns to the empty
                           # state), OfferCard (submitted-offer card: offer tag
                           # icon + amount, status bar, action buttons — the
                           # status is pending ("being reviewed by the
@@ -91,8 +94,16 @@ app/
                           # made a counter offer." + "View Counter Offer"
                           # button — opens the CounterOfferPanel) a few
                           # seconds after submission, mocking the landlord's
-                          # reply; status icons are
-                          # public/icons/offer-icon.svg + material-symbols.svg),
+                          # reply; a submitted counter offer flips to accepted
+                          # ("Your counter offer has been accepted!" on a
+                          # success-tinted bar + "Go to the Deal room" link to
+                          # /dashboard, no cancel action) and pops the accepted
+                          # OfferOutcomeModal; a lowball offer (under
+                          # two-thirds of asking) is instead declined outright
+                          # (offer withdrawn + declined OfferOutcomeModal);
+                          # status icons are
+                          # public/icons/offer-icon.svg + material-symbols.svg
+                          # (+ check-circle.svg for accepted)),
                           # PropertyOfferCard
                           # (property card — EnquiryPropertyCard with hidePrice —
                           # + offer card in the grey bubble),
@@ -105,14 +116,19 @@ app/
                           # a card (amount / move-in / stay-duration icon
                           # rows — public/icons/offer-icon.svg + home.svg +
                           # watch.svg — + notes strip) with Decline offer (withdraws
-                          # the offer), Accept offer (closes the sheet and
+                          # the offer and pops the counter-declined
+                          # OfferOutcomeModal), Accept offer (closes the sheet and
                           # pops the ui/Toast steps variant —
                           # ACCEPT_OFFER_PROGRESS_STEPS) and "Make a counter
-                          # offer" (reopens the offer form)),
+                          # offer" (reopens the offer form in its counter
+                          # variant)),
                           # MakeOfferForm (Offers-tab offer form:
                           # property card + rent/move-in/stay/notes fields —
-                          # move-in uses an in-page calendar popover DateField,
-                          # not the native date input; mock
+                          # move-in uses the ui/DateField calendar popover,
+                          # not the native date input; the variant prop
+                          # ("offer" | "counter") swaps the heading/submit
+                          # copy for the "Make a Counter offer" reply to the
+                          # landlord's counter; mock
                           # submit flips the button to Loading and pops the
                           # offer-submitted ui/Toast steps variant —
                           # data/messages.ts OFFER_PROGRESS_STEPS; when the
@@ -120,7 +136,15 @@ app/
                           # to the route so the panel lists the offer; "< Back"
                           # returns to the panel),
                           # MakeOfferModal ("Make an Offer" prompt — pops on page
-                          # load; "Make an offer now" opens the offer form)
+                          # load; "Make an offer now" opens the offer form),
+                          # OfferOutcomeModal (centred end-of-negotiation
+                          # dialog on ui/Modal, one component with an
+                          # OfferOutcome variant — accepted: navy check-circle
+                          # in a blue-tinted circle + "Go to the Deal room"
+                          # link to /dashboard; declined / counter-declined:
+                          # red x-circle in a red-tinted circle + "View more
+                          # properties" link to the search page; icons are
+                          # public/icons/check-circle-navy.svg + x-circle.svg)
     property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
                           # FiltersModal (opened from SearchResults; block content
                           # from data/listings.ts FILTER_COLUMNS), MapView (leaflet
@@ -136,7 +160,10 @@ app/
   types/index.ts          # ALL shared interfaces/types live here
   services/               # api.ts (axios instance + `http` helper),
                           # listings.service.ts, landlords.service.ts
-  lib/utils.ts            # cn() classname joiner
+  lib/utils.ts            # cn() classname joiner + scrollToTop()
+  lib/date.ts             # calendar helpers (MONTHS/WEEKDAYS, ordinal,
+                          # toIsoDate, formatIsoDate, isSameDay,
+                          # buildMonthCells)
   app.css                 # Tailwind v4 theme tokens + base styles
 public/
   icons/  images/         # static assets referenced as /icons/..., /images/...

@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { OfferStatus } from "~/types";
 import { cn } from "~/lib/utils";
 
@@ -9,7 +10,9 @@ interface OfferCardProps {
   /** "month" appends a "/ month" unit to the amount. */
   unit?: "month" | "total";
   /** pending = awaiting the landlord's review; countered = the landlord
-   *  sent a counter offer (adds the "View Counter Offer" action). */
+   *  sent a counter offer (adds the "View Counter Offer" action);
+   *  accepted = the landlord accepted the renter's counter offer (success
+   *  bar + "Go to the Deal room", no withdraw action). */
   status?: OfferStatus;
   /** "View Counter Offer" (countered status) — opens the Counter Offer
    *  sheet. */
@@ -22,8 +25,9 @@ interface OfferCardProps {
 /** The submitted-offer card in the Offers tab: the offered amount beside the
  *  offer tag icon in a tinted circle, a status bar ("being reviewed by the
  *  Landlord" while pending, "The landlord made a counter offer." once
- *  countered) and the action buttons — "View Counter Offer" (countered
- *  only) above "Cancel offer". */
+ *  countered, "Your counter offer has been accepted!" once accepted) and
+ *  the action buttons — "View Counter Offer" (countered only) above
+ *  "Cancel offer", or a "Go to the Deal room" link when accepted. */
 export function OfferCard({
   amount,
   currency,
@@ -33,6 +37,7 @@ export function OfferCard({
   onCancel,
   className,
 }: OfferCardProps) {
+  const accepted = status === "accepted";
   return (
     <article
       className={cn(
@@ -58,35 +63,61 @@ export function OfferCard({
         </div>
       </div>
 
-      <p className="mt-4 flex items-center gap-2 rounded-lg border border-line bg-surface-alt px-3 py-2.5 text-sm leading-6 text-muted-700">
+      <p
+        className={cn(
+          "mt-4 flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm leading-6 text-muted-700",
+          accepted
+            ? "border-success/25 bg-success-soft"
+            : "border-line bg-surface-alt",
+        )}
+      >
         <img
-          src="/icons/material-symbols.svg"
+          src={
+            accepted
+              ? "/icons/check-circle.svg"
+              : "/icons/material-symbols.svg"
+          }
           alt=""
           className="size-6 shrink-0"
         />
         <span className="sm:whitespace-nowrap">
-          {status === "countered"
-            ? "The landlord made a counter offer."
-            : "Your offer is being reviewed by the Landlord."}
+          {accepted
+            ? "Your counter offer has been accepted!"
+            : status === "countered"
+              ? "The landlord made a counter offer."
+              : "Your offer is being reviewed by the Landlord."}
         </span>
       </p>
 
-      {status === "countered" && (
-        <button
-          type="button"
-          onClick={onViewCounterOffer}
-          className="mt-4 w-full rounded-lg bg-brand py-3 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90"
+      {accepted ? (
+        /* The deal room lives in the signed-in area — the dashboard is its
+           home until a dedicated page exists. */
+        <Link
+          to="/dashboard"
+          className="mt-4 block w-full rounded-lg border border-line bg-white py-2.5 text-center text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
         >
-          View Counter Offer
-        </button>
+          Go to the Deal room
+        </Link>
+      ) : (
+        <>
+          {status === "countered" && (
+            <button
+              type="button"
+              onClick={onViewCounterOffer}
+              className="mt-4 w-full rounded-lg bg-brand py-3 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90"
+            >
+              View Counter Offer
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={onCancel}
+            className="mt-4 w-full rounded-lg border border-line bg-white py-2.5 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
+          >
+            Cancel offer
+          </button>
+        </>
       )}
-      <button
-        type="button"
-        onClick={onCancel}
-        className="mt-4 w-full rounded-lg border border-line bg-white py-2.5 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
-      >
-        Cancel offer
-      </button>
     </article>
   );
 }

@@ -26,8 +26,9 @@ interface OffersPanelProps {
  *  filter) and the offer list. Until an offer is made the list is a ghost
  *  empty state (offers are started from the Property Viewing tab's
  *  completed viewings); once submitted, the offer card shows instead (the
- *  mock offer stays pending/countered, so only the All/Pending filters
- *  list it). On large screens the empty state shares one grid cell with
+ *  mock offer moves pending → countered → accepted, listed under the
+ *  All/Pending filters until acceptance moves it to All/Accepted). On
+ *  large screens the empty state shares one grid cell with
  *  the sidebar, so the sidebar hugs the left edge while the empty state
  *  stays centred across the full panel width; the offer card switches to
  *  a sidebar + list row. */
@@ -45,7 +46,12 @@ export function OffersPanel({
 
   const q = query.trim().toLowerCase();
   const matchesQuery = !q || property.title.toLowerCase().includes(q);
-  const matchesFilter = filter === "all" || filter === "pending";
+  // The mock offer only ever sits in one bucket: pending/countered counts
+  // as pending; once accepted it leaves Pending and appears under Accepted.
+  const matchesFilter =
+    filter === "all" ||
+    (filter === "accepted" && offerStatus === "accepted") ||
+    (filter === "pending" && offerStatus !== "accepted");
   const showOffer = offerAmount !== null && matchesFilter;
 
   return (

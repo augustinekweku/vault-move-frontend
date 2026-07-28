@@ -140,9 +140,14 @@ export type OfferFilter =
   | "drafts";
 
 /** Lifecycle status of a submitted offer — drives the status bar and action
- *  row of the OfferCard (awaiting the landlord's review, or the landlord
- *  sent a counter offer). */
-export type OfferStatus = "pending" | "countered";
+ *  row of the OfferCard (awaiting the landlord's review, the landlord sent a
+ *  counter offer, or the landlord accepted the renter's counter offer). */
+export type OfferStatus = "pending" | "countered" | "accepted";
+
+/** Terminal outcome of an offer negotiation — drives the OfferOutcomeModal
+ *  (the landlord accepted the renter's offer, the landlord declined it, or
+ *  the renter declined the landlord's counter offer). */
+export type OfferOutcome = "accepted" | "declined" | "counter-declined";
 
 /** The landlord's counter offer under review in the Counter Offer panel
  *  (Offers tab of the property-contact page) — the countered terms. */
