@@ -66,7 +66,7 @@ export function DashboardNavbar() {
               <span className="text-base font-medium text-ink">Jane Doe</span>
               <ChevronDownIcon className="size-5 text-ink" />
             </button>
-            <span className="size-10 rounded-full bg-brand" aria-hidden />
+            <span className="size-8 rounded-full bg-brand sm:size-10" aria-hidden />
           </div>
         </div>
       </div>

@@ -16,29 +16,33 @@ function renderRequirement(requirement: DealRequirement) {
   return (
     <li
       key={requirement.id}
-      className="flex items-center gap-3 rounded-xl border border-line-soft p-3"
+      className="flex flex-col gap-3 rounded-xl border border-line-soft p-3 sm:flex-row sm:items-center"
     >
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-surface-alt">
-        <IdIcon aria-hidden className="size-5 text-brand" />
-      </span>
-      <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-ink">{requirement.title}</p>
-        {requirement.description && (
-          <p className="mt-0.5 text-xs text-muted-500">
-            {requirement.description}
+      <div className="flex min-w-0 flex-1 items-center gap-3">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-surface-alt">
+          <IdIcon aria-hidden className="size-5 text-brand" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-semibold text-ink">
+            {requirement.title}
           </p>
-        )}
+          {requirement.description && (
+            <p className="mt-0.5 text-xs text-muted-500">
+              {requirement.description}
+            </p>
+          )}
+        </div>
       </div>
       {requirement.state === "upload" ? (
         <button
           type="button"
-          className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-line px-4 py-2 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
         >
           <UploadIcon aria-hidden className="size-4" />
           Upload
         </button>
       ) : (
-        <span className="shrink-0 rounded-lg border border-line px-4 py-2 text-sm text-muted-400">
+        <span className="shrink-0 rounded-lg border border-line px-4 py-2 text-center text-sm text-muted-400">
           Pending
         </span>
       )}
