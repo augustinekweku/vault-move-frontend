@@ -31,5 +31,6 @@ export default [
   // Signed-in buyer/renter area with its own navbar.
   layout("components/dashboard/DashboardLayout.tsx", [
     route("dashboard", "routes/dashboard.tsx"),
+    route("deal-room", "routes/deal-room.tsx"),
   ]),
 ] satisfies RouteConfig;

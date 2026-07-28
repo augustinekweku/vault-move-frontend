@@ -177,6 +177,35 @@ export interface Conversation {
   online: boolean;
 }
 
+/** Lifecycle status of a deal — drives which deal-room tab lists it. */
+export type DealStatus = "pending" | "rejected" | "closed";
+
+/** Tabs on the deal-room page — "all" and "reports" are views, the rest
+ *  match a DealStatus. */
+export type DealTab = "all" | "reports" | DealStatus;
+
+/** One card on the deal-room page: the property the deal is for, plus the
+ *  buyer/renter's verification progress and next action. */
+export interface Deal {
+  id: string;
+  /** Reference in the "Deal ID" row, e.g. "23500-AB". */
+  reference: string;
+  propertyTitle: string;
+  /** Listing badge, e.g. "Apartment for Rent". */
+  propertyTag: string;
+  /** e.g. "Achimota, Accra". */
+  location: string;
+  image: string;
+  /** e.g. "4th July 2026". */
+  date: string;
+  status: DealStatus;
+  /** Verification progress — the "0/5 Steps completed" line. */
+  stepsCompleted: number;
+  stepsTotal: number;
+  /** Next verification action button, e.g. "Upload ID". */
+  nextStepLabel: string;
+}
+
 export interface SearchListingsParams {
   category?: ListingCategory;
   propertyType?: string;

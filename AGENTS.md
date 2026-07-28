@@ -35,7 +35,8 @@ are the verification gates.
 ```
 app/
   routes.ts               # manual route config (marketing pages under SiteLayout;
-                          # auth pages (signup, login) are top-level, no navbar/footer)
+                          # auth pages (signup, login) are top-level, no navbar/footer;
+                          # dashboard + deal-room under DashboardLayout)
   routes/                 # one file per page: home, buy, rent, map-view (search
                           # results on a map, ?category=buy|rent), about, contact,
                           # portals, faq, resources, resource-detail (dynamic
@@ -51,7 +52,9 @@ app/
                           # login, setup-profile (preference wizard —
                           # auth/ProfileSetupFlow),
                           # dashboard (signed-in buyer/renter landing,
-                          # under DashboardLayout)
+                          # under DashboardLayout), deal-room (signed-in deal
+                          # list — status tabs + deal cards with the
+                          # verification panel, under DashboardLayout)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select,
                           # DateField (calendar-popover date input on
@@ -67,6 +70,9 @@ app/
                           # dashboard/ the signed-in navbar, hero + layout)
     landlord/             # landlord profile page: LandlordHeader (avatar, name,
                           # rating, Message Landlord), LandlordStats (4-figure card)
+    deal-room/            # deal-room page: DealsSection (status tab bar +
+                          # filtered list), DealCard (property summary beside
+                          # the "Complete your Verification" panel — data/deals.ts)
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
                           # sending pops the ui/Toast steps variant with the
@@ -97,7 +103,7 @@ app/
                           # reply; a submitted counter offer flips to accepted
                           # ("Your counter offer has been accepted!" on a
                           # success-tinted bar + "Go to the Deal room" link to
-                          # /dashboard, no cancel action) and pops the accepted
+                          # /deal-room, no cancel action) and pops the accepted
                           # OfferOutcomeModal; a lowball offer (under
                           # two-thirds of asking) is instead declined outright
                           # (offer withdrawn + declined OfferOutcomeModal);
@@ -141,7 +147,7 @@ app/
                           # dialog on ui/Modal, one component with an
                           # OfferOutcome variant — accepted: navy check-circle
                           # in a blue-tinted circle + "Go to the Deal room"
-                          # link to /dashboard; declined / counter-declined:
+                          # link to /deal-room; declined / counter-declined:
                           # red x-circle in a red-tinted circle + "View more
                           # properties" link to the search page; icons are
                           # public/icons/check-circle-navy.svg + x-circle.svg)
@@ -153,7 +159,8 @@ app/
                           # PropertyOverview (facts bar + Details/Reviews tabs),
                           # PropertyReviews (Reviews tab: ratings summary + cards)
   data/                   # static/mock content: listings, landlords, messages,
-                          # navigation, portals,
+                          # navigation, portals, deals (deal-room tabs +
+                          # getDealsForTab filter),
                           # about, contact, faq, resources, terms, escrow-terms,
                           # home (landing steps + stats), auth (profile-setup
                           # wizard content, password rules)
@@ -180,6 +187,13 @@ public/
 - **Components**: page-specific sections go in `app/components/<page>/`; reusable
   cross-page pieces in `common/`; generic primitives in `ui/`. Route files should be
   thin composition + `meta()` only.
+- **No inline functions in JSX**: never pass anonymous arrow functions as props
+  (`onClick={() => ...}`) or as `.map()` render callbacks in JSX. Declare named
+  functions instead — at module level (exported, then imported where they are
+  used) when they don't need component state/props, or as a `function`
+  declaration inside the component when they do. Mapped buttons hand their
+  value to a single named handler via a `data-*` attribute (see
+  `deal-room/DealsSection.tsx`).
 - **Styling**: utility-first Tailwind v4. Use theme tokens, not raw hex:
   `brand` (#1e347a), `brand-dark`, `brand-navy`, `brand-blue` (#0000b0, details-page
   fact icons), `accent` (#04ce9d), `accent-soft`,

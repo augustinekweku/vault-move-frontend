@@ -90,10 +90,8 @@ export function OfferCard({
       </p>
 
       {accepted ? (
-        /* The deal room lives in the signed-in area — the dashboard is its
-           home until a dedicated page exists. */
         <Link
-          to="/dashboard"
+          to="/deal-room"
           className="mt-4 block w-full rounded-lg border border-line bg-white py-2.5 text-center text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
         >
           Go to the Deal room

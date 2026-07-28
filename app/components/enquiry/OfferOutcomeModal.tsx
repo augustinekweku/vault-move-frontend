@@ -52,9 +52,7 @@ export function OfferOutcomeModal({
 }: OfferOutcomeModalProps) {
   if (outcome === null) return null;
   const content = OUTCOME_CONTENT[outcome];
-  /* The deal room lives in the signed-in area — the dashboard is its home
-     until a dedicated page exists. */
-  const ctaHref = outcome === "accepted" ? "/dashboard" : searchHref;
+  const ctaHref = outcome === "accepted" ? "/deal-room" : searchHref;
 
   return (
     <Modal
