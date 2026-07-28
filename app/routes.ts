@@ -32,5 +32,6 @@ export default [
   layout("components/dashboard/DashboardLayout.tsx", [
     route("dashboard", "routes/dashboard.tsx"),
     route("deal-room", "routes/deal-room.tsx"),
+    route("deal-room/:dealId", "routes/deal-detail.tsx"),
   ]),
 ] satisfies RouteConfig;

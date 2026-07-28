@@ -54,7 +54,10 @@ app/
                           # dashboard (signed-in buyer/renter landing,
                           # under DashboardLayout), deal-room (signed-in deal
                           # list — status tabs + deal cards with the
-                          # verification panel, under DashboardLayout)
+                          # verification panel, under DashboardLayout),
+                          # deal-detail (dynamic /deal-room/:dealId — deal
+                          # summary, Listed By card, Deal Progress step tabs
+                          # with the ID Verification panel, What's Next card)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select,
                           # DateField (calendar-popover date input on
@@ -70,9 +73,13 @@ app/
                           # dashboard/ the signed-in navbar, hero + layout)
     landlord/             # landlord profile page: LandlordHeader (avatar, name,
                           # rating, Message Landlord), LandlordStats (4-figure card)
-    deal-room/            # deal-room page: DealsSection (status tab bar +
+    deal-room/            # deal-room pages: DealsSection (status tab bar +
                           # filtered list), DealCard (property summary beside
-                          # the "Complete your Verification" panel — data/deals.ts)
+                          # the "Complete your Verification" panel — overlay
+                          # link to the detail page) and the detail-page
+                          # sections: DealSummaryCard, ListedByCard,
+                          # WhatsNextCard, DealProgressSection (step tabs),
+                          # IdVerificationPanel (requirement rows) — data/deals.ts
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
                           # sending pops the ui/Toast steps variant with the
@@ -160,13 +167,15 @@ app/
                           # PropertyReviews (Reviews tab: ratings summary + cards)
   data/                   # static/mock content: listings, landlords, messages,
                           # navigation, portals, deals (deal-room tabs +
-                          # getDealsForTab filter),
+                          # getDealsForTab filter, DEAL_STEPS progress steps +
+                          # MOCK_DEAL_DETAILS detail-page content),
                           # about, contact, faq, resources, terms, escrow-terms,
                           # home (landing steps + stats), auth (profile-setup
                           # wizard content, password rules)
   types/index.ts          # ALL shared interfaces/types live here
   services/               # api.ts (axios instance + `http` helper),
-                          # listings.service.ts, landlords.service.ts
+                          # listings.service.ts, landlords.service.ts,
+                          # deals.service.ts
   lib/utils.ts            # cn() classname joiner + scrollToTop()
   lib/date.ts             # calendar helpers (MONTHS/WEEKDAYS, ordinal,
                           # toIsoDate, formatIsoDate, isSameDay,

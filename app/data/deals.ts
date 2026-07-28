@@ -1,4 +1,4 @@
-import type { Deal, DealTab } from "~/types";
+import type { Deal, DealDetails, DealTab } from "~/types";
 import { IMAGES } from "~/data/listings";
 
 /** Tabs across the top of the deal-room page — "all" and "reports" are
@@ -50,3 +50,49 @@ export function getDealsForTab(tab: DealTab): Deal[] {
   if (tab === "all") return MOCK_DEALS;
   return MOCK_DEALS.filter((deal) => deal.status === tab);
 }
+
+/** Deal-progress step labels, in order — the tab bar on the deal detail
+ *  page. */
+export const DEAL_STEPS = [
+  "ID Verification",
+  "Renters Contract",
+  "Payment",
+  "Handing Over",
+  "Closing",
+];
+
+/** Shared detail-page content for every mock deal (they are all the same
+ *  "Willow Apartment" placeholder). Keyed per deal once the API is live. */
+export const MOCK_DEAL_DETAILS: DealDetails = {
+  startedDate: "30th June 2026",
+  propertyId: "listing-1",
+  landlord: {
+    id: "john-doe",
+    name: "James Doe",
+    avatar: IMAGES.avatar,
+    verified: true,
+    role: "Verified Landlord",
+  },
+  steps: DEAL_STEPS,
+  currentStep: 1,
+  renterRequirements: [
+    {
+      id: "utility-bill",
+      title: "Upload utility bill /Proof of current address",
+      description: "Recent utility bill or tenancy proof",
+      state: "upload",
+    },
+    {
+      id: "references",
+      title: "Upload references",
+      description: "Upload a reference letter",
+      state: "upload",
+    },
+  ],
+  landlordRequirements: [
+    { id: "proof-of-ownership", title: "Proof of ownership", state: "pending" },
+    { id: "tenancy-agreement", title: "Tenancy agreement", state: "pending" },
+  ],
+  whatsNext:
+    "Your offer was accepted! verify all the necessary documents and review those sent by the agents",
+};

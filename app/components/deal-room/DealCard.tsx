@@ -1,4 +1,5 @@
 import type { Deal } from "~/types";
+import { Link } from "react-router";
 import { cn } from "~/lib/utils";
 import { Badge } from "~/components/ui/Badge";
 import {
@@ -17,15 +18,21 @@ interface DealCardProps {
  *  title and the location / deal-ID / date icon rows) beside the
  *  verification panel — the steps-completed line, the "Complete your
  *  Verification" prompt and the next-step action button (a visual mock
- *  until the verification flow is wired up). */
+ *  until the verification flow is wired up). The whole card links to the
+ *  deal detail page via an overlay link; the action button sits above it. */
 export function DealCard({ deal, className }: DealCardProps) {
   return (
     <article
       className={cn(
-        "flex flex-col gap-6 rounded-xl border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)] sm:h-45.75 sm:flex-row",
+        "relative flex flex-col gap-6 rounded-xl border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)] sm:h-45.75 sm:flex-row",
         className,
       )}
     >
+      <Link
+        to={`/deal-room/${deal.id}`}
+        aria-label={`View deal for ${deal.propertyTitle}`}
+        className="absolute inset-0 rounded-xl"
+      />
       <img
         src={deal.image}
         alt={deal.propertyTitle}
@@ -67,7 +74,7 @@ export function DealCard({ deal, className }: DealCardProps) {
         </div>
         <button
           type="button"
-          className="mt-2.5 w-full rounded-lg bg-brand py-2.5 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90 sm:mt-auto"
+          className="relative z-10 mt-2.5 w-full rounded-lg bg-brand py-2.5 text-sm text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-brand/90 sm:mt-auto"
         >
           {deal.nextStepLabel}
         </button>

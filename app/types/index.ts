@@ -206,6 +206,41 @@ export interface Deal {
   nextStepLabel: string;
 }
 
+/** One document row in a deal's ID Verification step — "upload" rows ask
+ *  the renter for a document (Upload action), "pending" rows wait on the
+ *  landlord (disabled Pending action). */
+export interface DealRequirement {
+  id: string;
+  /** e.g. "Upload utility bill /Proof of current address". */
+  title: string;
+  /** Helper line under the title, e.g. "Recent utility bill or tenancy
+   *  proof" — omitted on the landlord rows. */
+  description?: string;
+  state: "upload" | "pending";
+}
+
+/** Everything on the deal detail page (/deal-room/:dealId) beyond the
+ *  list-card Deal data. */
+export interface DealDetails {
+  /** e.g. "30th June 2026". */
+  startedDate: string;
+  /** Listing the deal is for — "Message Landlord" links to its enquiry
+   *  chat. */
+  propertyId: string;
+  /** Landlord shown in the "Listed By" card. */
+  landlord: Agent;
+  /** Ordered deal-progress step labels ("ID Verification" … "Closing"). */
+  steps: string[];
+  /** 1-based current step — the "Step 1 of 5" line. */
+  currentStep: number;
+  /** Documents the renter must upload. */
+  renterRequirements: DealRequirement[];
+  /** Documents awaited from the landlord. */
+  landlordRequirements: DealRequirement[];
+  /** Body of the "What's Next?" card. */
+  whatsNext: string;
+}
+
 export interface SearchListingsParams {
   category?: ListingCategory;
   propertyType?: string;
