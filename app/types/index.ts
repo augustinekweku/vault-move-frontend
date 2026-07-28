@@ -206,9 +206,19 @@ export interface Deal {
   nextStepLabel: string;
 }
 
+/** A document the renter has uploaded against a requirement — shown as the
+ *  tinted file row with a progress bar and delete action. */
+export interface DealUpload {
+  /** e.g. "Jane Doe utility bill_". */
+  fileName: string;
+  /** Upload progress, 0–100. */
+  progress: number;
+}
+
 /** One document row in a deal's ID Verification step — "upload" rows ask
  *  the renter for a document (Upload action), "pending" rows wait on the
- *  landlord (disabled Pending action). */
+ *  landlord (disabled Pending action) and flip to "review" (Review action)
+ *  once the landlord has sent the document. */
 export interface DealRequirement {
   id: string;
   /** e.g. "Upload utility bill /Proof of current address". */
@@ -216,7 +226,9 @@ export interface DealRequirement {
   /** Helper line under the title, e.g. "Recent utility bill or tenancy
    *  proof" — omitted on the landlord rows. */
   description?: string;
-  state: "upload" | "pending";
+  state: "upload" | "pending" | "review";
+  /** The renter's uploaded file for this requirement, if any. */
+  upload?: DealUpload;
 }
 
 /** Everything on the deal detail page (/deal-room/:dealId) beyond the

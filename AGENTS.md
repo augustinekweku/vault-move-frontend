@@ -79,7 +79,16 @@ app/
                           # link to the detail page) and the detail-page
                           # sections: DealSummaryCard, ListedByCard,
                           # WhatsNextCard, DealProgressSection (step tabs),
-                          # IdVerificationPanel (requirement rows) — data/deals.ts
+                          # IdVerificationPanel (requirement rows — brand-navy/54
+                          # text, icon in a surface-alt circle; the Upload
+                          # action opens a file picker and the picked file
+                          # appears in a tinted surface-alt row under the
+                          # requirement — file name, simulated brand progress
+                          # bar on a bordered track, delete action; landlord
+                          # rows start as disabled Pending and flip to a Review
+                          # action a few seconds in, mocking the landlord
+                          # sending their documents — until the document flow
+                          # is wired) — data/deals.ts
     enquiry/              # property-contact page: ConversationList ("Recent
                           # Messages" sidebar), EnquiryChat (chat panel + composer;
                           # sending pops the ui/Toast steps variant with the
