@@ -1,11 +1,7 @@
 import type { Deal } from "~/types";
 import { cn } from "~/lib/utils";
 import { Badge } from "~/components/ui/Badge";
-import {
-  CalendarIcon,
-  FlagIcon,
-  LocationIcon,
-} from "~/components/ui/icons";
+import { CalendarIcon, FlagIcon, LocationIcon } from "~/components/ui/icons";
 
 interface DealSummaryCardProps {
   deal: Deal;
@@ -41,7 +37,7 @@ export function DealSummaryCard({
         <h1 className="mt-1.5 text-base font-extrabold text-black">
           {deal.propertyTitle}
         </h1>
-        <ul className="mt-2 space-y-1.5 text-xs leading-6 text-muted-500">
+        <ul className="mt-2 space-y-2 text-xs leading-6 text-muted-500">
           <li className="flex items-center gap-2">
             <LocationIcon aria-hidden className="size-6 shrink-0" />
             <span>Location - {deal.location}</span>
@@ -55,16 +51,17 @@ export function DealSummaryCard({
 
       <div className="flex shrink-0 flex-col justify-between gap-4 sm:items-end sm:text-right">
         <div>
-          <p className="text-sm font-semibold text-ink">
-            Deal ID: {deal.reference}
+          <p className="text-xs leading-6 text-muted-500">
+            Deal ID:{" "}
+            <span className="font-medium text-ink">{deal.reference}</span>
           </p>
-          <p className="mt-1 text-xs text-muted-500">
-            Started: {startedDate}
+          <p className="mt-1.5 text-xs leading-6 text-muted-500">
+            Started: <span className="font-medium text-ink">{startedDate}</span>
           </p>
         </div>
         <button
           type="button"
-          className="inline-flex items-center gap-2 self-start rounded-lg border border-[#d92d20]/40 px-4 py-2 text-sm text-[#d92d20] hover:bg-[#d92d20]/5 sm:self-end"
+          className="inline-flex items-center gap-2 self-start rounded-lg border border-[#d92d20]/40 px-4 sm:px-7 py-2 text-sm text-[#d92d20] hover:bg-[#d92d20]/5 sm:self-end"
         >
           <FlagIcon aria-hidden className="size-4" />
           Report an Issue
