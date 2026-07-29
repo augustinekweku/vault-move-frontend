@@ -8,17 +8,10 @@ import { HANDOVER_CONFIRMATION } from "~/data/deals";
 export function ClosingPanel({ className }: { className?: string }) {
   return (
     <div
-      className={cn(
-        "flex flex-col items-center py-16 text-center",
-        className,
-      )}
+      className={cn("flex flex-col items-center py-16 text-center", className)}
     >
-      <span className="flex size-25 items-center justify-center rounded-full bg-[#edf1fa]">
-        <img
-          src="/icons/check-circle-navy.svg"
-          alt=""
-          className="size-12"
-        />
+      <span className="flex size-20 items-center justify-center rounded-full bg-[#edf1fa]">
+        <img src="/icons/success.svg" alt="" className="size-10" />
       </span>
       <h3 className="mt-6 text-xl font-bold text-ink">
         {HANDOVER_CONFIRMATION.title}

@@ -137,12 +137,8 @@ export function HandoverPanel({
         </button>
 
         <div className="flex flex-col items-center px-8 pt-10 pb-8 text-center">
-          <span className="flex size-25 items-center justify-center rounded-full bg-[#edf1fa]">
-            <img
-              src="/icons/check-circle-navy.svg"
-              alt=""
-              className="size-12"
-            />
+          <span className="flex size-20 items-center justify-center rounded-full bg-[#edf1fa]">
+            <img src="/icons/success.svg" alt="" className="size-10" />
           </span>
           <h2
             id="handover-confirmed-title"
