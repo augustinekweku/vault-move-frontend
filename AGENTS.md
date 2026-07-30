@@ -34,254 +34,96 @@ are the verification gates.
 
 ```
 app/
-  routes.ts               # manual route config (marketing pages under SiteLayout;
-                          # auth pages (signup, login) are top-level, no navbar/footer;
-                          # dashboard + deal-room under DashboardLayout)
-  routes/                 # one file per page: home, buy, rent, map-view (search
-                          # results on a map, ?category=buy|rent), about, contact,
-                          # portals, faq, resources, resource-detail (dynamic
-                          # /resources/:articleId), property-detail (dynamic
-                          # /properties/:propertyId), property-contact (dynamic
-                          # /properties/:propertyId/contact — "Message Landlord"
-                          # enquiry chat with Enquiries / Property Viewing /
-                          # Offers tabs), landlord-profile (dynamic
-                          # /landlords/:landlordId — linked from the property
-                          # details "View Profile" button), privacy, terms, escrow-terms,
-                          # signup (buyer/renter wizard — steps render as
-                          # components via auth/SignUpFlow, not per-step routes),
-                          # login, setup-profile (preference wizard —
-                          # auth/ProfileSetupFlow),
-                          # dashboard (signed-in buyer/renter landing,
-                          # under DashboardLayout), deal-room (signed-in deal
-                          # list — status tabs + deal cards with the
-                          # verification panel, under DashboardLayout),
-                          # deal-detail (dynamic /deal-room/:dealId — deal
-                          # summary, Listed By card, Deal Progress stepper
-                          # with the ID Verification + Renters Contract +
-                          # Payment + Handing Over + Closing panels, Escrow
-                          # Timeline (payment step only) + What's Next cards),
-                          # saved-properties (wishlist grid from
-                          # lib/wishlist.ts, under DashboardLayout), my-account
-                          # (Menu > My Account breadcrumb + the My Profile /
-                          # Payments and Escrow / Property History / Settings
-                          # tab bar — panels land later, under DashboardLayout)
+  routes.ts               # manual route config
+  routes/                 # one file per page (thin: meta + loader + compose sections)
   components/
-    ui/                   # primitives: Button, IconButton, Input, Select,
-                          # DateField (calendar-popover date input on
-                          # lib/date.ts helpers), Tabs,
-                          # Accordion, Badge, Container, SectionHeading, Toast,
+    ui/                   # primitives: Button, IconButton, Input, Select, DateField,
+                          # Tabs, Accordion, Badge, Container, SectionHeading, Toast,
                           # Modal, icons.tsx
-    common/               # shared across pages: PageHero, ContactForm,
-                          # WaitlistSection, LegalDocContent
+    common/               # PageHero, ContactForm, WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
-    home/  about/  contact/  faq/  privacy/  portals/  resources/  auth/
-    dashboard/            # page-specific sections (one folder per page; auth/
-                          # holds the shared AuthLayout + sign-up step forms;
-                          # dashboard/ the signed-in navbar + UserMenu (the
-                          # account dropdown on the navbar user chip), hero +
-                          # layout + SavedPropertiesSection + AccountSection
-                          # (the My Account tab bar))
-    landlord/             # landlord profile page: LandlordHeader (avatar, name,
-                          # rating, Message Landlord), LandlordStats (4-figure card)
-    deal-room/            # deal-room pages: DealsSection (status tab bar +
-                          # filtered list), DealCard (property summary beside
-                          # the "Complete your Verification" panel — overlay
-                          # link to the detail page) and the detail-page
-                          # sections: DealSummaryCard, ListedByCard,
-                          # WhatsNextCard, DealProgressSection (progress
-                          # stepper — steps up to the current one stay
-                          # underlined in full brand and re-viewable, later
-                          # steps disabled; the viewed step's label goes bold
-                          # brand-navy as its identifier),
-                          # IdVerificationPanel + RentersContractPanel (step
-                          # panels) and RequirementRows (the shared document
-                          # rows — brand-navy/54 text; RequirementRow is the
-                          # verification-step bordered card with the id icon
-                          # in a surface-alt circle, ContractDocumentRow the
-                          # contract-step bare row with a bottom divider and
-                          # the public/icons/document.svg icon; the Upload
-                          # action opens a file
-                          # picker and the picked file appears in a tinted
-                          # surface-alt row under the requirement — file name,
-                          # simulated brand progress bar on a bordered track,
-                          # delete action; landlord rows start as disabled
-                          # Pending and flip to a Review action a few seconds
-                          # in, mocking the landlord sending their documents —
-                          # until the document flow is wired), PaymentPanel
-                          # (escrow assurance checklist — ESCROW_ASSURANCES —
-                          # + Payment Summary breakdown + Make Payment card
-                          # with placeholder method boxes; exports the shared
-                          # CheckCircleBadge), HandoverPanel (2×2 checkbox
-                          # checklist — ticking is local state via a single
-                          # data-item handler, ticks are accent green; the
-                          # confirm action unlocks when every item is ticked
-                          # and pops the "Handover Confirmed" ui/Modal whose
-                          # Done advances the view to Closing), ClosingPanel
-                          # (centred success state — check-circle-navy icon,
-                          # HANDOVER_CONFIRMATION copy, Rate this experience +
-                          # Download Certificate mocks) and the
-                          # EscrowTimelineCard sidebar card (milestone rows,
-                          # brand/gray check badges) — data/deals.ts
-    enquiry/              # property-contact page: ConversationList ("Recent
-                          # Messages" sidebar), EnquiryChat (chat panel + composer;
-                          # sending pops the ui/Toast steps variant with the
-                          # enquiry progress checklist — data/messages.ts
-                          # ENQUIRY_PROGRESS_STEPS), EnquiryPropertyCard (shared
-                          # listing), EnquiryForm ("What would you like to know"
-                          # card), ViewingCard ("Viewing Scheduled" card with
-                          # upcoming/completed/cancelled action variants —
-                          # data/messages.ts MOCK_VIEWING; the completed
-                          # variant's "Make an Offer" opens the offer form in
-                          # the Offers tab), PropertyViewingCard
-                          # (property + viewing cards in the grey bubble),
-                          # ViewingPanel (Property Viewing tab: search +
-                          # Upcoming/Completed/Cancelled sidebar + card grid),
-                          # OffersPanel (Offers tab: search + status-filter
-                          # sidebar — data/messages.ts OFFER_FILTERS — with a
-                          # ghost-icon empty state until an offer is submitted,
-                          # then the PropertyOfferCard under the All/Pending
-                          # filters (All/Accepted once accepted); "Cancel
-                          # offer" returns to the empty
-                          # state), OfferCard (submitted-offer card: offer tag
-                          # icon + amount, status bar, action buttons — the
-                          # status is pending ("being reviewed by the
-                          # Landlord") and flips to countered ("The landlord
-                          # made a counter offer." + "View Counter Offer"
-                          # button — opens the CounterOfferPanel) a few
-                          # seconds after submission, mocking the landlord's
-                          # reply; a submitted counter offer flips to accepted
-                          # ("Your counter offer has been accepted!" on a
-                          # success-tinted bar + "Go to the Deal room" link to
-                          # /deal-room, no cancel action) and pops the accepted
-                          # OfferOutcomeModal; a lowball offer (under
-                          # two-thirds of asking) is instead declined outright
-                          # (offer withdrawn + declined OfferOutcomeModal);
-                          # status icons are
-                          # public/icons/offer-icon.svg + material-symbols.svg
-                          # (+ check-circle.svg for accepted)),
-                          # PropertyOfferCard
-                          # (property card — EnquiryPropertyCard with hidePrice —
-                          # + offer card in the grey bubble),
-                          # CounterOfferPanel ("Counter Offer" modal sheet
-                          # pinned to the right edge of the viewport over a
-                          # dimmed backdrop — same close-on-backdrop/Escape
-                          # pattern as ui/Modal; opened by the offer card's
-                          # "View Counter Offer": the landlord's countered
-                          # terms — data/messages.ts MOCK_COUNTER_OFFER — in
-                          # a card (amount / move-in / stay-duration icon
-                          # rows — public/icons/offer-icon.svg + home.svg +
-                          # watch.svg — + notes strip) with Decline offer (withdraws
-                          # the offer and pops the counter-declined
-                          # OfferOutcomeModal), Accept offer (closes the sheet and
-                          # pops the ui/Toast steps variant —
-                          # ACCEPT_OFFER_PROGRESS_STEPS) and "Make a counter
-                          # offer" (reopens the offer form in its counter
-                          # variant)),
-                          # MakeOfferForm (Offers-tab offer form:
-                          # property card + rent/move-in/stay/notes fields —
-                          # move-in uses the ui/DateField calendar popover,
-                          # not the native date input; the variant prop
-                          # ("offer" | "counter") swaps the heading/submit
-                          # copy for the "Make a Counter offer" reply to the
-                          # landlord's counter; mock
-                          # submit flips the button to Loading and pops the
-                          # offer-submitted ui/Toast steps variant —
-                          # data/messages.ts OFFER_PROGRESS_STEPS; when the
-                          # toast dismisses, onSubmitted hands the rent amount
-                          # to the route so the panel lists the offer; "< Back"
-                          # returns to the panel),
-                          # MakeOfferModal ("Make an Offer" prompt — pops on page
-                          # load; "Make an offer now" opens the offer form),
-                          # OfferOutcomeModal (centred end-of-negotiation
-                          # dialog on ui/Modal, one component with an
-                          # OfferOutcome variant — accepted: navy check-circle
-                          # in a blue-tinted circle + "Go to the Deal room"
-                          # link to /deal-room; declined / counter-declined:
-                          # red x-circle in a red-tinted circle + "View more
-                          # properties" link to the search page; icons are
-                          # public/icons/check-circle-navy.svg + x-circle.svg)
-    property/             # PropertyCard, PropertyGrid, PropertySearchBar, SearchResults,
-                          # FiltersModal (opened from SearchResults; block content
-                          # from data/listings.ts FILTER_COLUMNS), MapView (leaflet
-                          # map with pins + price popups for map-view), plus the
-                          # details-page sections: PropertyGallery, PropertySidePanel,
-                          # PropertyOverview (facts bar + Details/Reviews tabs),
-                          # PropertyReviews (Reviews tab: ratings summary + cards)
-  data/                   # static/mock content: listings, landlords, messages,
-                          # navigation, portals, deals (deal-room tabs +
-                          # getDealsForTab filter, DEAL_STEPS progress steps +
-                          # MOCK_DEAL_DETAILS detail-page content),
-                          # about, contact, faq, resources, terms, escrow-terms,
-                          # home (landing steps + stats), auth (profile-setup
-                          # wizard content, password rules), account (My
-                          # Account tab bar)
-  types/index.ts          # ALL shared interfaces/types live here
-  services/               # api.ts (axios instance + `http` helper),
-                          # listings.service.ts, landlords.service.ts,
-                          # deals.service.ts
-  lib/utils.ts            # cn() classname joiner + scrollToTop()
-  lib/wishlist.ts         # session-wide saved-property ids (useSyncExternalStore
-                          # module store: toggleWishlist + useWishlist) — the
-                          # PropertyCard heart and the saved-properties page
-                          # share it; starts empty so SSR/hydration match
-  lib/date.ts             # calendar helpers (MONTHS/WEEKDAYS, ordinal,
-                          # toIsoDate, formatIsoDate, isSameDay,
-                          # buildMonthCells)
-  app.css                 # Tailwind v4 theme tokens + base styles
+    home/  about/  contact/  faq/  privacy/  portals/  resources/
+    auth/                 # AuthLayout, SignUpFlow, ProfileSetupFlow, login/signup forms
+    dashboard/            # DashboardLayout, DashboardNavbar, UserMenu, DashboardHero,
+                          # SavedPropertiesSection, AccountSection, CompleteProfileModal
+    landlord/             # LandlordHeader, LandlordStats
+    deal-room/            # deal list + deal-detail step panels
+    enquiry/              # property-contact: chat, viewing, offers
+    property/             # cards, search, filters, MapView, details sections
+  data/                   # static CMS/copy + mock domain fixtures (UPPER_SNAKE_CASE)
+  types/index.ts          # ALL shared interfaces/types
+  services/               # api.ts (axios + http helper), listings, landlords, deals
+  lib/utils.ts            # cn() + scrollToTop()
+  lib/wishlist.ts         # in-memory saved-property ids (useSyncExternalStore)
+  lib/date.ts             # calendar helpers for DateField
+  app.css                 # Tailwind v4 @theme tokens + base styles + no-scrollbar
 public/
-  icons/  images/         # static assets referenced as /icons/..., /images/...
+  icons/  images/         # /icons/..., /images/...
 ```
+
+### Routes (layouts)
+
+| Layout | Routes |
+|--------|--------|
+| `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
+| None (each page wraps `AuthLayout`) | signup, login, setup-profile |
+| `DashboardLayout` (signed-in nav) | dashboard, deal-room, deal-room/:dealId, saved-properties, my-account |
+
+Dashboard routes are **not auth-guarded** yet — the UI assumes a signed-in buyer/renter.
+
+For page behaviour and mock interaction details, read the route file and its section components — do not re-document UX flows here.
+
+## Data layer
+
+- **Domain reads** should go through `app/services/*` (`listings`, `landlords`, `deals`). Each service has a `USE_MOCK` flag and returns typed data; swap bodies for `http.*` when the backend is live. Listing/landlord/deal-detail loaders already do this.
+- **Static CMS/copy** stays in `app/data/*` (nav, faq, legal, home steps, portals, auth wizard options, filter labels, toast step copy, account tabs). Components may import these directly.
+- **Mock domain fixtures** also live in `app/data/*` (`MOCK_LISTINGS`, `MOCK_DEALS`, `MOCK_CONVERSATIONS`, etc.). Prefer accessing them only from services. Still imported directly today: enquiry components, `DealsSection`, `SavedPropertiesSection`, and `property-contact` (`MOCK_COUNTER_OFFER`) — route those through services before wiring real APIs.
+- **Mutations** (offers, document upload, payment, handover, auth) are still client-side mocks (`setTimeout` / local state). Add service methods before connecting APIs.
+- **API client**: `services/api.ts` — base URL from `VITE_API_URL` (fallback `/api`), bearer token from `localStorage.vm_token` (browser only). There is no `.env.example` yet; set `VITE_API_URL` when pointing at a backend.
+- **SSR auth limit**: the axios interceptor only attaches the token when `typeof window !== "undefined"`. Server loaders will not see `localStorage` — protected data needs cookies/session or `clientLoader` before relying on authenticated SSR fetches.
+- **Wishlist** (`lib/wishlist.ts`) is session-only module state (empty on SSR so hydration matches); not persisted.
+- **Response shape**: frontend types in `types/index.ts` are the UI model. If backend DTOs differ, map at the service boundary — do not leak raw API shapes into components.
+- **Mappers / loading-error UX** for failed fetches are not standardized yet; follow existing loader `throw new Response` 404 patterns for missing entities.
 
 ## Conventions
 
 - **Imports**: use the `~` alias (`~/components/ui/Container`), never deep relative paths.
   With `verbatimModuleSyntax`, type-only imports must use `import type`.
 - **Types**: shared interfaces go in `app/types/index.ts`; data files import them from `~/types`.
-- **Data**: static page content (nav, steps, feature blocks, mock listings) lives in
-  `app/data/*.ts` as typed exported constants (`UPPER_SNAKE_CASE`). Icon component
-  references may be stored directly in data (see `data/portals.ts`).
-- **Components**: page-specific sections go in `app/components/<page>/`; reusable
+  Component-local types (e.g. `AccordionItem`, form step state) may stay next to the component.
+- **Data constants**: typed exported constants in `UPPER_SNAKE_CASE`. Icon component
+  refs may live in data only when imported directly by components (`data/portals.ts`,
+  `home.ts`, `contact.ts`), never in loader-returned payloads.
+- **Components**: page-specific sections in `app/components/<page>/`; reusable
   cross-page pieces in `common/`; generic primitives in `ui/`. Route files should be
-  thin composition + `meta()` only.
+  thin composition + `meta()` (+ `loader` when fetching).
 - **No inline functions in JSX**: never pass anonymous arrow functions as props
   (`onClick={() => ...}`) or as `.map()` render callbacks in JSX. Declare named
-  functions instead — at module level (exported, then imported where they are
-  used) when they don't need component state/props, or as a `function`
-  declaration inside the component when they do. Mapped buttons hand their
-  value to a single named handler via a `data-*` attribute (see
+  functions instead — at module level when they don't need component state/props,
+  or as a `function` declaration inside the component when they do. Mapped buttons
+  hand their value to a single named handler via a `data-*` attribute (see
   `deal-room/DealsSection.tsx`).
-- **Styling**: utility-first Tailwind v4. Use theme tokens, not raw hex:
-  `brand` (#1e347a), `brand-dark`, `brand-navy`, `brand-blue` (#0000b0, details-page
-  fact icons), `accent` (#04ce9d), `accent-soft`,
-  `success-soft` (#eefaf6, toast bg), `success` (#12b76a, presence dot), `ink`,
-  `ink-muted`, `gray-900` (#101828,
-  stat figures), `muted-700` (#344054),
-  `surface`, `surface-alt`, `line`, plus the reviews-tab tokens `star-yellow`
-  (#ffb919, rating stars/bars), `surface-gray` (#fafafb, review cards + bar
-  tracks), `ink-gray` (#666676, review body text). Font is Poppins (set in
-  `@theme`, loaded via Google Fonts in `app/root.tsx`). Non-color tokens:
-  `rounded-bubble` (the enquiry-page grey-bubble radius). Arbitrary numeric
-  spacing values work (e.g. `h-108.5`). A `no-scrollbar`
-  utility (defined in `app.css`) hides scrollbars on horizontal scroll rows.
-- **Layout**: wrap page content in `<Container>` (max-w-1280px, responsive px).
-  Inner pages use `<PageHero>` (blue banner with breadcrumbs, title, subtitle) —
-  it is flow-based; do NOT reintroduce Figma pixel-exact absolute positioning.
+- **Styling**: utility-first Tailwind v4. Use theme tokens from `app/app.css` `@theme`,
+  not raw hex. Key tokens:
+  - Brand: `brand`, `brand-dark`, `brand-navy`, `brand-blue`, `accent`, `accent-strong`, `accent-soft`
+  - Feedback: `success`, `success-soft`, `star`, `star-yellow`
+  - Text: `ink`, `ink-muted`, `ink-soft`, `ink-gray`, `gray-900`, `muted-700`, `muted-500`, `muted-400`, `muted-300`
+  - Surfaces: `surface`, `surface-alt`, `surface-gray`, `line`, `line-soft`
+  - Radius: `rounded-bubble` (enquiry grey bubbles)
+  - Utility: `no-scrollbar` (horizontal scroll rows)
+  Font is Poppins (`@theme` + Google Fonts in `app/root.tsx`). Arbitrary numeric
+  spacing works (e.g. `h-108.5`).
+- **Layout**: wrap page content in `<Container>`. Inner marketing pages use
+  `<PageHero>` (flow-based; do NOT reintroduce Figma pixel-exact absolute positioning).
+  Hash targets get `scroll-margin-top` globally so sticky-nav anchors clear the bar.
 - **Accent text in headings**: `<span className="text-accent">…</span>`; add `block`
-  when the Figma puts the accent part on its own line.
+  when the accent part sits on its own line.
 - **Button**: pass `to="/path"` to render a React Router `<Link>`; otherwise a `<button>`.
-- **API**: call the backend through the typed `http` helper in `services/api.ts`
-  (base URL from `VITE_API_URL`, bearer token from `localStorage.vm_token`).
-  All browser-only access must stay `typeof window !== "undefined"`-guarded (SSR).
 - **Class merging**: use `cn()` from `~/lib/utils`.
 - **Comments**: docstrings describe what the code is/does — never cite design
-  measurements in comments or docstrings ("20px-radius bubble", "588px wide"),
-  and never use bracketed pixel utilities where the spacing/radius scale
-  covers the value (`rounded-5`, not `rounded-[20px]`).
-- **Comments**: docstrings describe what the code is/does — never reference
-  Figma frame names/numbers (e.g. "Rectangle 18339") or write "per the Figma"
-  in code comments; they go stale and are meaningless without the design file
-  open. (Rules about the design itself — like the PageHero note below — are
-  fine; frame-name citations are not.)
+  measurements ("20px-radius bubble", "588px wide"), never use bracketed pixel
+  utilities where the scale covers the value (`rounded-5`, not `rounded-[20px]`),
+  and never reference Figma frame names/numbers or write "per the Figma".
 
 ## Gotchas
 
@@ -294,13 +136,10 @@ public/
   (type-only imports are fine); the server renders just the loading placeholder.
   Tailwind classes used inside leaflet popup/divIcon HTML strings are still picked
   up by the v4 scanner.
-- **Mock data is deterministic** on purpose (`MOCK_LISTINGS` uses a fixed pattern, no
-  `Math.random()`), so SSR and client markup match — keep it that way.
-- **Loader data must stay JSON-serialisable** — anything returned from a route loader
-  (e.g. `PropertyDetails`) cannot carry component refs, so icon choices are stored as
-  string keys (`PropertyFactIcon`) and mapped to components in the UI. Component refs in
-  data files are fine only when the data is imported directly by components (like
-  `data/portals.ts`).
+- **Mock data is deterministic** on purpose (no `Math.random()` in fixtures), so SSR
+  and client markup match — keep it that way.
+- **Loader data must stay JSON-serialisable** — no component refs in loader returns.
+  Icon choices use string keys (e.g. `PropertyFactIcon`) mapped in the UI.
 - **Route changes**: register new pages in `app/routes.ts` (not file-system routing).
 - **Deployment**: Dockerfile provided; serve `build/server/index.js`.
 - If you change structure, tokens, or conventions described here, update this file.
