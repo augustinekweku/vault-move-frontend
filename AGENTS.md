@@ -59,7 +59,12 @@ app/
                           # summary, Listed By card, Deal Progress stepper
                           # with the ID Verification + Renters Contract +
                           # Payment + Handing Over + Closing panels, Escrow
-                          # Timeline (payment step only) + What's Next cards)
+                          # Timeline (payment step only) + What's Next cards),
+                          # saved-properties (wishlist grid from
+                          # lib/wishlist.ts, under DashboardLayout), my-account
+                          # (Menu > My Account breadcrumb + the My Profile /
+                          # Payments and Escrow / Property History / Settings
+                          # tab bar — panels land later, under DashboardLayout)
   components/
     ui/                   # primitives: Button, IconButton, Input, Select,
                           # DateField (calendar-popover date input on
@@ -72,7 +77,10 @@ app/
     home/  about/  contact/  faq/  privacy/  portals/  resources/  auth/
     dashboard/            # page-specific sections (one folder per page; auth/
                           # holds the shared AuthLayout + sign-up step forms;
-                          # dashboard/ the signed-in navbar, hero + layout)
+                          # dashboard/ the signed-in navbar + UserMenu (the
+                          # account dropdown on the navbar user chip), hero +
+                          # layout + SavedPropertiesSection + AccountSection
+                          # (the My Account tab bar))
     landlord/             # landlord profile page: LandlordHeader (avatar, name,
                           # rating, Message Landlord), LandlordStats (4-figure card)
     deal-room/            # deal-room pages: DealsSection (status tab bar +
@@ -205,12 +213,17 @@ app/
                           # MOCK_DEAL_DETAILS detail-page content),
                           # about, contact, faq, resources, terms, escrow-terms,
                           # home (landing steps + stats), auth (profile-setup
-                          # wizard content, password rules)
+                          # wizard content, password rules), account (My
+                          # Account tab bar)
   types/index.ts          # ALL shared interfaces/types live here
   services/               # api.ts (axios instance + `http` helper),
                           # listings.service.ts, landlords.service.ts,
                           # deals.service.ts
   lib/utils.ts            # cn() classname joiner + scrollToTop()
+  lib/wishlist.ts         # session-wide saved-property ids (useSyncExternalStore
+                          # module store: toggleWishlist + useWishlist) — the
+                          # PropertyCard heart and the saved-properties page
+                          # share it; starts empty so SSR/hydration match
   lib/date.ts             # calendar helpers (MONTHS/WEEKDAYS, ordinal,
                           # toIsoDate, formatIsoDate, isSameDay,
                           # buildMonthCells)

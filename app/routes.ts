@@ -33,5 +33,7 @@ export default [
     route("dashboard", "routes/dashboard.tsx"),
     route("deal-room", "routes/deal-room.tsx"),
     route("deal-room/:dealId", "routes/deal-detail.tsx"),
+    route("saved-properties", "routes/saved-properties.tsx"),
+    route("my-account", "routes/my-account.tsx"),
   ]),
 ] satisfies RouteConfig;

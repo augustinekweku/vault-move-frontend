@@ -1,11 +1,13 @@
 import type { Property } from "~/types";
 import { Link } from "react-router";
 import { cn } from "~/lib/utils";
+import { toggleWishlist, useWishlist } from "~/lib/wishlist";
 import { Badge } from "~/components/ui/Badge";
 import {
   BedIcon,
   BathIcon,
   HeartIcon,
+  HeartFilledIcon,
   MailIcon,
   StarIcon,
   VerifiedIcon,
@@ -32,6 +34,12 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
     agent,
   } = property;
   const detailsHref = `/properties/${id}`;
+  const wishlist = useWishlist();
+  const saved = wishlist.includes(id);
+
+  function toggleSaved() {
+    toggleWishlist(id);
+  }
 
   return (
     <article
@@ -55,10 +63,16 @@ export function PropertyCard({ property, className }: PropertyCardProps) {
           </Badge>
           <button
             type="button"
-            aria-label="Save property"
+            aria-label={saved ? "Remove saved property" : "Save property"}
+            aria-pressed={saved}
+            onClick={toggleSaved}
             className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-white/90 text-brand-navy hover:bg-white"
           >
-            <HeartIcon className="size-4" />
+            {saved ? (
+              <HeartFilledIcon className="size-4" />
+            ) : (
+              <HeartIcon className="size-4" />
+            )}
           </button>
         </div>
       </div>

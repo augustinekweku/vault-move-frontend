@@ -79,3 +79,17 @@ export const APP_NAV: NavLink[] = [
   { label: "Buy", href: "/buy" },
   { label: "Rent", href: "/rent" },
 ];
+
+/** Account dropdown of the signed-in navbar user chip, in two groups — the
+ *  design leaves a blank band between them (reserved for upcoming entries).
+ *  Enquiries points at the dashboard until its page exists. */
+export const USER_MENU_PRIMARY: NavLink[] = [
+  { label: "Saved Properties", href: "/saved-properties" },
+  { label: "Enquiries", href: "/dashboard" },
+  { label: "Deal Room", href: "/deal-room" },
+];
+
+export const USER_MENU_SECONDARY: NavLink[] = [
+  { label: "My Account", href: "/my-account" },
+  { label: "Sign out", href: "/login" },
+];

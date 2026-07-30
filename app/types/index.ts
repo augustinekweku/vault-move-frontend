@@ -184,6 +184,9 @@ export type DealStatus = "pending" | "rejected" | "closed";
  *  match a DealStatus. */
 export type DealTab = "all" | "reports" | DealStatus;
 
+/** Tabs on the My Account page. */
+export type AccountTab = "profile" | "payments" | "history" | "settings";
+
 /** One card on the deal-room page: the property the deal is for, plus the
  *  buyer/renter's verification progress and next action. */
 export interface Deal {

@@ -1,16 +1,14 @@
 import { NavLink as RouterNavLink } from "react-router";
 import { cn } from "~/lib/utils";
 import { Logo } from "~/components/layout/Logo";
-import {
-  BellIcon,
-  ChevronDownIcon,
-  MessageCircleIcon,
-} from "~/components/ui/icons";
+import { BellIcon, MessageCircleIcon } from "~/components/ui/icons";
+import { UserMenu } from "~/components/dashboard/UserMenu";
 import { APP_NAV } from "~/data/navigation";
 
 /** Header for the signed-in buyer/renter area: logo, centred Home/Buy/Rent
  *  nav (active item gets the small brand underline bar), notification and
- *  message shortcuts, and the user chip. Mock user until auth is wired up. */
+ *  message shortcuts, and the user account dropdown. Mock user until auth is
+ *  wired up. */
 export function DashboardNavbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-[#aaaaaa]/40 bg-white">
@@ -61,16 +59,7 @@ export function DashboardNavbar() {
             </button>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button type="button" className="hidden items-center gap-1 sm:flex">
-              <span className="text-base font-medium text-ink">Jane Doe</span>
-              <ChevronDownIcon className="size-5 text-ink" />
-            </button>
-            <span
-              className="size-8 rounded-full bg-brand sm:size-10"
-              aria-hidden
-            />
-          </div>
+          <UserMenu />
         </div>
       </div>
     </header>
