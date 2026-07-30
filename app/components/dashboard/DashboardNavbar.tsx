@@ -50,7 +50,7 @@ export function DashboardNavbar() {
               className="relative text-ink hover:text-brand"
             >
               <BellIcon className="size-6" />
-              <span className="absolute top-0.5 right-0.5 size-3 rounded-full border border-white bg-[#ff5151]" />
+              <span className="absolute top-0 right-1.6 size-2 rounded-full bg-[#ff5151]" />
             </button>
             <button
               type="button"
@@ -66,7 +66,10 @@ export function DashboardNavbar() {
               <span className="text-base font-medium text-ink">Jane Doe</span>
               <ChevronDownIcon className="size-5 text-ink" />
             </button>
-            <span className="size-8 rounded-full bg-brand sm:size-10" aria-hidden />
+            <span
+              className="size-8 rounded-full bg-brand sm:size-10"
+              aria-hidden
+            />
           </div>
         </div>
       </div>
