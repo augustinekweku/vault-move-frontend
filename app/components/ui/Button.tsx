@@ -39,7 +39,16 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
   const classes = cn(base, variants[variant], sizes[size], className);
 
   if ("to" in props && props.to) {
-    const { to, ...rest } = props as ButtonAsLink;
+    // Strip variant/size/className from the spread — rest would otherwise
+    // re-apply the raw className prop after `classes` and clobber them.
+    const {
+      to,
+      variant: _v,
+      size: _s,
+      className: _c,
+      children: _ch,
+      ...rest
+    } = props as ButtonAsLink;
     return (
       <Link to={to} className={classes} {...rest}>
         {children}

@@ -11,6 +11,7 @@ interface SelectProps {
   onChange?: (value: string) => void;
   className?: string;
   wrapperClassName?: string;
+  suffix?: React.ReactNode;
 }
 
 /** Accessible-ish custom dropdown built on plain state (no external deps). */
@@ -22,6 +23,7 @@ export function Select({
   onChange,
   className,
   wrapperClassName,
+  suffix,
 }: SelectProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -44,9 +46,10 @@ export function Select({
         onClick={() => setOpen((o) => !o)}
         className="flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-line bg-white px-3.5 text-left text-[15px] shadow-[0_1px_2px_rgba(16,24,40,0.05)] focus:border-brand focus:outline-none"
       >
-        <span className={cn(value ? "text-ink" : "text-muted-500")}>
+        <span className={cn("truncate", value ? "text-ink" : "text-muted-500")}>
           {value || placeholder}
         </span>
+        {suffix && <span className="shrink-0 text-muted-500">{suffix}</span>}
         <ChevronDownIcon
           className={cn(
             "size-5 shrink-0 text-muted-500 transition-transform",

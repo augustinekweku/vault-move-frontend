@@ -1,6 +1,10 @@
+import type { ComponentType, SVGProps } from "react";
+import type { AccordionItem } from "~/components/ui/Accordion";
+
 export type ListingCategory = "rent" | "buy";
 
 export interface Agent {
+  id: string;
   name: string;
   avatar: string;
   verified: boolean;
@@ -21,6 +25,272 @@ export interface Property {
   category: ListingCategory;
   tag: string;
   agent: Agent;
+  /** Approximate map position — used for the pins on the map view. */
+  coordinates: { lat: number; lng: number };
+}
+
+/** Icon keys for property facts — kept as strings (not component refs) so
+ *  PropertyDetails stays JSON-serialisable across the loader boundary. */
+export type PropertyFactIcon = "home" | "bed" | "bath" | "sofa" | "building";
+
+export interface PropertyFact {
+  label: string;
+  value: string;
+  icon: PropertyFactIcon;
+}
+
+export interface PropertyCharge {
+  label: string;
+  amount: string;
+}
+
+export interface PropertyFeatureGroup {
+  title: string;
+  items: string[];
+}
+
+/** One star band in the ratings breakdown (e.g. 5 stars → 182 ratings). */
+export interface RatingBreakdownRow {
+  stars: number;
+  count: number;
+}
+
+export interface PropertyReviewSummary {
+  /** Average score out of 5, shown in the donut gauge. */
+  average: number;
+  /** Total number of ratings, shown under the gauge. */
+  total: number;
+  /** One row per star band, ordered 5 → 1. */
+  breakdown: RatingBreakdownRow[];
+}
+
+export interface PropertyReview {
+  id: string;
+  author: string;
+  avatar: string;
+  /** Score out of 5 given by this reviewer. */
+  rating: number;
+  text: string;
+}
+
+/** Everything on the "Reviews" tab of the property details page. */
+export interface PropertyReviews {
+  summary: PropertyReviewSummary;
+  items: PropertyReview[];
+}
+
+/** Extra content shown on the property details page (beyond the card data). */
+export interface PropertyDetails {
+  /** First image is the large one; the rest fill the 2x2 thumbnail grid. */
+  gallery: string[];
+  /** Full location line, e.g. "Achimota, Accra". */
+  address: string;
+  availability: string;
+  charges: PropertyCharge[];
+  facts: PropertyFact[];
+  description: string[];
+  /** Chip groups under the "Building features" heading. */
+  featureGroups: PropertyFeatureGroup[];
+  /** Chips under "Amenities and Utilities". */
+  amenities: string[];
+  /** Bullet list under "House Rules". */
+  houseRules: string[];
+  /** Rating summary + individual reviews for the "Reviews" tab. */
+  reviews: PropertyReviews;
+}
+
+/** Public landlord profile page (/landlords/:landlordId). */
+export interface LandlordProfile {
+  id: string;
+  name: string;
+  avatar: string;
+  verified: boolean;
+  /** e.g. "Verified Landlord". */
+  role: string;
+  /** e.g. "Achimota, Accra". */
+  location: string;
+  /** Average score out of 5, shown as stars next to the name. */
+  rating: number;
+  /** Body paragraphs on the "Landlord's Profile" tab. */
+  bio: string[];
+  /** The four figures in the stats card (Listed Properties, Views, ...). */
+  stats: Stat[];
+  /** Rating summary + individual reviews for the "Reviews" tab. */
+  reviews: PropertyReviews;
+}
+
+/** One checklist row in the ui/Toast `steps` variant (enquiry-submitted
+ *  success toast): done rows get the teal check, pending rows a grey ring. */
+export interface ToastStep {
+  label: string;
+  done: boolean;
+}
+
+/** Viewing lifecycle status — drives the action row of the ViewingCard
+ *  (confirm/cancel for upcoming, "Make an Offer" for completed, red
+ *  "Cancelled" bar for cancelled). */
+export type ViewingStatus = "upcoming" | "completed" | "cancelled";
+
+/** Offer-list filters in the Offers tab sidebar (property-contact page). */
+export type OfferFilter =
+  | "all"
+  | "accepted"
+  | "pending"
+  | "declined"
+  | "drafts";
+
+/** Lifecycle status of a submitted offer — drives the status bar and action
+ *  row of the OfferCard (awaiting the landlord's review, the landlord sent a
+ *  counter offer, or the landlord accepted the renter's counter offer). */
+export type OfferStatus = "pending" | "countered" | "accepted";
+
+/** Terminal outcome of an offer negotiation — drives the OfferOutcomeModal
+ *  (the landlord accepted the renter's offer, the landlord declined it, or
+ *  the renter declined the landlord's counter offer). */
+export type OfferOutcome = "accepted" | "declined" | "counter-declined";
+
+/** The landlord's counter offer under review in the Counter Offer panel
+ *  (Offers tab of the property-contact page) — the countered terms. */
+export interface CounterOffer {
+  /** Countered rent amount, e.g. "1350". */
+  amount: string;
+  /** e.g. "18th July 2026". */
+  moveInDate: string;
+  /** e.g. "3 years". */
+  stayDuration: string;
+  /** Landlord's note shown in the tinted strip, e.g. "I can allow small
+   *  pets only". */
+  notes: string;
+}
+
+/** One conversation row in the "Recent Messages" sidebar (enquiry page). */
+export interface Conversation {
+  id: string;
+  name: string;
+  avatar: string;
+  verified: boolean;
+  /** e.g. "Verified Landlord". */
+  role: string;
+  /** Relative timestamp, e.g. "2 mins ago". */
+  time: string;
+  /** Shows the green presence dot next to the timestamp. */
+  online: boolean;
+}
+
+/** Lifecycle status of a deal — drives which deal-room tab lists it. */
+export type DealStatus = "pending" | "rejected" | "closed";
+
+/** Tabs on the deal-room page — "all" and "reports" are views, the rest
+ *  match a DealStatus. */
+export type DealTab = "all" | "reports" | DealStatus;
+
+/** Tabs on the My Account page. */
+export type AccountTab = "profile" | "payments" | "history" | "settings";
+
+/** One card on the deal-room page: the property the deal is for, plus the
+ *  buyer/renter's verification progress and next action. */
+export interface Deal {
+  id: string;
+  /** Reference in the "Deal ID" row, e.g. "23500-AB". */
+  reference: string;
+  propertyTitle: string;
+  /** Listing badge, e.g. "Apartment for Rent". */
+  propertyTag: string;
+  /** e.g. "Achimota, Accra". */
+  location: string;
+  image: string;
+  /** e.g. "4th July 2026". */
+  date: string;
+  status: DealStatus;
+  /** Verification progress — the "0/5 Steps completed" line. */
+  stepsCompleted: number;
+  stepsTotal: number;
+  /** Next verification action button, e.g. "Upload ID". */
+  nextStepLabel: string;
+}
+
+/** A document the renter has uploaded against a requirement — shown as the
+ *  tinted file row with a progress bar and delete action. */
+export interface DealUpload {
+  /** e.g. "Jane Doe utility bill_". */
+  fileName: string;
+  /** Upload progress, 0–100. */
+  progress: number;
+}
+
+/** One document row in a deal's ID Verification step — "upload" rows ask
+ *  the renter for a document (Upload action), "pending" rows wait on the
+ *  landlord (disabled Pending action) and flip to "review" (Review action)
+ *  once the landlord has sent the document. */
+export interface DealRequirement {
+  id: string;
+  /** e.g. "Upload utility bill /Proof of current address". */
+  title: string;
+  /** Helper line under the title, e.g. "Recent utility bill or tenancy
+   *  proof" — omitted on the landlord rows. */
+  description?: string;
+  state: "upload" | "pending" | "review";
+  /** The renter's uploaded file for this requirement, if any. */
+  upload?: DealUpload;
+}
+
+/** One amount row in the Payment step's "Payment Summary" breakdown. */
+export interface PaymentBreakdownRow {
+  /** e.g. "Security Deposit (2 months)". */
+  label: string;
+  /** Formatted amount, e.g. "3,600.00". */
+  amount: string;
+}
+
+/** One milestone row in the Payment step's "Escrow Timeline" card — the
+ *  circle turns brand once the milestone is done. */
+export interface EscrowTimelineItem {
+  /** e.g. "Payment Made". */
+  label: string;
+  done: boolean;
+}
+
+/** One checkbox group in the Handing Over step's checklist. */
+export interface HandoverGroup {
+  /** e.g. "Property Inspection". */
+  title: string;
+  /** Checkbox labels, e.g. "Property inspected". */
+  items: string[];
+}
+
+/** Everything on the deal detail page (/deal-room/:dealId) beyond the
+ *  list-card Deal data. */
+export interface DealDetails {
+  /** e.g. "30th June 2026". */
+  startedDate: string;
+  /** Listing the deal is for — "Message Landlord" links to its enquiry
+   *  chat. */
+  propertyId: string;
+  /** Landlord shown in the "Listed By" card. */
+  landlord: Agent;
+  /** Ordered deal-progress step labels ("ID Verification" … "Closing"). */
+  steps: string[];
+  /** 1-based current step — the "Step 1 of 5" line. */
+  currentStep: number;
+  /** Documents the renter must upload. */
+  renterRequirements: DealRequirement[];
+  /** Documents awaited from the landlord. */
+  landlordRequirements: DealRequirement[];
+  /** Contract step: documents the landlord shared for review. */
+  contractDocuments: DealRequirement[];
+  /** Contract step: signed copies the renter must upload. */
+  signedContracts: DealRequirement[];
+  /** Payment step: "Payment Summary" breakdown rows. */
+  paymentBreakdown: PaymentBreakdownRow[];
+  /** Payment step: total line, e.g. "GHS 5,580.00". */
+  paymentTotal: string;
+  /** Payment step: "Escrow Timeline" milestones, in order. */
+  escrowTimeline: EscrowTimelineItem[];
+  /** Handing Over step: checklist groups (2×2 grid). */
+  handoverChecklist: HandoverGroup[];
+  /** Body of the "What's Next?" card — one entry per step, in step order;
+   *  steps without copy use an empty string (no card). */
+  whatsNext: string[];
 }
 
 export interface SearchListingsParams {
@@ -35,3 +305,102 @@ export interface NavLink {
   href: string;
   children?: NavLink[];
 }
+
+/** A numbered step with an icon — portal onboarding steps, the landing
+ *  "How it works" steps, etc. */
+export interface NumberedStep {
+  number: string;
+  title: string;
+  description: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
+}
+
+/** A sign-up password requirement, ticked live while typing. */
+export interface PasswordRule {
+  id: string;
+  label: string;
+  test: (password: string) => boolean;
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+}
+
+export interface ContactMethod {
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  value: string;
+}
+
+export interface FaqGroup {
+  id: string;
+  title: string;
+  items: AccordionItem[];
+}
+
+export interface LegalSection {
+  /** Omit for the untitled intro block. */
+  heading?: string;
+  paragraphs: string[];
+}
+
+export interface ResourceArticle {
+  id: string;
+  category: string;
+  title: string;
+  date: string;
+  readTime: string;
+  image: string;
+  /** Body paragraphs rendered on the article detail page. */
+  body: string[];
+}
+
+export interface ResourceSection {
+  id: string;
+  articles: ResourceArticle[];
+}
+
+export interface PortalFeature {
+  title: string;
+  description: string;
+}
+
+export interface PortalFeatureBlock {
+  id: string;
+  titleTop: string;
+  titleBottom: string;
+  features: PortalFeature[];
+}
+
+export interface FilterOptionsGroup {
+  kind: "options";
+  id: string;
+  title: string;
+  options: string[];
+}
+
+export interface FilterSelectBlock {
+  kind: "select";
+  id: string;
+  title: string;
+  placeholder: string;
+  options: string[];
+}
+
+export interface FilterBudgetBlock {
+  kind: "budget";
+  id: string;
+  title: string;
+  placeholder: string;
+  suffix: string;
+}
+
+export type FilterBlock =
+  | FilterOptionsGroup
+  | FilterSelectBlock
+  | FilterBudgetBlock;

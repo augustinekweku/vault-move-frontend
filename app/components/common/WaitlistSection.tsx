@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Container } from "~/components/ui/Container";
 import { ArrowRightIcon } from "~/components/ui/icons";
-import { IMAGES } from "~/data/listings";
+
+const ORNAMENT = "/images/cta-ornament.png";
+const BLUE_VAULT = "/images/iPhone Shape.png";
+const IPHONE = "/images/iPhone.png";
 
 /** "Your next Property... is just a tap away" waitlist block, reused sitewide. */
 export function WaitlistSection() {
@@ -13,51 +16,140 @@ export function WaitlistSection() {
     setEmail("");
   }
 
-  return (
-    <section className="relative overflow-hidden bg-surface-alt py-16 lg:py-0">
-      <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
-        <div className="relative flex justify-center lg:py-16">
-          <div className="absolute left-4 top-4 hidden h-3/4 w-2/3 rounded-3xl bg-brand lg:block" />
-          <img
-            src={IMAGES.heroPrimary}
-            alt="Vault Move mobile app"
-            className="relative z-10 h-72 w-40 rounded-[2rem] object-cover shadow-2xl sm:h-96 sm:w-52"
-          />
-        </div>
+  const emailForm = (
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-end"
+      aria-label="Join the waitlist"
+    >
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Your email address"
+        className="h-10 w-137 max-w-full border-b border-[#c2c2cc] bg-transparent text-base text-ink placeholder:text-ink/40 focus:outline-none"
+      />
+      <button
+        type="submit"
+        aria-label="Submit email"
+        className="ml-6 inline-flex size-14 shrink-0 items-center justify-center rounded-full bg-brand-dark text-white transition-colors hover:bg-brand-dark/90"
+      >
+        <ArrowRightIcon className="size-5" />
+      </button>
+    </form>
+  );
 
-        <div className="lg:py-24">
-          <h2 className="text-4xl font-semibold leading-tight text-brand sm:text-5xl lg:text-[54px] lg:leading-[1.33]">
-            Your next Property...{" "}
+  return (
+    <section className="relative overflow-hidden bg-surface">
+      {/* ——— Pixel-exact desktop canvas (1440x700) at 1440px+ ——— */}
+      <div className="hidden min-[1440px]:block">
+        <div className="relative mx-auto h-175 w-360">
+          {/* Ornament 12: (0,0) 700x700 — composition sits centered on it */}
+          <img
+            src={ORNAMENT}
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute top-0 left-0 size-175 select-none"
+          />
+          {/* Ornament 13: (1070,0) 388x388 */}
+          <img
+            src={ORNAMENT}
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute top-0 left-267.5 size-97 select-none"
+          />
+
+          {/* iPhone Shape (blue vault card): (143,37) 243x510, radius 40 */}
+          <img
+            src={BLUE_VAULT}
+            alt=""
+            aria-hidden
+            className="absolute top-9.25 left-35.75 h-127.5 w-60.75 rounded-[40px] select-none"
+          />
+          {/* Dark iPhone w/ Shadow: (319,110) 263x530. The opaque phone body
+              sits at (134,37) inside this PNG canvas, so the canvas is offset
+              to land the body exactly on (319,110). */}
+          <img
+            src={IPHONE}
+            alt="Vault Move Africa mobile app preview"
+            className="absolute top-18.25 left-46.25 h-156.75 w-132.75 select-none"
+          />
+
+          {/* Heading: (737,154) 628x144, Poppins 600 54/72 */}
+          <h2 className="absolute top-38.5 left-184.25 w-157 text-[54px] leading-18 font-semibold text-brand">
+            Your next Property...
+            <br />
             <span className="text-accent">is Just a tap away.</span>
           </h2>
-          <p className="mt-6 max-w-lg text-lg leading-8 text-ink-soft">
+
+          {/* Subtext: (737,321) 548x135, 18/32 */}
+          <p className="absolute top-80.25 left-184.25 w-137 text-lg leading-8 text-ink-soft">
             Our mobile app is almost here. Browse listings, connect with agents,
             manage offers, and track every step of your property journey.
+            <br />
+            Join the Waitlist!
           </p>
-          <p className="mt-2 text-lg text-ink-soft">Join the Waitlist!</p>
 
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 flex max-w-lg items-center gap-4 border-b border-[#c2c2cc] pb-2"
-          >
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email address"
-              className="flex-1 bg-transparent py-2 text-base text-ink placeholder:text-ink/40 focus:outline-none"
-            />
-            <button
-              type="submit"
-              aria-label="Join the waitlist"
-              className="inline-flex size-14 shrink-0 items-center justify-center rounded-full bg-brand-dark text-white transition-colors hover:bg-brand-dark/90"
-            >
-              <ArrowRightIcon className="size-5" />
-            </button>
-          </form>
+          {/* Form group: (737,498) 628x56 — underline 548 wide, 56px circle
+              button 24px to its right */}
+          <div className="absolute top-124.5 left-184.25 w-157">
+            {emailForm}
+          </div>
         </div>
-      </Container>
+      </div>
+
+      {/* ——— Responsive fallback below 1440px ——— */}
+      <div className="relative min-[1440px]:hidden">
+        <img
+          src={ORNAMENT}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute top-0 left-0 size-80 select-none sm:size-125 lg:size-175"
+        />
+        <img
+          src={ORNAMENT}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute top-0 -right-20 size-60 select-none sm:-right-4.5 sm:size-97"
+        />
+
+        <Container className="relative grid grid-cols-1 items-center gap-10 py-16 lg:grid-cols-2 lg:gap-8 lg:py-0">
+          {/* Visual: blue vault card behind the iPhone mockup. The 640x700
+              composition is scaled as one canvas inside a wrapper sized to
+              the scaled result, so it stays centred at every breakpoint. */}
+          <div className="relative mx-auto h-87.5 w-80 sm:h-140 sm:w-128 lg:mx-0 lg:h-175 lg:w-160">
+            <div className="absolute top-0 left-0 h-175 w-160 origin-top-left scale-[0.5] sm:scale-[0.8] lg:scale-100">
+              <img
+                src={BLUE_VAULT}
+                alt=""
+                aria-hidden
+                className="absolute top-9.25 left-15.75 h-127.5 w-60.75 rounded-[40px] select-none"
+              />
+              <img
+                src={IPHONE}
+                alt="Vault Move Africa mobile app preview"
+                className="absolute top-18.25 left-26.25 h-156.75 w-132.75 select-none"
+              />
+            </div>
+          </div>
+
+          <div className="max-lg:order-first">
+            <h2 className="text-4xl font-semibold leading-tight text-brand sm:text-5xl lg:text-[54px] lg:leading-18">
+              Your next Property...{" "}
+              <span className="text-accent">is Just a tap away.</span>
+            </h2>
+            <p className="mt-6 max-w-137 text-lg leading-8 text-ink-soft">
+              Our mobile app is almost here. Browse listings, connect with
+              agents, manage offers, and track every step of your property
+              journey.
+              <br />
+              Join the Waitlist!
+            </p>
+            <div className="mt-10 max-w-157">{emailForm}</div>
+          </div>
+        </Container>
+      </div>
     </section>
   );
 }

@@ -8,9 +8,12 @@
   --color-brand: #1e347a;
   --color-brand-dark: #171725;
   --color-brand-navy: #10284b;
+  --color-brand-blue: #0000b0;
   --color-accent: #04ce9d;
   --color-accent-strong: #05c69b;
   --color-accent-soft: #f0f9f5;
+  --color-success: #12b76a;
+  --color-success-soft: #eefaf6;
 
   /* Text */
   --color-ink: #171725;
@@ -18,8 +21,10 @@
   --color-ink-soft: #474a57;
 
   /* Neutrals */
+  --color-gray-900: #101828;
   --color-line: #d0d5dd;
   --color-line-soft: #e4e7ec;
+  --color-muted-700: #344054;
   --color-muted-500: #667085;
   --color-muted-400: #98a2b3;
   --color-muted-300: #d9d9d9;
@@ -28,11 +33,69 @@
   --color-surface: #f9f9fd;
   --color-surface-alt: #f7f8ff;
 
+  /* Radii */
+  --radius-bubble: 1.25rem;
+
   /* Misc */
   --color-star: #ffa10c;
+  /* Reviews tab (property details): rating stars/bars, card surfaces, body text */
+  --color-star-yellow: #ffb919;
+  --color-surface-gray: #fafafb;
+  --color-ink-gray: #666676;
 }
 
 html,
 body {
   @apply bg-white text-ink antialiased;
+}
+
+/* Tailwind v4 preflight no longer sets pointer on buttons — restore it
+   globally for every interactive control (tabs, dropdowns, buttons). */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Offset hash-anchor jumps (e.g. /portals#agents, /faq#escrow) so the
+     target heading clears the sticky 80px navbar with breathing room
+     (80px navbar + 48px of air). */
+  [id] {
+    scroll-margin-top: 8rem;
+  }
+}
+
+/* Map-view popup (map-view page): strip leaflet's default popup chrome so the
+   custom card — border, shadow, 12px radius, applied via Tailwind classes in
+   the popup HTML — is the only visible surface. Leaflet also forces its own
+   font stack inside the map container, so Poppins is restored here. */
+.vm-map-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+.vm-map-popup .leaflet-popup-content {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: normal;
+}
+/* Leaflet adds 1.3em vertical margins to every <p> in a popup — kill them so
+   the card's spacing comes only from the Tailwind classes in the markup. */
+.vm-map-popup .leaflet-popup-content p {
+  margin: 0;
+}
+.vm-map-popup .leaflet-popup-tip {
+  display: none;
+}
+
+/* Hide the scrollbar on horizontal scroll rows (e.g. the map-view "Properties
+   in this location" carousel) — scrolling still works via touch, wheel and
+   the prev/next arrow buttons. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

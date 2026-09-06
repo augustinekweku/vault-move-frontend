@@ -14,7 +14,10 @@ interface PageHeroProps {
   className?: string;
 }
 
-/** Blue banner used on About, Contact, FAQ, Privacy and Portals pages. */
+/** Blue banner used on About, Contact, FAQ, Privacy and Portals pages.
+ *  Content is vertically centred in flow (no absolute text positioning) so
+ *  the title/subtitle spacing stays consistent no matter how many lines the
+ *  title wraps to. Dots bottom-left, rings top-right. */
 export function PageHero({
   title,
   subtitle,
@@ -48,16 +51,27 @@ export function PageHero({
           className,
         )}
       >
-        <div
+        {/* Ornament 11 — dot grid, bottom-left */}
+        <img
+          src="/icons/ornament-11.svg"
+          alt=""
           aria-hidden
-          className="absolute right-0 top-1/2 hidden size-72 -translate-y-1/2 rounded-full border border-white/10 lg:block"
+          className="pointer-events-none absolute bottom-0 left-0 hidden h-44.25 w-95.25 select-none lg:block"
         />
-        <Container className="py-16 text-center lg:py-20">
-          <h1 className="mx-auto max-w-3xl text-3xl font-bold sm:text-4xl lg:text-[42px]">
+        {/* Ornament 12 — concentric rings, top-right (white at 12%) */}
+        <img
+          src="/images/footer-ornament.png"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute right-0 top-0 hidden size-75 select-none lg:block"
+        />
+
+        <Container className="relative flex flex-col items-center justify-center py-16 text-center lg:min-h-108.5 lg:py-20">
+          <h1 className="max-w-4xl text-3xl font-bold leading-[1.2] tracking-[-0.02em] sm:text-4xl lg:text-[48px]">
             {title}
           </h1>
           {subtitle && (
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/80">
+            <p className="mt-12 max-w-2xl text-sm leading-7 text-white/80 lg:text-lg lg:leading-8">
               {subtitle}
             </p>
           )}
