@@ -1,8 +1,11 @@
-import type { PortalFeatureBlock, NumberedStep } from "~/types";
+import type { PortalFeatureBlock, NumberedStep, PortalUserType } from "~/types";
 import {
   SearchIcon,
   DocumentIcon,
   ShieldIcon,
+  DevelopersIcon,
+  LandlordIcon,
+  AgentIcon,
 } from "~/components/ui/icons";
 
 /** "Three simple steps" shown under the Portals hero. */
@@ -27,6 +30,28 @@ export const PORTAL_STEPS: NumberedStep[] = [
     description:
       "Manage every step in the Deal Room, sign agreements, and complete payments securely through escrow.",
     Icon: ShieldIcon,
+  },
+];
+
+/** Audience options on the "Select user type" onboarding page. */
+export const PORTAL_USER_TYPES: PortalUserType[] = [
+  {
+    id: "developers",
+    label: "Real Estate Developers",
+    labelAlign: "left",
+    Icon: DevelopersIcon,
+  },
+  {
+    id: "landlords",
+    label: "Landlord",
+    labelAlign: "center",
+    Icon: LandlordIcon,
+  },
+  {
+    id: "agents",
+    label: "Agent",
+    labelAlign: "center",
+    Icon: AgentIcon,
   },
 ];
 

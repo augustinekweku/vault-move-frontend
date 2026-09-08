@@ -28,6 +28,7 @@ export default [
   route("signup", "routes/signup.tsx"),
   route("login", "routes/login.tsx"),
   route("setup-profile", "routes/setup-profile.tsx"),
+  route("select-user-type", "routes/select-user-type.tsx"),
   // Signed-in buyer/renter area with its own navbar.
   layout("components/dashboard/DashboardLayout.tsx", [
     route("dashboard", "routes/dashboard.tsx"),

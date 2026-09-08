@@ -17,7 +17,7 @@ export function CtaSection() {
             step of the rental process, all in one place.
           </p>
           <div className="mt-8">
-            <Button to="/signup">
+            <Button to="/select-user-type">
               Get Started
               <ArrowRightIcon className="size-4" />
             </Button>

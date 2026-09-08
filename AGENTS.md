@@ -43,7 +43,7 @@ app/
     common/               # PageHero, ContactForm, WaitlistSection, LegalDocContent
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
     home/  about/  contact/  faq/  privacy/  portals/  resources/
-    auth/                 # AuthLayout, SignUpFlow, ProfileSetupFlow, login/signup forms
+    auth/                 # AuthLayout, SignUpFlow, ProfileSetupFlow, SelectUserType, login/signup forms
     dashboard/            # DashboardLayout, DashboardNavbar, UserMenu, DashboardHero,
                           # SavedPropertiesSection, AccountSection, CompleteProfileModal
     landlord/             # LandlordHeader, LandlordStats
@@ -67,6 +67,7 @@ public/
 |--------|--------|
 | `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
 | None (each page wraps `AuthLayout`) | signup, login, setup-profile |
+| None (standalone onboarding page, no `AuthLayout`) | select-user-type (portal audience picker; Continue → signup) |
 | `DashboardLayout` (signed-in nav) | dashboard, deal-room, deal-room/:dealId, saved-properties, my-account |
 
 Dashboard routes are **not auth-guarded** yet — the UI assumes a signed-in buyer/renter.

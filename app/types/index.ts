@@ -377,6 +377,15 @@ export interface PortalFeatureBlock {
   features: PortalFeature[];
 }
 
+/** An audience option on the "Select user type" onboarding page. */
+export interface PortalUserType {
+  id: "developers" | "landlords" | "agents";
+  label: string;
+  /** The first tile's caption is left-aligned in the design, the rest centred. */
+  labelAlign?: "left" | "center";
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
 export interface FilterOptionsGroup {
   kind: "options";
   id: string;
