@@ -95,7 +95,7 @@ export function SelectUserType() {
   return (
     <main className="relative min-h-svh overflow-hidden bg-white">
       {/* Design canvas, centred on wider screens */}
-      <div className="relative mx-auto min-h-svh w-360 max-w-full">
+      <div className="relative mx-auto min-h-svh w-360 max-w-full pb-12 lg:pb-0">
         {/* Rings flush with the top-left corner; the logo sits on them */}
         <img
           src={RINGS}
@@ -110,7 +110,7 @@ export function SelectUserType() {
           src={DOTS}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-192.5 left-53.5 h-44.25 w-95.25 -rotate-90 select-none"
+          className="pointer-events-none absolute top-192.5 left-53.5 hidden h-44.25 w-95.25 -rotate-90 select-none lg:block"
         />
 
         <header className="relative flex items-start justify-between pr-5 pl-5 pt-22 sm:pr-20 sm:pl-21">
