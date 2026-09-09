@@ -1,4 +1,4 @@
-import type { NavLink } from "~/types";
+import type { NavLink, SideMenuLink } from "~/types";
 
 export const MAIN_NAV: NavLink[] = [
   { label: "Home", href: "/" },
@@ -92,4 +92,53 @@ export const USER_MENU_PRIMARY: NavLink[] = [
 export const USER_MENU_SECONDARY: NavLink[] = [
   { label: "My Account", href: "/my-account" },
   { label: "Sign out", href: "/login" },
+];
+
+/** Side menu of the landlord/agent/developer portal, in two groups. Entries
+ *  flagged `placeholder` have no page yet — they link at the dashboard but
+ *  never take the active styling (only the real current page does). */
+export const PORTAL_MAIN_MENU: SideMenuLink[] = [
+  { label: "Dashboard", href: "/dashboard", icon: "/icons/dashboard.svg" },
+  {
+    label: "Listings",
+    href: "/dashboard",
+    icon: "/icons/listings.svg",
+    placeholder: true,
+  },
+  {
+    label: "Enquiries",
+    href: "/dashboard",
+    icon: "/icons/enquiries.svg",
+    placeholder: true,
+  },
+  {
+    label: "Offers",
+    href: "/dashboard",
+    icon: "/icons/offers.svg",
+    placeholder: true,
+  },
+  { label: "Deal Room", href: "/deal-room", icon: "/icons/deal-room.svg" },
+  {
+    label: "Escrow",
+    href: "/dashboard",
+    icon: "/icons/escrow.svg",
+    placeholder: true,
+  },
+];
+
+export const PORTAL_OTHER_MENU: SideMenuLink[] = [
+  { label: "My Account", href: "/my-account", icon: "/icons/my-account.svg" },
+  {
+    label: "Settings",
+    href: "/dashboard",
+    icon: "/icons/settings.svg",
+    placeholder: true,
+  },
+  {
+    label: "Subscriptions",
+    href: "/dashboard",
+    icon: "/icons/subscriptions.svg",
+    placeholder: true,
+  },
+  { label: "Help", href: "/faq", icon: "/icons/help.svg" },
 ];

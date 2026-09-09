@@ -306,6 +306,17 @@ export interface NavLink {
   children?: NavLink[];
 }
 
+/** An entry in the portal side menu — `icon` is an /icons asset path, kept
+ *  as a string so menu data stays serialisable. */
+export interface SideMenuLink {
+  label: string;
+  href: string;
+  icon: string;
+  /** Entry whose page doesn't exist yet — it links at the dashboard and
+   *  never renders as the active item. */
+  placeholder?: boolean;
+}
+
 /** A numbered step with an icon — portal onboarding steps, the landing
  *  "How it works" steps, etc. */
 export interface NumberedStep {

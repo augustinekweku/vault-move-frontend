@@ -44,8 +44,10 @@ app/
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
     home/  about/  contact/  faq/  privacy/  portals/  resources/
     auth/                 # AuthLayout, SignUpFlow, ProfileSetupFlow, SelectUserType, login/signup forms
-    dashboard/            # DashboardLayout, DashboardNavbar, UserMenu, DashboardHero,
-                          # SavedPropertiesSection, AccountSection, CompleteProfileModal
+    dashboard/            # PortalLayout, PortalSideMenu, PortalHeader (landlord portal);
+                          # DashboardLayout, DashboardNavbar, UserMenu, DashboardHero,
+                          # DashboardStats, RecentListings, ProfileStatusCard, MessagesCard,
+                          # EmptyState, SavedPropertiesSection, AccountSection, CompleteProfileModal
     landlord/             # LandlordHeader, LandlordStats
     deal-room/            # deal list + deal-detail step panels
     enquiry/              # property-contact: chat, viewing, offers
@@ -68,9 +70,10 @@ public/
 | `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
 | None (each page wraps `AuthLayout`) | signup, login, setup-profile |
 | None (standalone onboarding page, no `AuthLayout`) | select-user-type (portal audience picker; Continue → signup) |
-| `DashboardLayout` (signed-in nav) | dashboard, deal-room, deal-room/:dealId, saved-properties, my-account |
+| `PortalLayout` (landlord/agent/developer side menu) | dashboard |
+| `DashboardLayout` (signed-in nav) | deal-room, deal-room/:dealId, saved-properties, my-account |
 
-Dashboard routes are **not auth-guarded** yet — the UI assumes a signed-in buyer/renter.
+Dashboard routes are **not auth-guarded** yet — `/dashboard` assumes a signed-in landlord/agent/developer, the other dashboard routes assume a signed-in buyer/renter.
 
 For page behaviour and mock interaction details, read the route file and its section components — do not re-document UX flows here.
 

@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import { cn } from "~/lib/utils";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -518,6 +519,28 @@ export function FacebookIcon(props: IconProps) {
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
       <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.3H8.2V13h2.8v8h2.5Z" />
     </svg>
+  );
+}
+
+/** Recolourable icon rendered from a /icons/*.svg asset through a CSS mask —
+ *  the glyph takes `currentColor`, which an <img> embed can't do (several
+ *  dashboard icons ship as fixed white fills). Size it via className. */
+export function MaskIcon({
+  src,
+  className,
+}: {
+  src: string;
+  className?: string;
+}) {
+  return (
+    <span
+      aria-hidden
+      className={cn("block shrink-0 bg-current", className)}
+      style={{
+        mask: `url(${src}) center / contain no-repeat`,
+        WebkitMask: `url(${src}) center / contain no-repeat`,
+      }}
+    />
   );
 }
 

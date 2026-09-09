@@ -1,49 +1,39 @@
 import { useState } from "react";
 import { useLocation } from "react-router";
 import type { Route } from "./+types/dashboard";
-import { getFeaturedListings } from "~/services/listings.service";
-import { DashboardHero } from "~/components/dashboard/DashboardHero";
-import { CompleteProfileModal } from "~/components/dashboard/CompleteProfileModal";
-import { FeaturedListings } from "~/components/home/FeaturedListings";
+import { DashboardStats } from "~/components/dashboard/DashboardStats";
+import { RecentListings } from "~/components/dashboard/RecentListings";
+import { ProfileStatusCard } from "~/components/dashboard/ProfileStatusCard";
+import { MessagesCard } from "~/components/dashboard/MessagesCard";
 import { Toast } from "~/components/ui/Toast";
+import { DASHBOARD_STATS } from "~/data/dashboard";
+
+/** Header title of the portal layout (PortalLayout reads this per route). */
+export const handle = { title: "Dashboard" };
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Home — Vault Move Africa" },
+    { title: "Dashboard — Vault Move Africa" },
     {
       name: "description",
-      content: "Search verified properties and pick up where you left off.",
+      content:
+        "Your Vault Move Africa dashboard: listings, enquiries, offers and escrow deals at a glance.",
     },
   ];
 }
 
-export async function loader() {
-  const featured = await getFeaturedListings(6);
-  return { featured };
-}
-
-export default function Dashboard({ loaderData }: Route.ComponentProps) {
-  const { featured } = loaderData;
-  // The profile setup wizard lands here with `profileCompleted` in the
-  // navigation state: skip the prompt modal and confirm with a toast.
+export default function Dashboard() {
+  // The profile-setup wizard lands here with `profileCompleted` in the
+  // navigation state: confirm with a toast — the standing prompt is the
+  // Profile Status card.
   const location = useLocation();
   const profileCompleted =
     (location.state as { profileCompleted?: boolean } | null)
       ?.profileCompleted === true;
-
-  // The prompt modal shows on every landing for now — later this will be
-  // driven by the signed-in user's profile-completion state.
-  const [profilePromptOpen, setProfilePromptOpen] = useState(
-    !profileCompleted,
-  );
   const [successToastOpen, setSuccessToastOpen] = useState(profileCompleted);
 
   return (
     <>
-      <CompleteProfileModal
-        open={profilePromptOpen}
-        onClose={() => setProfilePromptOpen(false)}
-      />
       {successToastOpen && (
         <Toast
           title="Success!"
@@ -51,8 +41,18 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           onClose={() => setSuccessToastOpen(false)}
         />
       )}
-      <DashboardHero />
-      <FeaturedListings properties={featured} />
+
+      <div className="grid gap-6 p-4 sm:p-6 xl:grid-cols-[minmax(0,1fr)_350px]">
+        <div className="flex min-w-0 flex-col gap-6">
+          <DashboardStats stats={DASHBOARD_STATS} />
+          <RecentListings />
+        </div>
+
+        <aside className="flex min-w-0 flex-col gap-6">
+          <ProfileStatusCard />
+          <MessagesCard className="flex-1" />
+        </aside>
+      </div>
     </>
   );
 }
