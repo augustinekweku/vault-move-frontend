@@ -5,8 +5,20 @@ const VAULT_ICON = "/icons/vault-icon.svg";
 
 /** Full-screen auth shell (no site navbar/footer): blue brand panel on the
  *  left with the white wordmark + ornaments, form content centred on the
- *  right. Shared by every step of the sign-up flow (and later, login). */
-export function AuthLayout({ children }: { children: React.ReactNode }) {
+ *  right. Shared by every step of the sign-up flow (and later, login).
+ *  Pass `aside` to render extra panel content (e.g. the onboarding step
+ *  list) under the wordmark — same panel, same styles. */
+export function AuthLayout({
+  children,
+  aside,
+  topRight,
+}: {
+  children: React.ReactNode;
+  aside?: React.ReactNode;
+  /** Optional action pinned to the panel's top-right corner (e.g. Go Back)
+   *  — outside the centred form column. */
+  topRight?: React.ReactNode;
+}) {
   return (
     <div className="flex min-h-svh bg-white">
       {/* Brand panel (desktop only) */}
@@ -32,6 +44,9 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
         </div>
+        {aside && (
+          <div className="absolute top-70 right-10 left-21">{aside}</div>
+        )}
         {/* Dot grid, pinned to the panel's bottom-end corner */}
         <img
           src="/icons/ornament-11.svg"
@@ -41,7 +56,10 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
         />
       </aside>
 
-      <main className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
+      <main className="relative flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
+        {topRight && (
+          <div className="absolute top-12 right-6 sm:right-16">{topRight}</div>
+        )}
         <div className="w-full max-w-87.75">
           <Logo className="mb-10 lg:hidden" />
           {children}

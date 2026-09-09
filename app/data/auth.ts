@@ -22,6 +22,48 @@ export const PROFILE_SETUP_GUIDANCE: Record<ProfileSetupStep, string> = {
   3: "Almost done! Tell us how soon you plan to move in.",
 };
 
+export const LANDLORD_ONBOARDING_STEPS = [1, 2, 3, 4] as const;
+export type LandlordOnboardingStep =
+  (typeof LANDLORD_ONBOARDING_STEPS)[number];
+
+export const LANDLORD_ONBOARDING_TITLES: Record<
+  LandlordOnboardingStep,
+  string
+> = {
+  1: "Personal Information",
+  2: "Professional Information",
+  3: "Company Information",
+  4: "ID Verification",
+};
+
+export const LANDLORD_ONBOARDING_SUBTITLES: Record<
+  LandlordOnboardingStep,
+  string
+> = {
+  1: "Enter your details to set up your account.",
+  2: "Enter your details to set up your account.",
+  3: "Enter your details to set up your account.",
+  4: "Verify your identity to complete your setup.",
+};
+
+export const LANDLORD_PHONE_CODES = ["GHA +233", "NGA +234", "USA +1"];
+
+export const LANDLORD_SPECIALIZATIONS = [
+  "Apartments",
+  "Townhouses",
+  "Single-family homes",
+  "Commercial properties",
+  "Land",
+  "Luxury villas",
+];
+
+export const LANDLORD_ID_TYPES = [
+  "Ghana Card",
+  "Passport",
+  "Driver's License",
+  "Voter ID",
+];
+
 export const PASSWORD_RULES: PasswordRule[] = [
   {
     id: "length",

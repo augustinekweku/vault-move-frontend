@@ -29,6 +29,7 @@ export default [
   route("login", "routes/login.tsx"),
   route("setup-profile", "routes/setup-profile.tsx"),
   route("select-user-type", "routes/select-user-type.tsx"),
+  route("landlord-onboarding", "routes/landlord-onboarding.tsx"),
   // Landlord/agent/developer portal with the fixed brand side menu.
   layout("components/dashboard/PortalLayout.tsx", [
     route("dashboard", "routes/dashboard.tsx"),

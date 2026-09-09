@@ -3,7 +3,7 @@ import { Button } from "~/components/ui/Button";
 import { PROFILE_COMPLETION_PERCENT } from "~/data/dashboard";
 
 /** "Profile Status" card: why completing the profile matters, the completion
- *  progress and the action into the profile-setup wizard. */
+ *  progress and the action into the landlord onboarding wizard. */
 export function ProfileStatusCard({ className }: { className?: string }) {
   const percent = PROFILE_COMPLETION_PERCENT;
 
@@ -38,7 +38,7 @@ export function ProfileStatusCard({ className }: { className?: string }) {
       </div>
 
       <Button
-        to="/setup-profile"
+        to="/landlord-onboarding"
         size="sm"
         className="mt-4 h-9 w-full bg-brand/70 text-sm hover:bg-brand"
       >
