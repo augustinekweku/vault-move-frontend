@@ -93,6 +93,38 @@ body {
   display: none;
 }
 
+/* Sheet (slide-over) enter motion: the backdrop fades while the panel slides
+   in from the right. Mount-only animations, so server markup stays final. */
+@keyframes vm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vm-sheet-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.vm-fade-in {
+  animation: vm-fade-in 0.2s ease-out;
+}
+.vm-sheet-in {
+  animation: vm-sheet-in 0.3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vm-fade-in,
+  .vm-sheet-in {
+    animation: none;
+  }
+}
+
 /* Hide the scrollbar on horizontal scroll rows (e.g. the map-view "Properties
    in this location" carousel) — scrolling still works via touch, wheel and
    the prev/next arrow buttons. */

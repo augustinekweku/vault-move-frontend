@@ -1,49 +1,100 @@
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/Button";
-import { PROFILE_COMPLETION_PERCENT } from "~/data/dashboard";
+import {
+  PROFILE_COMPLETION_PERCENT,
+  VERIFIED_PROFILE_CARD,
+  FAILED_VERIFICATION_CARD,
+} from "~/data/dashboard";
 
-/** "Profile Status" card: why completing the profile matters, the completion
- *  progress and the action into the landlord onboarding wizard. Once the
- *  onboarding documents are submitted (`pending`), it switches to the
- *  verification-in-progress state instead. */
-export function ProfileStatusCard({
+export type VerificationStatus = "default" | "pending" | "verified" | "failed";
+
+const CARD_CLASS =
+  "rounded-xl border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)]";
+
+function CardShell({
   className,
-  pending = false,
+  children,
 }: {
   className?: string;
-  pending?: boolean;
+  children: React.ReactNode;
 }) {
-  const percent = PROFILE_COMPLETION_PERCENT;
+  return <section className={cn(CARD_CLASS, className)}>{children}</section>;
+}
 
-  if (pending) {
+/** Right-column verification card of the landlord/agent/developer dashboard.
+ *  `default` prompts into the onboarding wizard, `pending` covers the review
+ *  window, `verified` unlocks listing, and `failed` opens the reviewer query
+ *  dialog via `onViewQuery`. */
+export function ProfileStatusCard({
+  className,
+  status = "default",
+  onViewQuery,
+}: {
+  className?: string;
+  status?: VerificationStatus;
+  onViewQuery?: () => void;
+}) {
+  if (status === "verified") {
     return (
-      <section
-        className={cn(
-          "rounded-xl border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)]",
-          className,
-        )}
-      >
+      <CardShell className={className}>
+        <h2 className="text-base font-semibold text-ink">
+          {VERIFIED_PROFILE_CARD.title}
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-500">
+          {VERIFIED_PROFILE_CARD.body}
+        </p>
+
+        {/* The create-listing form isn't built yet, so the button stays
+            inert like "Add new listing". */}
+        <Button size="sm" className="mt-4 h-11 w-full text-[15px]">
+          {VERIFIED_PROFILE_CARD.actionLabel}
+        </Button>
+      </CardShell>
+    );
+  }
+
+  if (status === "failed") {
+    return (
+      <CardShell className={className}>
+        <h2 className="text-base font-semibold text-ink">
+          {FAILED_VERIFICATION_CARD.title}
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-500">
+          {FAILED_VERIFICATION_CARD.body}
+        </p>
+
+        <Button
+          size="sm"
+          onClick={onViewQuery}
+          className="mt-4 h-11 w-full bg-danger text-[15px] text-white hover:bg-danger/90"
+        >
+          {FAILED_VERIFICATION_CARD.actionLabel}
+        </Button>
+      </CardShell>
+    );
+  }
+
+  if (status === "pending") {
+    return (
+      <CardShell className={className}>
         <h2 className="text-base font-semibold text-ink">Profile Status</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-500">
           Thanks! We&rsquo;ve received your submission and are currently
           verifying your information. We&rsquo;ll notify you as soon as your
-          verification is complete. This usually takes 1–3 business days.
+          verification is complete. This usually takes 1-3 business days.
         </p>
 
         <span className="mt-4 flex h-9 w-full items-center justify-center rounded-lg bg-warning text-sm font-medium text-white">
           Verification in progress
         </span>
-      </section>
+      </CardShell>
     );
   }
 
+  const percent = PROFILE_COMPLETION_PERCENT;
+
   return (
-    <section
-      className={cn(
-        "rounded-xl border border-line bg-white p-4 shadow-[0_4px_4px_rgba(0,0,0,0.05)]",
-        className,
-      )}
-    >
+    <CardShell className={className}>
       <h2 className="text-base font-semibold text-ink">Profile Status</h2>
       <p className="mt-2 text-sm leading-relaxed text-muted-500">
         Complete your profile and verify your ID to protect your account,
@@ -74,6 +125,6 @@ export function ProfileStatusCard({
       >
         Complete Profile
       </Button>
-    </section>
+    </CardShell>
   );
 }
