@@ -22,7 +22,9 @@ export function AuthLayout({
   return (
     <div className="flex min-h-svh bg-white">
       {/* Brand panel (desktop only) */}
-      <aside className="relative hidden w-123.75 shrink-0 overflow-hidden bg-brand lg:block">
+      {/* Sticky so the panel (and any slotted step list) stays anchored
+          while long forms scroll beside it. */}
+      <aside className="sticky top-0 hidden h-svh w-123.75 shrink-0 overflow-hidden bg-brand lg:block">
         <img
           src="/images/footer-ornament.png"
           alt=""

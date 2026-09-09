@@ -21,22 +21,40 @@ export function Field({ label, className, children }: FieldProps) {
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   wrapperClassName?: string;
+  /** Error message — turns the border and value red and renders the message
+   *  below the field. Pair with `errorId` for the aria link. */
+  error?: string | null;
+  errorId?: string;
 }
 
 export function Input({
   label,
   className,
   wrapperClassName,
+  error,
+  errorId,
   ...props
 }: InputProps) {
   const control = (
-    <input
-      className={cn(
-        "h-11 w-full rounded-lg border border-line bg-white px-3.5 text-[15px] text-ink placeholder:text-muted-500 shadow-[0_1px_2px_rgba(16,24,40,0.05)] focus:border-brand focus:outline-none",
-        className,
+    <>
+      <input
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error && errorId ? errorId : undefined}
+        className={cn(
+          "h-11 w-full rounded-lg border bg-white px-3.5 text-[15px] shadow-[0_1px_2px_rgba(16,24,40,0.05)] placeholder:text-muted-500 focus:outline-none",
+          error
+            ? "border-danger text-danger focus:border-danger"
+            : "border-line text-ink focus:border-brand",
+          className,
+        )}
+        {...props}
+      />
+      {error && (
+        <span id={errorId} role="alert" className="text-[13px] text-danger">
+          {error}
+        </span>
       )}
-      {...props}
-    />
+    </>
   );
 
   if (!label) return control;

@@ -26,10 +26,15 @@ export default function Dashboard() {
   // The profile-setup wizard lands here with `profileCompleted` in the
   // navigation state: confirm with a toast — the standing prompt is the
   // Profile Status card.
+  // The onboarding wizard lands here with `verificationPending` instead: the
+  // Profile Status card switches to its verification-in-progress state.
   const location = useLocation();
-  const profileCompleted =
-    (location.state as { profileCompleted?: boolean } | null)
-      ?.profileCompleted === true;
+  const state = location.state as {
+    profileCompleted?: boolean;
+    verificationPending?: boolean;
+  } | null;
+  const profileCompleted = state?.profileCompleted === true;
+  const verificationPending = state?.verificationPending === true;
   const [successToastOpen, setSuccessToastOpen] = useState(profileCompleted);
 
   return (
@@ -49,7 +54,7 @@ export default function Dashboard() {
         </div>
 
         <aside className="flex min-w-0 flex-col gap-6">
-          <ProfileStatusCard />
+          <ProfileStatusCard pending={verificationPending} />
           <MessagesCard className="flex-1" />
         </aside>
       </div>

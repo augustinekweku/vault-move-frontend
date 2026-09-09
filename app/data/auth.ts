@@ -57,6 +57,20 @@ export const LANDLORD_SPECIALIZATIONS = [
   "Luxury villas",
 ];
 
+/** Acceptable company registration documents listed on the upload card. */
+export const LANDLORD_COMPANY_DOCUMENTS = [
+  "Certificate of Incorporation",
+  "Company Registration Certificate",
+  "TIN Certificate",
+];
+
+/** ID verification checklist shown above the step-4 uploader. */
+export const LANDLORD_ID_CHECKLIST = [
+  "Upload an image (Front of ID)",
+  "Upload an image (Back of ID)",
+  "Take a Selfie",
+];
+
 export const LANDLORD_ID_TYPES = [
   "Ghana Card",
   "Passport",

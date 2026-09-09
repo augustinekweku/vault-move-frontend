@@ -338,6 +338,31 @@ export interface PasswordRule {
   test: (password: string) => boolean;
 }
 
+/** One file row in the onboarding uploaders: the name shown plus
+ *  the simulated upload progress (0–100). */
+export interface UploadedFile {
+  id: string;
+  name: string;
+  progress: number;
+}
+
+/** Every free-text field in the landlord onboarding wizard, keyed by its
+ *  input `name` so one generic change handler serves them all. Selects stay
+ *  separate — their `onChange` only passes the value, not a field name. */
+export interface OnboardingForm {
+  address: string;
+  gpsAddress: string;
+  phoneNumber: string;
+  experience: string;
+  bio: string;
+  companyName: string;
+  officePhone: string;
+  companyRegNo: string;
+  tinNumber: string;
+  officeAddress: string;
+  idNumber: string;
+}
+
 export interface TeamMember {
   name: string;
   role: string;
