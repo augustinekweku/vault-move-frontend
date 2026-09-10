@@ -1,9 +1,21 @@
+import type { ListingDraft } from "~/types";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/Button";
 import { EmptyState } from "~/components/dashboard/EmptyState";
+import { ListingDraftCard } from "~/components/dashboard/ListingDraftCard";
+import { MOCK_LISTING_DRAFTS } from "~/data/listing";
+
+function renderDraft(draft: ListingDraft) {
+  return (
+    <li key={draft.id}>
+      <ListingDraftCard draft={draft} />
+    </li>
+  );
+}
 
 /** "Recent Listings" panel: the heading with the add-listing action and —
- *  until the signed-in account has listings — the shared empty state. */
+ *  until the signed-in account has listings — the in-progress drafts, falling
+ *  back to the shared empty state when there are none. */
 export function RecentListings({ className }: { className?: string }) {
   return (
     <section className={cn("flex flex-col", className)}>
@@ -19,7 +31,13 @@ export function RecentListings({ className }: { className?: string }) {
         </Button>
       </div>
 
-      <EmptyState className="min-h-80 flex-1 justify-center py-10" />
+      {MOCK_LISTING_DRAFTS.length > 0 ? (
+        <ul className="mt-4 flex flex-col gap-4">
+          {MOCK_LISTING_DRAFTS.map(renderDraft)}
+        </ul>
+      ) : (
+        <EmptyState className="min-h-80 flex-1 justify-center py-10" />
+      )}
     </section>
   );
 }

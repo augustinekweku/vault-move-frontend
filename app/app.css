@@ -46,6 +46,9 @@
   --color-star-yellow: #ffb919;
   --color-surface-gray: #fafafb;
   --color-ink-gray: #666676;
+  /* Draft-listing progress badge */
+  --color-badge-yellow: #ffea94;
+  --color-badge-yellow-border: #fff3c2;
 }
 
 html,

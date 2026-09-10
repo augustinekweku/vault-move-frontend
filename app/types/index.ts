@@ -367,9 +367,26 @@ export interface TeamMember {
   role: string;
 }
 
-/** Steps 1–4 fields of the create-listing wizard, keyed by control `name` so
- *  one generic handler serves inputs and selects alike. Later steps extend
- *  this interface with their own fields. */
+/** An in-progress listing shown in the dashboard Recent Listings panel,
+ *  with its wizard progress badge. */
+export interface ListingDraft {
+  id: string;
+  image: string;
+  typeLabel: string;
+  title: string;
+  location: string;
+  stars: number;
+  rating: string;
+  createdOn: string;
+  stepLabel: string;
+  bedrooms: string;
+  bathrooms: string;
+  furnishing: string;
+}
+
+/** Scalar fields of the create-listing wizard, keyed by control `name` so one
+ *  generic handler serves inputs and selects alike. Media uploads live in
+ *  separate uploader state; later steps extend this interface. */
 export interface ListingDetailsForm {
   title: string;
   description: string;
@@ -393,6 +410,13 @@ export interface ListingDetailsForm {
   interiorFeatures: string;
   parking: string;
   buildingFeatures: string;
+  amenities: string;
+  petsAllowed: string;
+  smokingAllowed: string;
+  partiesAllowed: string;
+  maxOccupants: string;
+  noiseRestrictions: string;
+  additionalTerms: string;
 }
 
 export interface ContactMethod {

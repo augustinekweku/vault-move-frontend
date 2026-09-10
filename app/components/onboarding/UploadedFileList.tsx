@@ -18,7 +18,7 @@ export function UploadedFileList({
         <div className="min-w-0 flex-1 rounded-xl bg-surface-alt px-4 py-3">
           <p className="flex items-center gap-2 text-sm text-muted-700">
             <img
-              src="/icons/document.svg"
+              src="/icons/document-icon.svg"
               alt=""
               aria-hidden
               className="size-5 shrink-0"

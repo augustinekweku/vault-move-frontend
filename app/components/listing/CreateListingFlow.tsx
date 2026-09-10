@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { ListingDetailsForm } from "~/types";
+import { useRef, useState } from "react";
+import type { ListingDetailsForm, UploadedFile } from "~/types";
 import { scrollToTop } from "~/lib/utils";
 import { Button } from "~/components/ui/Button";
 import { CreateListingSteps } from "~/components/listing/CreateListingSteps";
@@ -7,6 +7,9 @@ import { PropertyDetailsStep } from "~/components/listing/steps/PropertyDetailsS
 import { LocationStep } from "~/components/listing/steps/LocationStep";
 import { PricingStep } from "~/components/listing/steps/PricingStep";
 import { FeaturesStep } from "~/components/listing/steps/FeaturesStep";
+import { AmenitiesStep } from "~/components/listing/steps/AmenitiesStep";
+import { HouseRulesStep } from "~/components/listing/steps/HouseRulesStep";
+import { MediaUploadsStep } from "~/components/listing/steps/MediaUploadsStep";
 
 const INITIAL_FORM: ListingDetailsForm = {
   title: "",
@@ -31,10 +34,41 @@ const INITIAL_FORM: ListingDetailsForm = {
   interiorFeatures: "",
   parking: "",
   buildingFeatures: "",
+  amenities: "",
+  petsAllowed: "",
+  smokingAllowed: "",
+  partiesAllowed: "",
+  maxOccupants: "",
+  noiseRestrictions: "",
+  additionalTerms: "",
 };
 
 /** Highest step with a built panel — bump as each step file lands. */
-const HIGHEST_BUILT_STEP = 4;
+const HIGHEST_BUILT_STEP = 7;
+
+/** Append picked files to a media list with a simulated progress bump —
+ *  mirrors the onboarding uploaders until the listings API is live. */
+function pushMediaUploads(
+  files: FileList | null,
+  setUploads: React.Dispatch<React.SetStateAction<UploadedFile[]>>,
+  mintId: () => string,
+) {
+  if (!files || files.length === 0) return;
+  const fresh: UploadedFile[] = Array.from(files, (file) => ({
+    id: mintId(),
+    name: file.name,
+    progress: 8,
+  }));
+  setUploads((prev) => [...prev, ...fresh]);
+  const freshIds = fresh.map((upload) => upload.id);
+  setTimeout(() => {
+    setUploads((prev) =>
+      prev.map((upload) =>
+        freshIds.includes(upload.id) ? { ...upload, progress: 92 } : upload,
+      ),
+    );
+  }, 700);
+}
 
 /** Create-listing wizard shell: heading plus the step rail on white, the
  *  active step panel on the grey surface. The panel starts flush under the
@@ -43,6 +77,16 @@ const HIGHEST_BUILT_STEP = 4;
 export function CreateListingFlow() {
   const [currentStep, setCurrentStep] = useState(1);
   const [form, setForm] = useState(INITIAL_FORM);
+  const [propertyImages, setPropertyImages] = useState<UploadedFile[]>([]);
+  const [propertyVideos, setPropertyVideos] = useState<UploadedFile[]>([]);
+  const uploadIdRef = useRef(0);
+  const imagesInputRef = useRef<HTMLInputElement>(null);
+  const videosInputRef = useRef<HTMLInputElement>(null);
+
+  function mintMediaId() {
+    uploadIdRef.current += 1;
+    return `media-${uploadIdRef.current}`;
+  }
 
   function handleFieldChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -59,6 +103,56 @@ export function CreateListingFlow() {
   function handleRadioChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.currentTarget;
     setForm((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function pickImages() {
+    imagesInputRef.current?.click();
+  }
+
+  function pickVideos() {
+    videosInputRef.current?.click();
+  }
+
+  function handleImagesChange(event: React.ChangeEvent<HTMLInputElement>) {
+    pushMediaUploads(
+      event.currentTarget.files,
+      setPropertyImages,
+      mintMediaId,
+    );
+    event.currentTarget.value = "";
+  }
+
+  function handleVideosChange(event: React.ChangeEvent<HTMLInputElement>) {
+    pushMediaUploads(
+      event.currentTarget.files,
+      setPropertyVideos,
+      mintMediaId,
+    );
+    event.currentTarget.value = "";
+  }
+
+  function handleMediaDragOver(event: React.DragEvent) {
+    event.preventDefault();
+  }
+
+  function handleImagesDrop(event: React.DragEvent) {
+    event.preventDefault();
+    pushMediaUploads(event.dataTransfer.files, setPropertyImages, mintMediaId);
+  }
+
+  function handleVideosDrop(event: React.DragEvent) {
+    event.preventDefault();
+    pushMediaUploads(event.dataTransfer.files, setPropertyVideos, mintMediaId);
+  }
+
+  function handleImageDelete(event: React.MouseEvent<HTMLButtonElement>) {
+    const id = event.currentTarget.dataset.id;
+    setPropertyImages((prev) => prev.filter((file) => file.id !== id));
+  }
+
+  function handleVideoDelete(event: React.MouseEvent<HTMLButtonElement>) {
+    const id = event.currentTarget.dataset.id;
+    setPropertyVideos((prev) => prev.filter((file) => file.id !== id));
   }
 
   function goBack() {
@@ -111,6 +205,33 @@ export function CreateListingFlow() {
           )}
           {currentStep === 4 && (
             <FeaturesStep form={form} onRadioChange={handleRadioChange} />
+          )}
+          {currentStep === 5 && (
+            <AmenitiesStep form={form} onRadioChange={handleRadioChange} />
+          )}
+          {currentStep === 6 && (
+            <HouseRulesStep
+              form={form}
+              onFieldChange={handleFieldChange}
+              onSelectChange={handleSelectChange}
+            />
+          )}
+          {currentStep === 7 && (
+            <MediaUploadsStep
+              images={propertyImages}
+              videos={propertyVideos}
+              imagesInputRef={imagesInputRef}
+              videosInputRef={videosInputRef}
+              onPickImages={pickImages}
+              onPickVideos={pickVideos}
+              onImagesChange={handleImagesChange}
+              onVideosChange={handleVideosChange}
+              onDragOver={handleMediaDragOver}
+              onImagesDrop={handleImagesDrop}
+              onVideosDrop={handleVideosDrop}
+              onImageDelete={handleImageDelete}
+              onVideoDelete={handleVideoDelete}
+            />
           )}
 
           <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-12 lg:pt-5">
