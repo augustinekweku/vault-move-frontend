@@ -43,14 +43,17 @@ export function Toast({
       className={cn(
         "fixed top-20 right-0 z-50 max-w-[calc(100vw-1rem)] rounded-l-[60px] border border-line shadow-[0px_4px_4px_rgba(0,0,0,0.05)]",
         isError
-          ? "w-150 bg-danger-soft px-9 py-4"
+          ? "w-150 bg-danger-soft px-5 py-3 sm:px-9 sm:py-4"
           : "bg-success-soft py-3 pr-6 pl-5",
       )}
     >
+      {/* The error pill keeps its desktop spec from sm up and compacts
+          below that (tighter padding, icon and copy) so it fits narrow
+          viewports without awkward wrapping. */}
       <div
         className={cn(
           "flex",
-          isError ? "items-center gap-6" : "items-start gap-4",
+          isError ? "items-center gap-3 sm:gap-6" : "items-start gap-4",
         )}
       >
         {/* Success parks the circle level with the title rather than centred
@@ -59,11 +62,11 @@ export function Toast({
         <span
           className={cn(
             "flex shrink-0 items-center justify-center rounded-full bg-white",
-            isError ? "size-12" : "mt-0.5 size-9",
+            isError ? "size-9 sm:size-12" : "mt-0.5 size-9",
           )}
         >
           {isError ? (
-            <AlertIcon className="size-6 text-alert" />
+            <AlertIcon className="size-4.5 text-alert sm:size-6" />
           ) : (
             <img src="/icons/check-circle.svg" alt="" className="size-4.5" />
           )}
@@ -75,7 +78,7 @@ export function Toast({
           <p
             className={
               isError
-                ? "text-lg leading-8 font-bold text-ink-soft"
+                ? "text-sm leading-6 font-bold text-ink-soft sm:text-lg sm:leading-8"
                 : "text-sm leading-6 font-bold text-ink-soft"
             }
           >
@@ -85,8 +88,8 @@ export function Toast({
             <p
               className={
                 isError
-                  ? "text-lg leading-8 text-ink-soft"
-                  : "text-sm leading-6 text-ink-soft mt-3"
+                  ? "wrap-break-word text-sm leading-6 text-ink-soft sm:text-lg sm:leading-8"
+                  : "text-sm leading-6 text-ink-soft mt-1"
               }
             >
               {message}
@@ -102,7 +105,7 @@ export function Toast({
             !isError && "mt-1",
           )}
         >
-          <CloseIcon className={isError ? "size-4" : "size-3.5"} />
+          <CloseIcon className={isError ? "size-3.5 sm:size-4" : "size-3.5"} />
         </button>
       </div>
       {steps?.length ? (
