@@ -9,9 +9,13 @@ interface ViewingCardProps {
   time: string;
   /** Lifecycle status — drives the action row (see below). */
   status?: ViewingStatus;
+  /** Portal cards drop the renter actions, keeping Cancel Viewing only. */
+  variant?: "renter" | "landlord";
   /** "Make an Offer" (completed status) — opens the offer form in the
    *  Offers tab. */
   onMakeOffer?: () => void;
+  /** Portal Cancel Viewing — removes the scheduled viewing. */
+  onCancel?: () => void;
   className?: string;
 }
 
@@ -20,15 +24,17 @@ const primaryButton =
 
 /** The "Viewing Scheduled" card the landlord shares in the enquiry chat: a
  *  brand-blue calendar in a tinted circle beside the label + date/time
- *  (split by a vertical divider). The action row depends on `status`:
- *  confirm + cancel buttons (upcoming), a "Make an Offer" button
- *  (completed — wired via `onMakeOffer`) or a red "Cancelled" status bar.
- *  The remaining actions are visual mocks until the backend is live. */
+ *  (split by a vertical divider). The action row depends on `status` and
+ *  `variant`: renters get confirm + cancel (upcoming) or "Make an Offer"
+ *  (completed); the landlord variant keeps Cancel Viewing only. The
+ *  remaining actions are visual mocks until the backend is live. */
 export function ViewingCard({
   date,
   time,
   status = "upcoming",
+  variant = "renter",
   onMakeOffer,
+  onCancel,
   className,
 }: ViewingCardProps) {
   return (
@@ -51,7 +57,7 @@ export function ViewingCard({
           </p>
         </div>
       </div>
-      {status === "upcoming" && (
+      {status === "upcoming" && variant === "renter" && (
         <>
           <button type="button" className={primaryButton}>
             I have viewed this property
@@ -64,7 +70,16 @@ export function ViewingCard({
           </button>
         </>
       )}
-      {status === "completed" && (
+      {status === "upcoming" && variant === "landlord" && (
+        <button
+          type="button"
+          onClick={onCancel}
+          className="mt-4 w-full rounded-lg border border-line bg-white py-2.5 text-sm text-muted-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-black/5"
+        >
+          Cancel Viewing
+        </button>
+      )}
+      {status === "completed" && variant === "renter" && (
         <button type="button" onClick={onMakeOffer} className={primaryButton}>
           Make an Offer
         </button>

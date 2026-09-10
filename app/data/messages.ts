@@ -109,3 +109,18 @@ export const OFFER_FILTERS: { key: OfferFilter; label: string }[] = [
   { key: "declined", label: "Declined offers" },
   { key: "drafts", label: "Drafts" },
 ];
+
+function formatSlot(hour: number, minute: number): string {
+  const period = hour >= 12 ? "pm" : "am";
+  const twelve = hour % 12 === 0 ? 12 : hour % 12;
+  return `${twelve}:${minute === 0 ? "00" : "30"} ${period}`;
+}
+
+/** Half-hour viewing slots (8:00 am – 6:00 pm) for the schedule sheet. */
+export const VIEWING_TIME_SLOTS: string[] = Array.from(
+  { length: 21 },
+  (_, i) => {
+    const total = 8 * 60 + i * 30;
+    return formatSlot(Math.floor(total / 60), total % 60);
+  },
+);

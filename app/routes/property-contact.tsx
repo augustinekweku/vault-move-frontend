@@ -5,8 +5,9 @@ import type { OfferOutcome, OfferStatus } from "~/types";
 import { getListingById } from "~/services/listings.service";
 import { getLandlordById } from "~/services/landlords.service";
 import { MOCK_COUNTER_OFFER } from "~/data/messages";
-import { cn, scrollToTop } from "~/lib/utils";
+import { scrollToTop } from "~/lib/utils";
 import { Container } from "~/components/ui/Container";
+import { EnquiryTabs } from "~/components/enquiry/EnquiryTabs";
 import { ConversationList } from "~/components/enquiry/ConversationList";
 import { EnquiryChat } from "~/components/enquiry/EnquiryChat";
 import { ViewingPanel } from "~/components/enquiry/ViewingPanel";
@@ -92,6 +93,13 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
     return () => clearTimeout(timer);
   }, [offerAmount, offerIsCounter, property.price]);
   const searchHref = property.category === "buy" ? "/buy" : "/rent";
+
+  function handleTabChange(value: string) {
+    setTab(value);
+    setMakingOffer(false);
+    setViewingCounter(false);
+  }
+
   const breadcrumbs = [
     { label: "Home", href: "/" },
     { label: "Search", href: searchHref },
@@ -122,31 +130,7 @@ export default function PropertyContact({ loaderData }: Route.ComponentProps) {
         </nav>
 
         <div className="mt-6 border-b border-line">
-          <div className="flex gap-8 overflow-x-auto no-scrollbar">
-            {TABS.map(({ value, label }) => {
-              const active = tab === value;
-              return (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => {
-                    setTab(value);
-                    setMakingOffer(false);
-                    setViewingCounter(false);
-                  }}
-                  aria-selected={active}
-                  className={cn(
-                    "-mb-px border-b-2 pb-3 text-sm font-semibold whitespace-nowrap transition-colors",
-                    active
-                      ? "border-brand text-brand"
-                      : "border-transparent text-ink/50 hover:text-ink",
-                  )}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
+          <EnquiryTabs tabs={TABS} active={tab} onChange={handleTabChange} />
         </div>
 
         {tab === "enquiries" ? (

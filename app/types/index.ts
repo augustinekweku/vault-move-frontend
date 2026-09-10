@@ -400,6 +400,13 @@ export interface PortalListing {
   views: number;
 }
 
+/** A landlord-scheduled viewing: display-ready date/time labels. */
+export interface ScheduledViewing {
+  id: string;
+  dateLabel: string;
+  timeLabel: string;
+}
+
 /** Scalar fields of the create-listing wizard, keyed by control `name` so one
  *  generic handler serves inputs and selects alike. Media uploads live in
  *  separate uploader state; later steps extend this interface. */

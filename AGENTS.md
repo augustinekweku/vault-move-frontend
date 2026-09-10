@@ -51,7 +51,7 @@ app/
     landlord/             # LandlordHeader, LandlordStats
     listings/             # portal Listings page: toolbar, table, pagination
     deal-room/            # deal list + deal-detail step panels
-    enquiry/              # property-contact: chat, viewing, offers
+    enquiry/              # renter + portal enquiries: tabs, chat, viewing, offers
     property/             # cards, search, filters, MapView, details sections
   data/                   # static CMS/copy + mock domain fixtures (UPPER_SNAKE_CASE)
   types/index.ts          # ALL shared interfaces/types
@@ -71,7 +71,7 @@ public/
 | `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
 | None (each page wraps `AuthLayout`) | signup, login, setup-profile |
 | None (standalone onboarding page, no `AuthLayout`) | select-user-type (portal audience picker; Continue → signup) |
-| `PortalLayout` (landlord/agent/developer side menu) | dashboard, dashboard/listings, dashboard/listings/:propertyId/preview, dashboard/create-listing |
+| `PortalLayout` (landlord/agent/developer side menu) | dashboard, dashboard/listings, dashboard/listings/:propertyId/preview, dashboard/create-listing, dashboard/enquiries |
 | `DashboardLayout` (signed-in nav) | deal-room, deal-room/:dealId, saved-properties, my-account |
 
 Dashboard routes are **not auth-guarded** yet — `/dashboard` assumes a signed-in landlord/agent/developer, the other dashboard routes assume a signed-in buyer/renter.

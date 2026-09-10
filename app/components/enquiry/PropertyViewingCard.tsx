@@ -13,9 +13,13 @@ interface PropertyViewingCardProps {
   time: string;
   /** Passed through to the ViewingCard action row. */
   status?: ViewingStatus;
+  /** Portal cards drop the renter actions, keeping Cancel Viewing only. */
+  variant?: "renter" | "landlord";
   /** "Make an Offer" on the completed ViewingCard — opens the offer form
    *  in the Offers tab. */
   onMakeOffer?: () => void;
+  /** Portal Cancel Viewing — removes the scheduled viewing. */
+  onCancel?: () => void;
   className?: string;
 }
 
@@ -28,7 +32,9 @@ export function PropertyViewingCard({
   date,
   time,
   status,
+  variant,
   onMakeOffer,
+  onCancel,
   className,
 }: PropertyViewingCardProps) {
   return (
@@ -43,7 +49,9 @@ export function PropertyViewingCard({
         date={date}
         time={time}
         status={status}
+        variant={variant}
         onMakeOffer={onMakeOffer}
+        onCancel={onCancel}
       />
     </div>
   );

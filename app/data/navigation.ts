@@ -106,9 +106,8 @@ export const PORTAL_MAIN_MENU: SideMenuLink[] = [
   },
   {
     label: "Enquiries",
-    href: "/dashboard",
+    href: "/dashboard/enquiries",
     icon: "/icons/enquiries.svg",
-    placeholder: true,
   },
   {
     label: "Offers",

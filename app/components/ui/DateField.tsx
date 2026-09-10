@@ -16,6 +16,8 @@ interface DateFieldProps {
   value: string;
   /** Reports the selection as an ISO date string. */
   onChange: (iso: string) => void;
+  /** Trailing glyph in the field button (e.g. a calendar icon). */
+  suffix?: React.ReactNode;
 }
 
 const fieldClasses =
@@ -28,7 +30,7 @@ const labelClasses = "text-[13.5px] leading-5 font-medium text-muted-700";
  *  days outside the current month are shown dimmed and can't be picked.
  *  The popover only renders after interaction, so SSR markup stays
  *  deterministic. */
-export function DateField({ label, value, onChange }: DateFieldProps) {
+export function DateField({ label, value, onChange, suffix }: DateFieldProps) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState(() => new Date());
   const ref = useRef<HTMLDivElement>(null);
@@ -79,11 +81,14 @@ export function DateField({ label, value, onChange }: DateFieldProps) {
         }}
         className={cn(
           fieldClasses,
-          "text-left",
+          "flex items-center gap-2 text-left",
           value ? "text-ink" : "text-muted-500",
         )}
       >
-        {value ? formatIsoDate(value) : "select date"}
+        <span className="min-w-0 flex-1 truncate">
+          {value ? formatIsoDate(value) : "select date"}
+        </span>
+        {suffix}
       </button>
 
       {open && (
