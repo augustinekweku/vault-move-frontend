@@ -110,7 +110,7 @@ For page behaviour and mock interaction details, read the route file and its sec
 - **Styling**: utility-first Tailwind v4. Use theme tokens from `app/app.css` `@theme`,
   not raw hex. Key tokens:
   - Brand: `brand`, `brand-dark`, `brand-navy`, `brand-deep`, `brand-blue`, `accent`, `accent-strong`, `accent-soft`
-  - Feedback: `success`, `success-soft`, `danger`, `warning`, `star`, `star-yellow`
+  - Feedback: `success`, `success-soft`, `danger`, `danger-soft`, `alert`, `warning`, `star`, `star-yellow`
   - Text: `ink`, `ink-muted`, `ink-soft`, `ink-gray`, `gray-900`, `muted-700`, `muted-500`, `muted-400`, `muted-300`
   - Surfaces: `surface`, `surface-alt`, `surface-gray`, `line`, `line-soft`
   - Radius: `rounded-bubble` (enquiry grey bubbles)

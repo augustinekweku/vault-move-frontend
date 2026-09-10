@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import type { ToastStep } from "~/types";
 import { cn } from "~/lib/utils";
-import { CloseIcon, PendingIcon } from "~/components/ui/icons";
+import { AlertIcon, CloseIcon, PendingIcon } from "~/components/ui/icons";
 
-/** Success toast pinned to the top-right edge of the viewport: a pale-green
- *  pill rounded on the left only, with a check icon, bold title, message
- *  and a close button. Pass `steps` to add the progress checklist below the
- *  message (enquiry/offer-submitted variants on the message-landlord page).
+/** Toast pinned to the top-right edge of the viewport: a pill rounded on
+ *  the left only, with a status icon, bold title, message and a close
+ *  button. `variant` switches the success treatment (pale green,
+ *  content-width, check) to the error one (pale pink fixed-width pill, alert
+ *  glyph, bold headline-sized copy) and raises an assertive live region.
+ *  Pass `steps` to add the progress checklist below the message
+ *  (enquiry/offer-submitted variants on the message-landlord page).
  *  Width is content-driven but capped just under the viewport so small
  *  screens keep the pill on-screen (the text column wraps instead).
  *  Auto-dismisses after `duration` ms (pass 0 to keep it until manually
@@ -15,12 +18,14 @@ export function Toast({
   title,
   message,
   steps,
+  variant = "success",
   onClose,
   duration = 5000,
 }: {
   title: string;
   message?: string;
   steps?: ToastStep[];
+  variant?: "success" | "error";
   onClose: () => void;
   duration?: number;
 }) {
@@ -30,32 +35,74 @@ export function Toast({
     return () => clearTimeout(timer);
   }, [duration, onClose]);
 
+  const isError = variant === "error";
+
   return (
     <div
-      role="status"
-      className="fixed top-20 right-0 z-50 max-w-[calc(100vw-1rem)] rounded-l-[60px] border border-line bg-success-soft py-3 pr-6 pl-5 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]"
+      role={isError ? "alert" : "status"}
+      className={cn(
+        "fixed top-20 right-0 z-50 max-w-[calc(100vw-1rem)] rounded-l-[60px] border border-line shadow-[0px_4px_4px_rgba(0,0,0,0.05)]",
+        isError
+          ? "w-150 bg-danger-soft px-9 py-4"
+          : "bg-success-soft py-3 pr-6 pl-5",
+      )}
     >
-      <div className="flex items-start gap-4">
-        {/* mt-0.5 parks the circle level with the title rather than centred
-            against the whole title+message block. */}
-        <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-white">
-          <img src="/icons/check-circle.svg" alt="" className="size-4.5" />
+      <div
+        className={cn(
+          "flex",
+          isError ? "items-center gap-6" : "items-start gap-4",
+        )}
+      >
+        {/* Success parks the circle level with the title rather than centred
+            against the whole title+message block; the error circle stays
+            centred against its taller copy. */}
+        <span
+          className={cn(
+            "flex shrink-0 items-center justify-center rounded-full bg-white",
+            isError ? "size-12" : "mt-0.5 size-9",
+          )}
+        >
+          {isError ? (
+            <AlertIcon className="size-6 text-alert" />
+          ) : (
+            <img src="/icons/check-circle.svg" alt="" className="size-4.5" />
+          )}
         </span>
-        {/* max-w-80 caps long messages at a readable width — only kicks in
-            for long messages; short ones keep the pill hugging content. */}
-        <div className="max-w-80 pr-2">
-          <p className="text-sm leading-6 font-bold text-ink-soft">{title}</p>
+        {/* max-w-80 caps long success messages at a readable width — only kicks
+            in for long messages; short ones keep the pill hugging content. The
+            error copy fills its fixed pill instead. */}
+        <div className={cn(isError ? "min-w-0 flex-1" : "max-w-80 pr-2")}>
+          <p
+            className={
+              isError
+                ? "text-lg leading-8 font-bold text-ink-soft"
+                : "text-sm leading-6 font-bold text-ink-soft"
+            }
+          >
+            {title}
+          </p>
           {message ? (
-            <p className="text-sm leading-6 text-ink-soft mt-1">{message}</p>
+            <p
+              className={
+                isError
+                  ? "text-lg leading-8 text-ink-soft"
+                  : "text-sm leading-6 text-ink-soft mt-3"
+              }
+            >
+              {message}
+            </p>
           ) : null}
         </div>
         <button
           type="button"
           onClick={onClose}
           aria-label="Dismiss notification"
-          className="mt-1 ml-1 text-brand-dark hover:text-ink"
+          className={cn(
+            "ml-1 shrink-0 text-brand-dark hover:text-ink",
+            !isError && "mt-1",
+          )}
         >
-          <CloseIcon className="size-3.5" />
+          <CloseIcon className={isError ? "size-4" : "size-3.5"} />
         </button>
       </div>
       {steps?.length ? (

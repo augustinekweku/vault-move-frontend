@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import type { ListingDetailsForm, UploadedFile } from "~/types";
 import { scrollToTop } from "~/lib/utils";
 import { Button } from "~/components/ui/Button";
+import { Toast } from "~/components/ui/Toast";
 import { CreateListingSteps } from "~/components/listing/CreateListingSteps";
 import { PropertyDetailsStep } from "~/components/listing/steps/PropertyDetailsStep";
 import { LocationStep } from "~/components/listing/steps/LocationStep";
@@ -49,7 +50,7 @@ const HIGHEST_BUILT_STEP = 7;
 /** Append picked files to a media list with a simulated progress bump —
  *  mirrors the onboarding uploaders until the listings API is live. */
 function pushMediaUploads(
-  files: FileList | null,
+  files: FileList | File[] | null,
   setUploads: React.Dispatch<React.SetStateAction<UploadedFile[]>>,
   mintId: () => string,
 ) {
@@ -70,15 +71,14 @@ function pushMediaUploads(
   }, 700);
 }
 
-/** Create-listing wizard shell: heading plus the step rail on white, the
- *  active step panel on the grey surface. The panel starts flush under the
- *  portal header and stretches to at least the viewport height; each step
- *  panel lives in its own file under `steps/`. */
+/** Create-listing wizard shell: each step panel lives in its own file under
+ * `steps/`. */
 export function CreateListingFlow() {
   const [currentStep, setCurrentStep] = useState(1);
   const [form, setForm] = useState(INITIAL_FORM);
   const [propertyImages, setPropertyImages] = useState<UploadedFile[]>([]);
   const [propertyVideos, setPropertyVideos] = useState<UploadedFile[]>([]);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const uploadIdRef = useRef(0);
   const imagesInputRef = useRef<HTMLInputElement>(null);
   const videosInputRef = useRef<HTMLInputElement>(null);
@@ -105,6 +105,27 @@ export function CreateListingFlow() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
+  function closeUploadError() {
+    setUploadError(null);
+  }
+
+  /** Keep only files matching the dropzone kind, flagging the first definite
+   *  mismatch with the error toast. Files with an unknown type pass — the
+   *  picker and dropzone already hint the accepted kinds. */
+  function takeMatchingFiles(
+    files: FileList | null,
+    kind: "image" | "video",
+  ): File[] {
+    const picked = files ? Array.from(files) : [];
+    const mismatch = picked.find(
+      (file) => file.type !== "" && !file.type.startsWith(`${kind}/`),
+    );
+    if (mismatch) setUploadError(mismatch.name);
+    return picked.filter(
+      (file) => file.type === "" || file.type.startsWith(`${kind}/`),
+    );
+  }
+
   function pickImages() {
     imagesInputRef.current?.click();
   }
@@ -115,7 +136,7 @@ export function CreateListingFlow() {
 
   function handleImagesChange(event: React.ChangeEvent<HTMLInputElement>) {
     pushMediaUploads(
-      event.currentTarget.files,
+      takeMatchingFiles(event.currentTarget.files, "image"),
       setPropertyImages,
       mintMediaId,
     );
@@ -124,7 +145,7 @@ export function CreateListingFlow() {
 
   function handleVideosChange(event: React.ChangeEvent<HTMLInputElement>) {
     pushMediaUploads(
-      event.currentTarget.files,
+      takeMatchingFiles(event.currentTarget.files, "video"),
       setPropertyVideos,
       mintMediaId,
     );
@@ -137,12 +158,20 @@ export function CreateListingFlow() {
 
   function handleImagesDrop(event: React.DragEvent) {
     event.preventDefault();
-    pushMediaUploads(event.dataTransfer.files, setPropertyImages, mintMediaId);
+    pushMediaUploads(
+      takeMatchingFiles(event.dataTransfer.files, "image"),
+      setPropertyImages,
+      mintMediaId,
+    );
   }
 
   function handleVideosDrop(event: React.DragEvent) {
     event.preventDefault();
-    pushMediaUploads(event.dataTransfer.files, setPropertyVideos, mintMediaId);
+    pushMediaUploads(
+      takeMatchingFiles(event.dataTransfer.files, "video"),
+      setPropertyVideos,
+      mintMediaId,
+    );
   }
 
   function handleImageDelete(event: React.MouseEvent<HTMLButtonElement>) {
@@ -178,6 +207,14 @@ export function CreateListingFlow() {
       {/* Deeper top offset on desktop so the first field starts level
           with the first step. */}
       <section className="flex min-h-[calc(100dvh-4rem)] flex-col bg-surface px-5 pt-8 pb-6 sm:px-10 lg:pt-19">
+        {uploadError && (
+          <Toast
+            variant="error"
+            title="Error."
+            message={`Failed to upload ${uploadError}`}
+            onClose={closeUploadError}
+          />
+        )}
         {/* Full-height column so the footer rests at the foot of tall
             viewports on every step. */}
         <div className="flex max-w-191.5 flex-1 flex-col">
