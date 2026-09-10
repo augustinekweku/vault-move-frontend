@@ -33,6 +33,7 @@ export default [
   // Landlord/agent/developer portal with the fixed brand side menu.
   layout("components/dashboard/PortalLayout.tsx", [
     route("dashboard", "routes/dashboard.tsx"),
+    route("dashboard/listings", "routes/listings.tsx"),
     route("dashboard/create-listing", "routes/create-listing.tsx"),
     route(
       "dashboard/listings/:propertyId/preview",

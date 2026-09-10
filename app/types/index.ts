@@ -384,6 +384,22 @@ export interface ListingDraft {
   furnishing: string;
 }
 
+/** Lifecycle state of a landlord/agent/developer portal listing row. */
+export type PortalListingStatus = "active" | "pending" | "inactive";
+
+/** One row of the portal Listings table: the property summary, its review
+ *  status, rent label, type and view count. */
+export interface PortalListing {
+  id: string;
+  image: string;
+  title: string;
+  location: string;
+  status: PortalListingStatus;
+  priceLabel: string;
+  propertyType: string;
+  views: number;
+}
+
 /** Scalar fields of the create-listing wizard, keyed by control `name` so one
  *  generic handler serves inputs and selects alike. Media uploads live in
  *  separate uploader state; later steps extend this interface. */

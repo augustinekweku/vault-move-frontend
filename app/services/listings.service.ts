@@ -1,9 +1,11 @@
 import type {
+  PortalListing,
   Property,
   PropertyDetails,
   SearchListingsParams,
 } from "~/types";
 import { MOCK_LISTINGS, MOCK_PROPERTY_DETAILS } from "~/data/listings";
+import { MOCK_PORTAL_LISTINGS } from "~/data/listing";
 
 /**
  * Listings data access. Currently backed by mock data; swap the bodies for
@@ -48,4 +50,13 @@ export async function getListingById(
   }
   // return http.get<{ property: Property; details: PropertyDetails }>(`/listings/${id}`);
   return undefined;
+}
+
+/** Rows for the landlord/agent/developer portal Listings table. */
+export async function getPortalListings(): Promise<PortalListing[]> {
+  if (USE_MOCK) {
+    return delay(MOCK_PORTAL_LISTINGS);
+  }
+  // return http.get<PortalListing[]>("/listings/mine");
+  return [];
 }
