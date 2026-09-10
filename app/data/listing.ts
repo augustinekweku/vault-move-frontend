@@ -212,7 +212,7 @@ export const PORTAL_LISTINGS_STATS: Stat[] = [
   { value: "120", label: "Total Views" },
 ];
 
-export const LISTING_STATUS_OPTIONS = ["Active", "Pending review", "Inactive"];
+export const LISTING_STATUS_OPTIONS = ["Inactive", "Active"];
 
 export const LISTINGS_FOOTER_NOTE = "Showing 1-12 listings";
 

@@ -7,7 +7,6 @@ import { LISTINGS_TOTAL_PAGES } from "~/data/listing";
 
 const STATUS_FILTER_VALUES: Record<string, PortalListing["status"]> = {
   Active: "active",
-  "Pending review": "pending",
   Inactive: "inactive",
 };
 
