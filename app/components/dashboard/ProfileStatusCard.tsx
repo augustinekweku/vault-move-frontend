@@ -44,9 +44,12 @@ export function ProfileStatusCard({
           {VERIFIED_PROFILE_CARD.body}
         </p>
 
-        {/* The create-listing form isn't built yet, so the button stays
-            inert like "Add new listing". */}
-        <Button size="sm" className="mt-4 h-11 w-full text-[15px]">
+        {/* The wizard's first step is live; later steps land behind it. */}
+        <Button
+          to="/dashboard/create-listing"
+          size="sm"
+          className="mt-4 h-11 w-full text-[15px]"
+        >
           {VERIFIED_PROFILE_CARD.actionLabel}
         </Button>
       </CardShell>

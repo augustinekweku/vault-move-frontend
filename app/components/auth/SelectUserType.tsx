@@ -33,7 +33,7 @@ function TypeCard({
       <span
         className={cn(
           "flex h-41 w-50 items-start justify-center rounded-xl border bg-white shadow-[0_4px_4px_rgba(0,0,0,0.05)] transition-colors",
-          active ? "border-[#08356b]" : "border-line group-hover:border-muted-400",
+          active ? "border-brand-deep" : "border-line group-hover:border-muted-400",
         )}
       >
         <userType.Icon

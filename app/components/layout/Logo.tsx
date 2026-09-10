@@ -9,7 +9,7 @@ export function Logo({
   className?: string;
   variant?: "brand" | "white";
 }) {
-  const color = variant === "white" ? "#ffffff" : "#08356b";
+  const color = variant === "white" ? "#ffffff" : "var(--color-brand-deep)";
   return (
     <Link to="/" className={cn("flex items-center gap-2.5", className)}>
       <svg

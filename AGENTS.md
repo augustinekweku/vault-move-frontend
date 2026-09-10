@@ -70,7 +70,7 @@ public/
 | `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
 | None (each page wraps `AuthLayout`) | signup, login, setup-profile |
 | None (standalone onboarding page, no `AuthLayout`) | select-user-type (portal audience picker; Continue → signup) |
-| `PortalLayout` (landlord/agent/developer side menu) | dashboard |
+| `PortalLayout` (landlord/agent/developer side menu) | dashboard, dashboard/create-listing |
 | `DashboardLayout` (signed-in nav) | deal-room, deal-room/:dealId, saved-properties, my-account |
 
 Dashboard routes are **not auth-guarded** yet — `/dashboard` assumes a signed-in landlord/agent/developer, the other dashboard routes assume a signed-in buyer/renter.
@@ -109,7 +109,7 @@ For page behaviour and mock interaction details, read the route file and its sec
   `deal-room/DealsSection.tsx`).
 - **Styling**: utility-first Tailwind v4. Use theme tokens from `app/app.css` `@theme`,
   not raw hex. Key tokens:
-  - Brand: `brand`, `brand-dark`, `brand-navy`, `brand-blue`, `accent`, `accent-strong`, `accent-soft`
+  - Brand: `brand`, `brand-dark`, `brand-navy`, `brand-deep`, `brand-blue`, `accent`, `accent-strong`, `accent-soft`
   - Feedback: `success`, `success-soft`, `danger`, `warning`, `star`, `star-yellow`
   - Text: `ink`, `ink-muted`, `ink-soft`, `ink-gray`, `gray-900`, `muted-700`, `muted-500`, `muted-400`, `muted-300`
   - Surfaces: `surface`, `surface-alt`, `surface-gray`, `line`, `line-soft`

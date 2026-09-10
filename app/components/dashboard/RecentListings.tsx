@@ -9,8 +9,8 @@ export function RecentListings({ className }: { className?: string }) {
     <section className={cn("flex flex-col", className)}>
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-base font-semibold text-ink">Recent Listings</h2>
-        {/* The add-listing form isn't built yet, so the button stays inert. */}
         <Button
+          to="/dashboard/create-listing"
           variant="outline"
           size="sm"
           className="h-9 border-line px-4 text-sm text-muted-700"

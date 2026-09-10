@@ -347,8 +347,7 @@ export interface UploadedFile {
 }
 
 /** Every free-text field in the landlord onboarding wizard, keyed by its
- *  input `name` so one generic change handler serves them all. Selects stay
- *  separate — their `onChange` only passes the value, not a field name. */
+ *  input `name` so one generic change handler serves them all. */
 export interface OnboardingForm {
   address: string;
   gpsAddress: string;
@@ -366,6 +365,25 @@ export interface OnboardingForm {
 export interface TeamMember {
   name: string;
   role: string;
+}
+
+/** Step 1–2 fields of the create-listing wizard, keyed by control `name` so
+ *  one generic handler serves inputs and selects alike. Later steps extend
+ *  this interface with their own fields. */
+export interface ListingDetailsForm {
+  title: string;
+  description: string;
+  propertyType: string;
+  listingType: string;
+  furnishing: string;
+  bedrooms: string;
+  availability: string;
+  bathrooms: string;
+  buildingCondition: string;
+  address: string;
+  area: string;
+  city: string;
+  closestLandmark: string;
 }
 
 export interface ContactMethod {
