@@ -367,7 +367,7 @@ export interface TeamMember {
   role: string;
 }
 
-/** Step 1–2 fields of the create-listing wizard, keyed by control `name` so
+/** Steps 1–4 fields of the create-listing wizard, keyed by control `name` so
  *  one generic handler serves inputs and selects alike. Later steps extend
  *  this interface with their own fields. */
 export interface ListingDetailsForm {
@@ -384,6 +384,15 @@ export interface ListingDetailsForm {
   area: string;
   city: string;
   closestLandmark: string;
+  monthlyRent: string;
+  securityDeposit: string;
+  paymentFrequency: string;
+  rentDuration: string;
+  serviceCharge: string;
+  serviceChargeFrequency: string;
+  interiorFeatures: string;
+  parking: string;
+  buildingFeatures: string;
 }
 
 export interface ContactMethod {

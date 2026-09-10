@@ -81,3 +81,44 @@ export const LANDMARK_OPTIONS = [
   "Hospitals",
   "Civic / Cultural",
 ];
+
+/** Step 3 pricing options. */
+export const PAYMENT_FREQUENCIES = ["Monthly", "Quarterly", "Yearly"];
+
+export const RENT_DURATIONS = ["Short term", "Long term"];
+
+export const SERVICE_CHARGES = [
+  "300 GHC",
+  "450 GHC",
+  "600 GHC",
+  "900 GHC",
+  "1,200 GHC",
+];
+
+/** Step 4 feature groups. */
+export const INTERIOR_FEATURES = [
+  "Air conditioning",
+  "Wi-Fi",
+  "Furnished kitchen",
+  "Appliances",
+  "Walk in closet",
+  "Balcony",
+  "Laundry",
+  "Storage room",
+];
+
+export const PARKING_OPTIONS = [
+  "Private parking",
+  "Visitors parking",
+  "EV charging",
+  "Garage",
+  "Street parking",
+];
+
+export const BUILDING_FEATURES = [
+  "Elevator / lift",
+  "Concierge",
+  "Security",
+  "Gym",
+  "Roof top terrace",
+];

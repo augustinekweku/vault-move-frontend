@@ -14,12 +14,12 @@ export function LocationStep({
   form,
   onFieldChange,
   onSelectChange,
-  onLandmarkChange,
+  onRadioChange,
 }: {
   form: ListingDetailsForm;
   onFieldChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectChange: (value: string, name?: string) => void;
-  onLandmarkChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onRadioChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   function renderLandmarkOption(option: string) {
     return (
@@ -32,7 +32,7 @@ export function LocationStep({
           name="closestLandmark"
           value={option}
           checked={form.closestLandmark === option}
-          onChange={onLandmarkChange}
+          onChange={onRadioChange}
           className="size-4 cursor-pointer accent-brand"
         />
         {option}

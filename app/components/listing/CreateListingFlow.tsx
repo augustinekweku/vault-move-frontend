@@ -1,9 +1,12 @@
 import { useState } from "react";
 import type { ListingDetailsForm } from "~/types";
+import { scrollToTop } from "~/lib/utils";
 import { Button } from "~/components/ui/Button";
 import { CreateListingSteps } from "~/components/listing/CreateListingSteps";
 import { PropertyDetailsStep } from "~/components/listing/steps/PropertyDetailsStep";
 import { LocationStep } from "~/components/listing/steps/LocationStep";
+import { PricingStep } from "~/components/listing/steps/PricingStep";
+import { FeaturesStep } from "~/components/listing/steps/FeaturesStep";
 
 const INITIAL_FORM: ListingDetailsForm = {
   title: "",
@@ -19,10 +22,19 @@ const INITIAL_FORM: ListingDetailsForm = {
   area: "",
   city: "",
   closestLandmark: "",
+  monthlyRent: "",
+  securityDeposit: "",
+  paymentFrequency: "",
+  rentDuration: "",
+  serviceCharge: "",
+  serviceChargeFrequency: "",
+  interiorFeatures: "",
+  parking: "",
+  buildingFeatures: "",
 };
 
 /** Highest step with a built panel — bump as each step file lands. */
-const HIGHEST_BUILT_STEP = 2;
+const HIGHEST_BUILT_STEP = 4;
 
 /** Create-listing wizard shell: heading plus the step rail on white, the
  *  active step panel on the grey surface. The panel starts flush under the
@@ -44,17 +56,19 @@ export function CreateListingFlow() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleLandmarkChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.currentTarget;
-    setForm((prev) => ({ ...prev, closestLandmark: value }));
+  function handleRadioChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.currentTarget;
+    setForm((prev) => ({ ...prev, [name]: value }));
   }
 
   function goBack() {
     setCurrentStep((step) => Math.max(step - 1, 1));
+    scrollToTop();
   }
 
   function goNext() {
     setCurrentStep((step) => Math.min(step + 1, HIGHEST_BUILT_STEP));
+    scrollToTop();
   }
 
   return (
@@ -69,8 +83,10 @@ export function CreateListingFlow() {
 
       {/* Deeper top offset on desktop so the first field starts level
           with the first step. */}
-      <section className="min-h-[calc(100dvh-4rem)] bg-surface px-5 py-8 sm:px-10 lg:pt-19">
-        <div className="max-w-191.5">
+      <section className="flex min-h-[calc(100dvh-4rem)] flex-col bg-surface px-5 pt-8 pb-6 sm:px-10 lg:pt-19">
+        {/* Full-height column so the footer rests at the foot of tall
+            viewports on every step. */}
+        <div className="flex max-w-191.5 flex-1 flex-col">
           {currentStep === 1 && (
             <PropertyDetailsStep
               form={form}
@@ -83,11 +99,21 @@ export function CreateListingFlow() {
               form={form}
               onFieldChange={handleFieldChange}
               onSelectChange={handleSelectChange}
-              onLandmarkChange={handleLandmarkChange}
+              onRadioChange={handleRadioChange}
             />
           )}
+          {currentStep === 3 && (
+            <PricingStep
+              form={form}
+              onFieldChange={handleFieldChange}
+              onSelectChange={handleSelectChange}
+            />
+          )}
+          {currentStep === 4 && (
+            <FeaturesStep form={form} onRadioChange={handleRadioChange} />
+          )}
 
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-3">
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-12 lg:pt-5">
             {currentStep === 1 ? (
               <Button
                 to="/dashboard"
