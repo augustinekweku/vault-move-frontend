@@ -21,18 +21,18 @@ export function PortalHeader({
   return (
     <header className="sticky top-0 z-30 border-b border-line-soft bg-white">
       <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6 lg:px-7">
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <button
             type="button"
             aria-label="Open menu"
             onClick={onMenuClick}
-            className="text-ink transition-colors hover:text-brand lg:hidden"
+            className="flex size-10 shrink-0 items-center justify-center rounded-xl text-ink transition-colors hover:bg-surface-alt hover:text-brand lg:hidden"
           >
-            <MenuIcon className="size-6" />
+            <MenuIcon className="size-5" />
           </button>
-          <h1 className="flex items-center gap-4 text-lg font-medium text-ink">
-            {icon && <MaskIcon src={icon} className="size-5" />}
-            {title}
+          <h1 className="flex min-w-0 items-center gap-3 text-base font-medium text-ink sm:text-lg">
+            {icon && <MaskIcon src={icon} className="hidden size-5 shrink-0 sm:block" />}
+            <span className="truncate">{title}</span>
           </h1>
         </div>
 
