@@ -11,7 +11,7 @@ import { FeaturesStep } from "~/components/listing/steps/FeaturesStep";
 import { AmenitiesStep } from "~/components/listing/steps/AmenitiesStep";
 import { HouseRulesStep } from "~/components/listing/steps/HouseRulesStep";
 import { MediaUploadsStep } from "~/components/listing/steps/MediaUploadsStep";
-
+import { LegalDocumentsStep } from "~/components/listing/steps/LegalDocumentsStep";
 const INITIAL_FORM: ListingDetailsForm = {
   title: "",
   description: "",
@@ -45,7 +45,7 @@ const INITIAL_FORM: ListingDetailsForm = {
 };
 
 /** Highest step with a built panel — bump as each step file lands. */
-const HIGHEST_BUILT_STEP = 7;
+const HIGHEST_BUILT_STEP = 8;
 
 /** Append picked files to a media list with a simulated progress bump —
  *  mirrors the onboarding uploaders until the listings API is live. */
@@ -71,17 +71,27 @@ function pushMediaUploads(
   }, 700);
 }
 
+/** Portal audience creating the listing — only step 8 differs: landlords
+ *  prove ownership while agents and developers prove authority to list. */
+export type ListingAudience = "landlord" | "agent" | "developer";
+
 /** Create-listing wizard shell: each step panel lives in its own file under
  * `steps/`. */
-export function CreateListingFlow() {
+export function CreateListingFlow({
+  audience = "landlord",
+}: {
+  audience?: ListingAudience;
+}) {
   const [currentStep, setCurrentStep] = useState(1);
   const [form, setForm] = useState(INITIAL_FORM);
   const [propertyImages, setPropertyImages] = useState<UploadedFile[]>([]);
   const [propertyVideos, setPropertyVideos] = useState<UploadedFile[]>([]);
+  const [ownershipDocs, setOwnershipDocs] = useState<UploadedFile[]>([]);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const uploadIdRef = useRef(0);
   const imagesInputRef = useRef<HTMLInputElement>(null);
   const videosInputRef = useRef<HTMLInputElement>(null);
+  const ownershipInputRef = useRef<HTMLInputElement>(null);
 
   function mintMediaId() {
     uploadIdRef.current += 1;
@@ -184,6 +194,37 @@ export function CreateListingFlow() {
     setPropertyVideos((prev) => prev.filter((file) => file.id !== id));
   }
 
+  function pickOwnershipDocs() {
+    ownershipInputRef.current?.click();
+  }
+
+  function handleOwnershipDocsChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) {
+    pushMediaUploads(
+      event.currentTarget.files,
+      setOwnershipDocs,
+      mintMediaId,
+    );
+    event.currentTarget.value = "";
+  }
+
+  function handleOwnershipDocsDrop(event: React.DragEvent) {
+    event.preventDefault();
+    pushMediaUploads(
+      event.dataTransfer.files,
+      setOwnershipDocs,
+      mintMediaId,
+    );
+  }
+
+  function handleOwnershipDocDelete(
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) {
+    const id = event.currentTarget.dataset.id;
+    setOwnershipDocs((prev) => prev.filter((file) => file.id !== id));
+  }
+
   function goBack() {
     setCurrentStep((step) => Math.max(step - 1, 1));
     scrollToTop();
@@ -270,6 +311,18 @@ export function CreateListingFlow() {
               onVideoDelete={handleVideoDelete}
             />
           )}
+          {currentStep === 8 && (
+            <LegalDocumentsStep
+              variant={audience === "landlord" ? "ownership" : "authority"}
+              documents={ownershipDocs}
+              documentsInputRef={ownershipInputRef}
+              onPickDocuments={pickOwnershipDocs}
+              onDocumentsChange={handleOwnershipDocsChange}
+              onDragOver={handleMediaDragOver}
+              onDocumentsDrop={handleOwnershipDocsDrop}
+              onDocumentDelete={handleOwnershipDocDelete}
+            />
+          )}
 
           <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-12 lg:pt-5">
             {currentStep === 1 ? (
@@ -305,9 +358,14 @@ export function CreateListingFlow() {
                   Save and continue
                 </Button>
               ) : (
-                /* The next step isn't built yet, so saving stays inert. */
-                <Button size="sm" className="px-6">
-                  Save and continue
+                /* TODO: preview the created draft id once the listings API is
+                   live — listing-1 stands in until then. */
+                <Button
+                  to="/dashboard/listings/listing-1/preview"
+                  size="sm"
+                  className="px-6"
+                >
+                  Save and preview
                 </Button>
               )}
             </div>

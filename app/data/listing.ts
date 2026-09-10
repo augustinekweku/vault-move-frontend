@@ -158,6 +158,23 @@ export const MEDIA_GUIDELINES = [
   "Supported formats: JPG, JPEG, PNG, WEBP, MP4, and MOV.",
 ];
 
+/** Step 8 proof-of-ownership options. */
+export const LEGAL_DOCUMENT_OPTIONS = [
+  "Land Title Certificate",
+  "Land Certificate",
+  "Indenture",
+  "Lease Agreement (where applicable)",
+  "Allocation Letter (if applicable)",
+];
+
+/** Step 8 proof-of-authority options for agents and developers. */
+export const AUTHORITY_TO_LIST_OPTIONS = [
+  "Exclusive Agency Agreement",
+  "Property Management Agreement",
+  "Letter of Authority from the Property Owner",
+  "Power of Attorney (where applicable)",
+];
+
 /** In-progress listings for the dashboard Recent Listings panel — mock
  *  until the listings API is live. */
 export const MOCK_LISTING_DRAFTS: ListingDraft[] = [
