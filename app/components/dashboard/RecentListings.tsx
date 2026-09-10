@@ -5,18 +5,27 @@ import { EmptyState } from "~/components/dashboard/EmptyState";
 import { ListingDraftCard } from "~/components/dashboard/ListingDraftCard";
 import { MOCK_LISTING_DRAFTS } from "~/data/listing";
 
-function renderDraft(draft: ListingDraft) {
-  return (
-    <li key={draft.id}>
-      <ListingDraftCard draft={draft} />
-    </li>
-  );
-}
-
 /** "Recent Listings" panel: the heading with the add-listing action and —
  *  until the signed-in account has listings — the in-progress drafts, falling
- *  back to the shared empty state when there are none. */
-export function RecentListings({ className }: { className?: string }) {
+ *  back to the shared empty state when there are none. `published` flips the
+ *  draft cards to their Active Listing state after the publish flow lands
+ *  back here (per-listing status comes from the listings API when live). */
+export function RecentListings({
+  className,
+  published = false,
+}: {
+  className?: string;
+  published?: boolean;
+}) {
+  // Needs the published flag, so the row renderer lives with the state.
+  function renderDraft(draft: ListingDraft) {
+    return (
+      <li key={draft.id}>
+        <ListingDraftCard draft={draft} active={published} />
+      </li>
+    );
+  }
+
   return (
     <section className={cn("flex flex-col", className)}>
       <div className="flex items-center justify-between gap-4">

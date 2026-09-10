@@ -175,6 +175,13 @@ export const AUTHORITY_TO_LIST_OPTIONS = [
   "Power of Attorney (where applicable)",
 ];
 
+/** Publish confirmation copy for the listing-preview modal. */
+export const PUBLISH_CONFIRMATION = {
+  title: "Your Listing Is Pending Verification",
+  intro: "Thank you for submitting your property.",
+  body: "Your property has been submitted successfully and is currently under review. We'll notify you once your listing has been approved and published.",
+};
+
 /** In-progress listings for the dashboard Recent Listings panel — mock
  *  until the listings API is live. */
 export const MOCK_LISTING_DRAFTS: ListingDraft[] = [

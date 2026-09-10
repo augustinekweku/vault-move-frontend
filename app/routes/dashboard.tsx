@@ -40,13 +40,17 @@ export default function Dashboard() {
   // Profile Status card.
   // The onboarding wizard lands here with `verificationPending` instead: the
   // Profile Status card switches to its verification-in-progress state.
+  // The publish flow lands here with `listingPublished`: the Recent Listings
+  // cards flip to their Active Listing state.
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const state = location.state as {
     profileCompleted?: boolean;
     verificationPending?: boolean;
+    listingPublished?: boolean;
   } | null;
   const profileCompleted = state?.profileCompleted === true;
+  const listingPublished = state?.listingPublished === true;
   const [successToastOpen, setSuccessToastOpen] = useState(profileCompleted);
   const [queryOpen, setQueryOpen] = useState(false);
 
@@ -82,7 +86,7 @@ export default function Dashboard() {
       <div className="grid gap-6 p-4 sm:p-6 xl:grid-cols-[minmax(0,1fr)_350px]">
         <div className="flex min-w-0 flex-col gap-6">
           <DashboardStats stats={DASHBOARD_STATS} />
-          <RecentListings />
+          <RecentListings published={listingPublished} />
         </div>
 
         <aside className="flex min-w-0 flex-col gap-6">

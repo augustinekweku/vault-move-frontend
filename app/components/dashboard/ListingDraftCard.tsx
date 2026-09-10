@@ -7,8 +7,16 @@ const BATHROOM_ICON = "/icons/bathroom.svg";
 const FURNISH_ICON = "/icons/chair-furnish.svg";
 
 /** In-progress listing preview for the dashboard Recent Listings panel:
- *  photo, type and wizard-progress pills, rating row and the key specs. */
-export function ListingDraftCard({ draft }: { draft: ListingDraft }) {
+ *  photo, type and status pills, rating row and the key specs. A published
+ *  listing swaps the yellow wizard-progress pill for the green Active
+ *  Listing one. */
+export function ListingDraftCard({
+  draft,
+  active = false,
+}: {
+  draft: ListingDraft;
+  active?: boolean;
+}) {
   function renderStar(index: number) {
     return (
       <StarIcon
@@ -35,9 +43,15 @@ export function ListingDraftCard({ draft }: { draft: ListingDraft }) {
             <span className="rounded border border-surface-alt bg-surface-alt px-1.5 py-0.75 text-[8px] leading-[1.3] text-brand-navy">
               {draft.typeLabel}
             </span>
-            <span className="rounded-md border border-badge-yellow-border bg-badge-yellow px-1.5 py-0.75 text-[8px] leading-[1.3] text-brand-navy">
-              {draft.stepLabel}
-            </span>
+            {active ? (
+              <span className="rounded-md border border-success/50 bg-success-soft px-1.5 py-0.75 text-[8px] leading-[1.3] text-success">
+                Active Listing
+              </span>
+            ) : (
+              <span className="rounded-md border border-badge-yellow-border bg-badge-yellow px-1.5 py-0.75 text-[8px] leading-[1.3] text-brand-navy">
+                {draft.stepLabel}
+              </span>
+            )}
           </div>
 
           <h3 className="mt-4 text-base font-extrabold text-ink">

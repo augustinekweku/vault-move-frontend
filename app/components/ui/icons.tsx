@@ -490,6 +490,24 @@ export function PendingIcon(props: IconProps) {
   );
 }
 
+/** Amber ring with three dots for the listing-published confirmation. */
+export function PendingReviewIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden {...props}>
+      <circle
+        cx="24"
+        cy="24"
+        r="20"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <circle cx="15" cy="24" r="2.6" fill="currentColor" />
+      <circle cx="24" cy="24" r="2.6" fill="currentColor" />
+      <circle cx="33" cy="24" r="2.6" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function BellIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>

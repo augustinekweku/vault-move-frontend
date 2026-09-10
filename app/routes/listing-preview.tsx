@@ -1,13 +1,17 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import type { Route } from "./+types/listing-preview";
 import { getListingById } from "~/services/listings.service";
 import { Button } from "~/components/ui/Button";
 import { PropertyGallery } from "~/components/property/PropertyGallery";
 import { PropertySidePanel } from "~/components/property/PropertySidePanel";
 import { PropertyOverview } from "~/components/property/PropertyOverview";
+import { PublishConfirmationModal } from "~/components/listing/PublishConfirmationModal";
 
-/** Header title of the portal layout — the preview lives under Dashboard
- *  (and keeps its rail icon) while the action row below names the flow. */
-export const handle = { title: "Dashboard" };
+/** Header title of the portal layout — the preview sits under the Listings
+ *  entry (and takes its rail icon) while the action row below names the
+ *  flow. */
+export const handle = { title: "Listings" };
 
 export function meta({ loaderData }: Route.MetaArgs) {
   const title = loaderData?.property.title ?? "Listing";
@@ -30,6 +34,21 @@ export async function loader({ params }: Route.LoaderArgs) {
  *  sections with the Go back / Publish Listing actions on top. */
 export default function ListingPreview({ loaderData }: Route.ComponentProps) {
   const { property, details } = loaderData;
+  const navigate = useNavigate();
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
+
+  function openConfirmation() {
+    setConfirmationOpen(true);
+  }
+
+  function closeConfirmation() {
+    setConfirmationOpen(false);
+  }
+
+  function goToDashboard() {
+    // TODO: publish the listing through the listings API before leaving.
+    navigate("/dashboard", { state: { listingPublished: true } });
+  }
 
   return (
     <div className="p-4 sm:p-6">
@@ -42,8 +61,7 @@ export default function ListingPreview({ loaderData }: Route.ComponentProps) {
         >
           Go back
         </Button>
-        {/* Publishing hits the listings API once it is live. */}
-        <Button size="sm" className="px-6">
+        <Button size="sm" onClick={openConfirmation} className="px-6">
           Publish Listing
         </Button>
       </div>
@@ -63,6 +81,12 @@ export default function ListingPreview({ loaderData }: Route.ComponentProps) {
           className="xl:w-86.25 xl:shrink-0"
         />
       </div>
+
+      <PublishConfirmationModal
+        open={confirmationOpen}
+        onClose={closeConfirmation}
+        onGoToDashboard={goToDashboard}
+      />
     </div>
   );
 }
