@@ -39,12 +39,27 @@ const OUTCOME_CONTENT: Record<
     body: "You've chosen not to accept the landlord's counter offer. This transaction has been closed. You can continue exploring other properties or start a new enquiry whenever you're ready.",
     cta: "View more properties",
   },
+  "portal-accepted": {
+    icon: "/icons/check-circle-navy.svg",
+    tint: "bg-[#edf1fa]",
+    title: "Offer Accepted!",
+    body: "You've successfully accepted this offer. A Deal Room has been created where the applicant can complete the remaining steps of the transaction.",
+    cta: "Go to the Deal room",
+  },
+  "portal-declined": {
+    icon: "/icons/x-circle.svg",
+    tint: "bg-[#fef3f2]",
+    title: "Offer Declined",
+    body: "You have declined this offer. The applicant has been notified.",
+    cta: "Back to offers",
+  },
 };
 
 /** Centred end-of-negotiation dialog: a tinted outcome icon over the title,
  *  supporting copy and a single call to action — "Go to the Deal room" when
- *  the landlord accepted, "View more properties" after a decline (the
- *  renter declining the landlord's counter offer closes the transaction). */
+ *  an offer is accepted, "View more properties" after a renter-side decline,
+ *  "Back to offers" after a landlord-side decline (the renter declining the
+ *  landlord's counter offer closes the transaction). */
 export function OfferOutcomeModal({
   outcome,
   searchHref,
@@ -52,7 +67,12 @@ export function OfferOutcomeModal({
 }: OfferOutcomeModalProps) {
   if (outcome === null) return null;
   const content = OUTCOME_CONTENT[outcome];
-  const ctaHref = outcome === "accepted" ? "/deal-room" : searchHref;
+  const ctaHref =
+    outcome === "accepted" || outcome === "portal-accepted"
+      ? "/deal-room"
+      : outcome === "portal-declined"
+        ? "/dashboard/offers"
+        : searchHref;
 
   return (
     <Modal

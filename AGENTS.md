@@ -41,7 +41,7 @@ app/
                           # Tabs, Accordion, Badge, Container, SectionHeading, Toast,
                           # Modal, icons.tsx
     common/               # PageHero, ContactForm, WaitlistSection, LegalDocContent,
-                          # TablePagination (portal tables)
+                          # TablePagination (portal tables), ProfileChip (person chip)
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
     home/  about/  contact/  faq/  privacy/  portals/  resources/
     auth/                 # AuthLayout, SignUpFlow, ProfileSetupFlow, SelectUserType, login/signup forms
@@ -51,7 +51,7 @@ app/
                           # EmptyState, SavedPropertiesSection, AccountSection, CompleteProfileModal
     landlord/             # LandlordHeader, LandlordStats
     listings/             # portal Listings page: toolbar, table
-    offers/               # portal Offers page: toolbar, table, detail header, bids
+    offers/               # portal Offers page: toolbar, table, detail header, bids, sheet
     deal-room/            # deal list + deal-detail step panels
     enquiry/              # renter + portal enquiries: tabs, chat, viewing, offers
     property/             # cards, search, filters, MapView, details sections

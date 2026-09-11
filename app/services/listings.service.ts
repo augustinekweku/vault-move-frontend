@@ -85,6 +85,8 @@ export interface OfferDetail {
   draft: ListingDraft;
   pricing: OfferDetailPricing;
   bids: OfferBid[];
+  property: Property;
+  address: string;
 }
 
 /** Listing summary, rent panel and bid rows for one portal offer-detail
@@ -95,11 +97,15 @@ export async function getOfferDetail(
   if (USE_MOCK) {
     const offer = MOCK_PORTAL_OFFERS.find((row) => row.id === offerId);
     if (!offer) return undefined;
+    const listing = await getListingById(offerId);
+    if (!listing) return undefined;
     return delay({
       offer,
       draft: MOCK_LISTING_DRAFTS[0],
       pricing: OFFER_DETAIL_PRICING,
       bids: MOCK_OFFER_BIDS,
+      property: listing.property,
+      address: listing.details.address,
     });
   }
   // return http.get<OfferDetail>(`/offers/${offerId}`);

@@ -27,11 +27,17 @@ export async function loader({ params }: Route.LoaderArgs) {
 /** Landlord/agent/developer offer-detail page: the listing summary card
  *  over the tabbed bid table with pagination. */
 export default function OfferDetail({ loaderData }: Route.ComponentProps) {
-  const { draft, pricing, bids } = loaderData;
+  const { draft, pricing, bids, property, address } = loaderData;
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 sm:p-6">
       <OfferDetailHeader draft={draft} pricing={pricing} />
-      <OfferDetailSection bids={bids} />
+      <OfferDetailSection
+        bids={bids}
+        propertyTitle={draft.title}
+        location={draft.location}
+        property={property}
+        address={address}
+      />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { OFFER_PROGRESS_STEPS } from "~/data/messages";
 import { cn } from "~/lib/utils";
 import { Toast } from "~/components/ui/Toast";
 import { DateField } from "~/components/ui/DateField";
+import { CloseIcon } from "~/components/ui/icons";
 import { EnquiryPropertyCard } from "~/components/enquiry/EnquiryPropertyCard";
 
 interface MakeOfferFormProps {
@@ -16,6 +17,9 @@ interface MakeOfferFormProps {
   variant?: "offer" | "counter";
   /** "< Back" — return to the offers list. */
   onBack: () => void;
+  /** X close button (sheet usages like the portal counter offer) —
+   *  rendered instead of "< Back" when provided. */
+  onClose?: () => void;
   /** Called with the entered rent amount once the submission toast
    *  dismisses — the route then lists the offer in the Offers panel. */
   onSubmitted: (amount: string) => void;
@@ -63,6 +67,7 @@ export function MakeOfferForm({
   address,
   variant = "offer",
   onBack,
+  onClose,
   onSubmitted,
   className,
 }: MakeOfferFormProps) {
@@ -82,13 +87,24 @@ export function MakeOfferForm({
           <h2 className="text-2xl font-extrabold text-black">
             {counter ? "Make a Counter offer" : "Make an Offer"}
           </h2>
-          <button
-            type="button"
-            onClick={onBack}
-            className="text-sm text-muted-500 hover:text-ink"
-          >
-            &lt; Back
-          </button>
+          {onClose ? (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="text-ink hover:text-brand"
+            >
+              <CloseIcon className="size-4" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onBack}
+              className="text-sm text-muted-500 hover:text-ink"
+            >
+              &lt; Back
+            </button>
+          )}
         </div>
 
         <div className="mx-auto mt-8 flex w-full max-w-106.75 flex-col">

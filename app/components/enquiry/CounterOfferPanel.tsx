@@ -20,10 +20,10 @@ interface CounterOfferPanelProps {
   onMakeCounterOffer: () => void;
 }
 
-/** One detail row of the counter-offer card: the icon in a tinted circle
- *  beside the grey label and bold value (same pattern as the offer card's
- *  amount row). */
-function CounterOfferRow({
+/** One detail row of an offer card: the icon in a tinted circle beside the
+ *  grey label and bold value. Shared by the renter counter-offer sheet and
+ *  the portal full-offer sheet. */
+export function CounterOfferRow({
   icon,
   label,
   value,

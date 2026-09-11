@@ -145,9 +145,14 @@ export type OfferFilter =
 export type OfferStatus = "pending" | "countered" | "accepted";
 
 /** Terminal outcome of an offer negotiation — drives the OfferOutcomeModal
- *  (the landlord accepted the renter's offer, the landlord declined it, or
- *  the renter declined the landlord's counter offer). */
-export type OfferOutcome = "accepted" | "declined" | "counter-declined";
+ *  (the renter outcomes speak to the renter; the `portal-*` outcomes speak
+ *  to the landlord reviewing bids on the offer-detail page). */
+export type OfferOutcome =
+  | "accepted"
+  | "declined"
+  | "counter-declined"
+  | "portal-accepted"
+  | "portal-declined";
 
 /** The landlord's counter offer under review in the Counter Offer panel
  *  (Offers tab of the property-contact page) — the countered terms. */
@@ -418,14 +423,21 @@ export interface PortalOffer {
 export type OfferBidStatus = "pending" | "accepted" | "declined";
 
 /** One bid row on the portal offer-detail page: who offered, the offered
- *  rent, move-in date and stay duration. */
+ *  rent, move-in date and stay duration — plus the full-offer sheet fields
+ *  (photo, detailed terms and the applicant's note). */
 export interface OfferBid {
   id: string;
   bidderName: string;
   initials: string;
+  avatar: string;
   amountLabel: string;
+  amountDetail: string;
   moveInDate: string;
+  moveInFull: string;
   stayDuration: string;
+  stayFull: string;
+  note: string;
+  verified: boolean;
   status: OfferBidStatus;
 }
 
