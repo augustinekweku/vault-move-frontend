@@ -1,5 +1,6 @@
-import type { Deal, DealDetails } from "~/types";
+import type { Deal, DealDetails, PortalDeal } from "~/types";
 import { MOCK_DEALS, MOCK_DEAL_DETAILS } from "~/data/deals";
+import { MOCK_PORTAL_DEALS } from "~/data/listing";
 
 /**
  * Deal-room data access. Currently backed by mock data; swap the bodies for
@@ -22,4 +23,13 @@ export async function getDealById(
   }
   // return http.get<{ deal: Deal; details: DealDetails }>(`/deals/${id}`);
   return undefined;
+}
+
+/** Rows for the landlord/agent/developer portal Deal Room table. */
+export async function getPortalDeals(): Promise<PortalDeal[]> {
+  if (USE_MOCK) {
+    return delay(MOCK_PORTAL_DEALS);
+  }
+  // return http.get<PortalDeal[]>("/deals/mine");
+  return [];
 }

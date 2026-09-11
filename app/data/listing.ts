@@ -4,6 +4,7 @@ import type {
   ListingDraft,
   OfferBid,
   OfferDetailPricing,
+  PortalDeal,
   PortalListing,
   PortalOffer,
   Stat,
@@ -470,5 +471,69 @@ export const MOCK_OFFER_BIDS: OfferBid[] = [
     note: OFFER_BID_NOTE,
     verified: true,
     status: "declined",
+  },
+];
+
+/** Footer note and page count for the portal Deal Room page — mock until
+ *  the deals API is live. */
+export const DEALS_FOOTER_NOTE = "Showing 1-6 Deals";
+
+export const DEALS_TOTAL_PAGES = 2;
+
+/** Portal Deal Room table rows — one per property with an open deal. */
+export const MOCK_PORTAL_DEALS: PortalDeal[] = [
+  {
+    id: "listing-1",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+  },
+  {
+    id: "listing-2",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+  },
+  {
+    id: "listing-3",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+  },
+  {
+    id: "listing-4",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+  },
+  {
+    id: "listing-5",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+  },
+  {
+    id: "listing-6",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
   },
 ];

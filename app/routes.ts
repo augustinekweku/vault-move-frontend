@@ -37,6 +37,7 @@ export default [
     route("dashboard/enquiries", "routes/enquiries.tsx"),
     route("dashboard/offers", "routes/offers.tsx"),
     route("dashboard/offers/:offerId", "routes/offer-detail.tsx"),
+    route("dashboard/deal-room", "routes/portal-deal-room.tsx"),
     route("dashboard/create-listing", "routes/create-listing.tsx"),
     route(
       "dashboard/listings/:propertyId/preview",

@@ -449,6 +449,18 @@ export interface OfferDetailPricing {
   utilityFees: string;
 }
 
+/** One row of the portal Deal Room table: the property summary, rent
+ *  label, type and deal status. */
+export interface PortalDeal {
+  id: string;
+  image: string;
+  title: string;
+  location: string;
+  status: PortalListingStatus;
+  priceLabel: string;
+  propertyType: string;
+}
+
 /** A landlord-scheduled viewing: display-ready date/time labels. */
 export interface ScheduledViewing {
   id: string;
