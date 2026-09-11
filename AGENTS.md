@@ -39,7 +39,7 @@ app/
   components/
     ui/                   # primitives: Button, IconButton, Input, Select, DateField,
                           # Tabs, Accordion, Badge, Container, SectionHeading, Toast,
-                          # Modal, icons.tsx
+                          # Modal, Sheet, icons.tsx
     common/               # PageHero, ContactForm, WaitlistSection, LegalDocContent,
                           # TablePagination (portal tables), ProfileChip (person chip)
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
@@ -48,8 +48,12 @@ app/
     dashboard/            # PortalLayout, PortalSideMenu, PortalHeader (landlord portal);
                           # DashboardLayout, DashboardNavbar, UserMenu, DashboardHero,
                           # DashboardStats, RecentListings, ProfileStatusCard, MessagesCard,
-                          # EmptyState, SavedPropertiesSection, AccountSection, CompleteProfileModal
+                          # EmptyState, SavedPropertiesSection, AccountSection, CompleteProfileModal,
+                          # ListingDraftCard, PendingVerificationModal, VerificationQuerySheet
     landlord/             # LandlordHeader, LandlordStats
+    listing/              # create-listing wizard: CreateListingFlow, CreateListingSteps,
+                          # FeatureGroup, PublishConfirmationModal, steps/
+    onboarding/           # landlord onboarding steps (info, phone, ID, uploads)
     listings/             # portal Listings page: toolbar, table
     offers/               # portal Offers page: toolbar, table, detail header, bids, sheet
     deals/                # portal Deal Room page: toolbar, table, workspace
@@ -75,6 +79,7 @@ public/
 |--------|--------|
 | `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
 | None (each page wraps `AuthLayout`) | signup, login, setup-profile |
+| None (standalone onboarding page, no `AuthLayout`) | landlord-onboarding |
 | None (standalone onboarding page, no `AuthLayout`) | select-user-type (portal audience picker; Continue → signup) |
 | `PortalLayout` (landlord/agent/developer side menu) | dashboard, dashboard/listings, dashboard/listings/:propertyId/preview, dashboard/create-listing, dashboard/enquiries, dashboard/offers, dashboard/offers/:offerId, dashboard/deal-room, dashboard/deal-room/:dealId |
 | `DashboardLayout` (signed-in nav) | deal-room, deal-room/:dealId, saved-properties, my-account |
@@ -87,7 +92,7 @@ For page behaviour and mock interaction details, read the route file and its sec
 
 - **Domain reads** should go through `app/services/*` (`listings`, `landlords`, `deals`). Each service has a `USE_MOCK` flag and returns typed data; swap bodies for `http.*` when the backend is live. Listing/landlord/deal-detail loaders already do this.
 - **Static CMS/copy** stays in `app/data/*` (nav, faq, legal, home steps, portals, auth wizard options, filter labels, toast step copy, account tabs). Components may import these directly.
-- **Mock domain fixtures** also live in `app/data/*` (`MOCK_LISTINGS`, `MOCK_DEALS`, `MOCK_CONVERSATIONS`, etc.). Prefer accessing them only from services. Still imported directly today: enquiry components, `DealsSection`, `SavedPropertiesSection`, and `property-contact` (`MOCK_COUNTER_OFFER`) — route those through services before wiring real APIs.
+- **Mock domain fixtures** also live in `app/data/*` (`MOCK_LISTINGS`, `MOCK_DEALS`, `MOCK_CONVERSATIONS`, etc.). Prefer accessing them only from services. Still imported directly today: enquiry components, `DealsSection`, `SavedPropertiesSection`, and `property-contact` (`MOCK_COUNTER_OFFER`) — route those through services before wiring real APIs. (Label/option constants from `data/listing` imported directly by the listing wizard, portal list toolbars/sections, and `DealsToolbar` are static copy, not fixtures, so they stay.)
 - **Mutations** (offers, document upload, payment, handover, auth) are still client-side mocks (`setTimeout` / local state). Add service methods before connecting APIs.
 - **API client**: `services/api.ts` — base URL from `VITE_API_URL` (fallback `/api`), bearer token from `localStorage.vm_token` (browser only). There is no `.env.example` yet; set `VITE_API_URL` when pointing at a backend.
 - **SSR auth limit**: the axios interceptor only attaches the token when `typeof window !== "undefined"`. Server loaders will not see `localStorage` — protected data needs cookies/session or `clientLoader` before relying on authenticated SSR fetches.
