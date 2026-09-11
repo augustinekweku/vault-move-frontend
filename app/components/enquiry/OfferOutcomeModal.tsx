@@ -19,7 +19,7 @@ const OUTCOME_CONTENT: Record<
   { icon: string; tint: string; title: string; body: string; cta: string }
 > = {
   accepted: {
-    icon: "/icons/check-circle-navy.svg",
+    icon: "/icons/check-circle-ring.svg",
     tint: "bg-[#edf1fa]",
     title: "Offer Accepted!",
     body: "Great news! The landlord has accepted your offer. We've created a dedicated Deal Room where you can securely manage the rest of your transaction.",
@@ -40,10 +40,10 @@ const OUTCOME_CONTENT: Record<
     cta: "View more properties",
   },
   "portal-accepted": {
-    icon: "/icons/check-circle-navy.svg",
+    icon: "/icons/check-circle-ring.svg",
     tint: "bg-[#edf1fa]",
     title: "Offer Accepted!",
-    body: "You've successfully accepted this offer. A Deal Room has been created where the applicant can complete the remaining steps of the transaction.",
+    body: "You've successfully accepted this offer. A secure Deal Room has been created where you and the applicant can complete the remaining steps of the transaction.",
     cta: "Go to the Deal room",
   },
   "portal-declined": {
