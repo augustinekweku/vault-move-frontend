@@ -413,6 +413,30 @@ export interface PortalOffer {
   offers: number;
 }
 
+/** Review state of one bid on the portal offer-detail page — drives the
+ *  All / Accepted / Declined tabs. */
+export type OfferBidStatus = "pending" | "accepted" | "declined";
+
+/** One bid row on the portal offer-detail page: who offered, the offered
+ *  rent, move-in date and stay duration. */
+export interface OfferBid {
+  id: string;
+  bidderName: string;
+  initials: string;
+  amountLabel: string;
+  moveInDate: string;
+  stayDuration: string;
+  status: OfferBidStatus;
+}
+
+/** Rent summary panel of the portal offer-detail header. */
+export interface OfferDetailPricing {
+  monthlyRent: string;
+  availability: string;
+  serviceCharge: string;
+  utilityFees: string;
+}
+
 /** A landlord-scheduled viewing: display-ready date/time labels. */
 export interface ScheduledViewing {
   id: string;

@@ -1,9 +1,9 @@
+import { Link } from "react-router";
 import type { PortalOffer } from "~/types";
 import { EyeIcon } from "~/components/ui/icons";
 
 interface OffersTableProps {
   offers: PortalOffer[];
-  onView: (id: string) => void;
 }
 
 /** Shared grid track for the header and every row: property, price/rent,
@@ -14,13 +14,9 @@ const GRID =
 /** The portal Offers table: header labels over thumbnail rows with a rent
  *  label, property type, received-offer count and a view action, divided by
  *  hairlines. Horizontally scrolls on small screens instead of reflowing. */
-export function OffersTable({ offers, onView }: OffersTableProps) {
-  function handleViewClick(event: React.MouseEvent<HTMLButtonElement>) {
-    onView(event.currentTarget.dataset.id ?? "");
-  }
-
-  // Named row renderer (no inline `.map()` callback), closing over the
-  // single view handler — the row id travels on `data-id`.
+export function OffersTable({ offers }: OffersTableProps) {
+  // Named row renderer (no inline `.map()` callback) — the eye links to
+  // the offer-detail page for the row's listing.
   function renderRow(offer: PortalOffer) {
     return (
       <div key={offer.id} className={`${GRID} border-b border-line-soft py-4`}>
@@ -43,17 +39,13 @@ export function OffersTable({ offers, onView }: OffersTableProps) {
         <p className="truncate text-sm text-muted-500">{offer.propertyType}</p>
         <p className="text-sm text-muted-500">{offer.offers}</p>
         <div className="flex items-center justify-end text-line">
-          {/* TODO: open the offer thread for this listing once the offers
-              detail API is live. */}
-          <button
-            type="button"
-            data-id={offer.id}
-            onClick={handleViewClick}
+          <Link
+            to={`/dashboard/offers/${offer.id}`}
             aria-label={`View offers for ${offer.title}`}
             className="transition-colors hover:text-muted-500"
           >
             <EyeIcon className="size-5" />
-          </button>
+          </Link>
         </div>
       </div>
     );

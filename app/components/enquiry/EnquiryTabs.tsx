@@ -35,10 +35,10 @@ export function EnquiryTabs({
         onClick={handleTabClick}
         aria-selected={selected}
         className={cn(
-          "-mb-px border-b-2 pb-3 text-sm font-semibold whitespace-nowrap transition-colors",
+          "-mb-px border-b-4 pb-3 text-base whitespace-nowrap transition-colors",
           selected
-            ? "border-brand text-brand"
-            : "border-transparent text-ink/50 hover:text-ink",
+            ? "border-brand font-semibold text-brand"
+            : "border-transparent font-normal text-ink/50 hover:text-ink",
         )}
       >
         {tab.label}

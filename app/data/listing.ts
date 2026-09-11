@@ -1,6 +1,13 @@
 /** Copy + option lists for the landlord/agent/developer create-listing
  *  wizard. Static until the listings API is live. */
-import type { ListingDraft, PortalListing, PortalOffer, Stat } from "~/types";
+import type {
+  ListingDraft,
+  OfferBid,
+  OfferDetailPricing,
+  PortalListing,
+  PortalOffer,
+  Stat,
+} from "~/types";
 
 /** The eight wizard steps in order. */
 export const CREATE_LISTING_STEPS = [
@@ -354,5 +361,73 @@ export const MOCK_PORTAL_OFFERS: PortalOffer[] = [
     priceLabel: "GHC 3500.00",
     propertyType: "Apartment",
     offers: 12,
+  },
+];
+
+/** Rent summary panel of the portal offer-detail header — mock until the
+ *  offers API is live. */
+export const OFFER_DETAIL_PRICING: OfferDetailPricing = {
+  monthlyRent: "1500 ghc/mo",
+  availability: "Available in 3 months",
+  serviceCharge: "0.00 ghc",
+  utilityFees: "0.00 ghc",
+};
+
+/** Bid rows of the portal offer-detail page — mock until the offers API
+ *  is live. */
+export const MOCK_OFFER_BIDS: OfferBid[] = [
+  {
+    id: "bid-1",
+    bidderName: "James Doe",
+    initials: "JD",
+    amountLabel: "3500 ghc/mo",
+    moveInDate: "March 2027",
+    stayDuration: "1 year",
+    status: "pending",
+  },
+  {
+    id: "bid-2",
+    bidderName: "James Doe",
+    initials: "JD",
+    amountLabel: "1500 ghc/mo",
+    moveInDate: "March 2027",
+    stayDuration: "1 year",
+    status: "pending",
+  },
+  {
+    id: "bid-3",
+    bidderName: "James Doe",
+    initials: "JD",
+    amountLabel: "2500 ghc/mo",
+    moveInDate: "March 2027",
+    stayDuration: "1 year",
+    status: "pending",
+  },
+  {
+    id: "bid-4",
+    bidderName: "James Doe",
+    initials: "JD",
+    amountLabel: "2700 ghc/mo",
+    moveInDate: "March 2027",
+    stayDuration: "1 year",
+    status: "pending",
+  },
+  {
+    id: "bid-5",
+    bidderName: "James Doe",
+    initials: "JD",
+    amountLabel: "2900 ghc/mo",
+    moveInDate: "March 2027",
+    stayDuration: "1 year",
+    status: "accepted",
+  },
+  {
+    id: "bid-6",
+    bidderName: "James Doe",
+    initials: "JD",
+    amountLabel: "2600 ghc/mo",
+    moveInDate: "March 2027",
+    stayDuration: "1 year",
+    status: "declined",
   },
 ];

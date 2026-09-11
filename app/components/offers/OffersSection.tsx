@@ -32,8 +32,8 @@ function offerMatches(
 }
 
 /** Toolbar + table + pagination of the portal Offers page. Search and the
- *  two filters narrow the loaded rows; viewing drills into the offer
- *  thread once the offers API is live. */
+ *  two filters narrow the loaded rows; the eye opens the offer-detail page
+ *  for the row's listing. */
 export function OffersSection({ offers }: { offers: PortalOffer[] }) {
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -47,11 +47,6 @@ export function OffersSection({ offers }: { offers: PortalOffer[] }) {
   function handleFilterChange(value: string, name?: string) {
     if (name === "status") setStatusFilter(value);
     else if (name === "type") setTypeFilter(value);
-  }
-
-  function handleView(id: string) {
-    // TODO: open the offer thread for this listing through the offers API.
-    void id;
   }
 
   function handlePageChange(next: number) {
@@ -72,7 +67,7 @@ export function OffersSection({ offers }: { offers: PortalOffer[] }) {
         onQueryChange={handleQueryChange}
         onFilterChange={handleFilterChange}
       />
-      <OffersTable offers={visible} onView={handleView} />
+      <OffersTable offers={visible} />
       {/* Grows to pin the footer to the bottom of the content well. */}
       <div aria-hidden className="min-h-10 flex-1" />
       <TablePagination

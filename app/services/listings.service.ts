@@ -1,4 +1,7 @@
 import type {
+  ListingDraft,
+  OfferBid,
+  OfferDetailPricing,
   PortalListing,
   PortalOffer,
   Property,
@@ -6,7 +9,13 @@ import type {
   SearchListingsParams,
 } from "~/types";
 import { MOCK_LISTINGS, MOCK_PROPERTY_DETAILS } from "~/data/listings";
-import { MOCK_PORTAL_LISTINGS, MOCK_PORTAL_OFFERS } from "~/data/listing";
+import {
+  MOCK_LISTING_DRAFTS,
+  MOCK_OFFER_BIDS,
+  MOCK_PORTAL_LISTINGS,
+  MOCK_PORTAL_OFFERS,
+  OFFER_DETAIL_PRICING,
+} from "~/data/listing";
 
 /**
  * Listings data access. Currently backed by mock data; swap the bodies for
@@ -69,4 +78,30 @@ export async function getPortalOffers(): Promise<PortalOffer[]> {
   }
   // return http.get<PortalOffer[]>("/offers/mine");
   return [];
+}
+
+export interface OfferDetail {
+  offer: PortalOffer;
+  draft: ListingDraft;
+  pricing: OfferDetailPricing;
+  bids: OfferBid[];
+}
+
+/** Listing summary, rent panel and bid rows for one portal offer-detail
+ *  page. */
+export async function getOfferDetail(
+  offerId: string,
+): Promise<OfferDetail | undefined> {
+  if (USE_MOCK) {
+    const offer = MOCK_PORTAL_OFFERS.find((row) => row.id === offerId);
+    if (!offer) return undefined;
+    return delay({
+      offer,
+      draft: MOCK_LISTING_DRAFTS[0],
+      pricing: OFFER_DETAIL_PRICING,
+      bids: MOCK_OFFER_BIDS,
+    });
+  }
+  // return http.get<OfferDetail>(`/offers/${offerId}`);
+  return undefined;
 }
