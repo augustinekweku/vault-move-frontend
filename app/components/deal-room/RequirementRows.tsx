@@ -132,8 +132,10 @@ export function ContractDocumentRow({
 
   return (
     <li className="border-b border-line-soft pb-4">
-      <div className="flex items-center gap-3">
-        <RequirementGlyph icon="document" className="size-6 shrink-0" />
+      <div className="flex items-center gap-3 px-3">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-alt">
+          <RequirementGlyph icon="document" className="size-5" />
+        </span>
         <p className="min-w-0 flex-1 text-sm font-bold text-brand-navy/54">
           {requirement.title}
         </p>
