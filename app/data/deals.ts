@@ -1,5 +1,11 @@
-import type { Deal, DealDetails, DealTab } from "~/types";
+import type {
+  Deal,
+  DealDetails,
+  DealTab,
+  PortalDealDetail,
+} from "~/types";
 import { IMAGES } from "~/data/listings";
+import { MOCK_PORTAL_DEALS } from "~/data/listing";
 
 /** Tabs across the top of the deal-room page — "all" and "reports" are
  *  views, the rest filter the deals list by status. */
@@ -55,6 +61,16 @@ export function getDealsForTab(tab: DealTab): Deal[] {
  *  page. */
 export const DEAL_STEPS = [
   "ID Verification",
+  "Renters Contract",
+  "Payment",
+  "Handing Over",
+  "Closing",
+];
+
+/** Portal workspace step labels — the first step is the landlord's
+ *  Documents step; the remaining steps reuse the shared panels. */
+export const PORTAL_DEAL_STEPS = [
+  "Documents",
   "Renters Contract",
   "Payment",
   "Handing Over",
@@ -171,4 +187,62 @@ export const MOCK_DEAL_DETAILS: DealDetails = {
     "Make sure everything is completed on the handing over checklist and confirm it is completed.",
     "",
   ],
+};
+
+/** Shared detail payload for every portal deal workspace (all mock deals
+ *  are the same "Willow Apartments" placeholder) — the table row is
+ *  swapped per deal by getPortalDealById. The Documents step mirrors the
+ *  renter side: the landlord uploads their own proofs while the tenant's
+ *  documents sit Pending; later steps reuse the shared step content. */
+export const MOCK_PORTAL_DEAL_DETAILS: PortalDealDetail = {
+  deal: MOCK_PORTAL_DEALS[0],
+  details: {
+    ...MOCK_DEAL_DETAILS,
+    steps: PORTAL_DEAL_STEPS,
+    currentStep: 3,
+    landlordRequirements: [
+      {
+        id: "proof-of-ownership",
+        title: "Proof of ownership",
+        description: "Recent utility bill or tenancy proof",
+        state: "upload",
+      },
+      {
+        id: "tenancy-agreement",
+        title: "Tenancy agreement",
+        description: "Upload a reference letter",
+        icon: "document",
+        state: "upload",
+      },
+    ],
+    renterRequirements: [
+      {
+        id: "utility-bill",
+        title: "Upload utility bill /Proof of current address",
+        icon: "document",
+        state: "pending",
+      },
+      {
+        id: "references",
+        title: "Upload references",
+        icon: "document",
+        state: "pending",
+      },
+    ],
+    whatsNext: [
+      "Your offer was accepted! Verify your documents and review those submitted by the tenant before preparing the tenancy agreement.",
+      ...MOCK_DEAL_DETAILS.whatsNext.slice(1),
+    ],
+  },
+  tenant: {
+    id: "james-doe",
+    name: "James Doe",
+    avatar: IMAGES.avatar,
+    verified: true,
+    role: "Tenant",
+  },
+  propertyTag: "Apartment for Rent",
+  rating: 4,
+  ratingLabel: "4.0/5.0",
+  monthlyRent: "1500 GHC",
 };

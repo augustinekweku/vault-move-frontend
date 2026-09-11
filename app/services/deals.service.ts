@@ -1,5 +1,5 @@
-import type { Deal, DealDetails, PortalDeal } from "~/types";
-import { MOCK_DEALS, MOCK_DEAL_DETAILS } from "~/data/deals";
+import type { Deal, DealDetails, PortalDeal, PortalDealDetail } from "~/types";
+import { MOCK_DEALS, MOCK_DEAL_DETAILS, MOCK_PORTAL_DEAL_DETAILS } from "~/data/deals";
 import { MOCK_PORTAL_DEALS } from "~/data/listing";
 
 /**
@@ -32,4 +32,18 @@ export async function getPortalDeals(): Promise<PortalDeal[]> {
   }
   // return http.get<PortalDeal[]>("/deals/mine");
   return [];
+}
+
+/** Workspace payload for one portal deal — the table row plus the shared
+ *  step content and sidebar data. */
+export async function getPortalDealById(
+  id: string,
+): Promise<PortalDealDetail | undefined> {
+  if (USE_MOCK) {
+    const deal = MOCK_PORTAL_DEALS.find((d) => d.id === id);
+    if (!deal) return undefined;
+    return delay({ ...MOCK_PORTAL_DEAL_DETAILS, deal });
+  }
+  // return http.get<PortalDealDetail>(`/deals/mine/${id}`);
+  return undefined;
 }

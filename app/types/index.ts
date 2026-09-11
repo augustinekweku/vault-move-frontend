@@ -234,6 +234,9 @@ export interface DealRequirement {
   /** Helper line under the title, e.g. "Recent utility bill or tenancy
    *  proof" — omitted on the landlord rows. */
   description?: string;
+  /** Leading glyph — the ID card by default, the document glyph for
+   *  agreement/reference rows. String key mapped in the UI. */
+  icon?: "id" | "document";
   state: "upload" | "pending" | "review";
   /** The renter's uploaded file for this requirement, if any. */
   upload?: DealUpload;
@@ -459,6 +462,24 @@ export interface PortalDeal {
   status: PortalListingStatus;
   priceLabel: string;
   propertyType: string;
+}
+
+/** Detail payload for the portal deal workspace
+ *  (dashboard/deal-room/:dealId): the table row plus the sidebar content —
+ *  step panels reuse the shared DealDetails. */
+export interface PortalDealDetail {
+  deal: PortalDeal;
+  details: DealDetails;
+  /** Tenant shown in the sidebar card. */
+  tenant: Agent;
+  /** Listing badge, e.g. "Apartment for Rent". */
+  propertyTag: string;
+  /** Filled stars, 0–5. */
+  rating: number;
+  /** e.g. "4.0/5.0". */
+  ratingLabel: string;
+  /** e.g. "1500 GHC" — the card appends "/month". */
+  monthlyRent: string;
 }
 
 /** A landlord-scheduled viewing: display-ready date/time labels. */

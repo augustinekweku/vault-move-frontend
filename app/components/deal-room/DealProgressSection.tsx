@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import type { DealDetails } from "~/types";
 import { cn } from "~/lib/utils";
 import { IdVerificationPanel } from "~/components/deal-room/IdVerificationPanel";
@@ -10,6 +11,17 @@ import { ClosingPanel } from "~/components/deal-room/ClosingPanel";
 interface DealProgressSectionProps {
   details: DealDetails;
   className?: string;
+  /** 0-based step shown first — defaults to the current step. The portal
+   *  deal workspace opens on Documents even mid-deal. */
+  initialStep?: number;
+  /** Replaces the step-0 panel — the portal passes its Documents panel. */
+  documentsPanel?: ReactNode;
+  /** Hides the "Deal Progress / Step n of 5" heading — the portal
+   *  workspace shows just the tab bar. */
+  hideHeading?: boolean;
+  /** Underlines only the viewed tab instead of every reached step — the
+   *  portal tab bar highlights the active tab alone. */
+  activeTabOnly?: boolean;
 }
 
 /** "Deal Progress" section of the deal detail page: the heading with the
@@ -21,9 +33,13 @@ interface DealProgressSectionProps {
 export function DealProgressSection({
   details,
   className,
+  initialStep,
+  documentsPanel,
+  hideHeading = false,
+  activeTabOnly = false,
 }: DealProgressSectionProps) {
   const currentIndex = details.currentStep - 1;
-  const [viewedStep, setViewedStep] = useState(currentIndex);
+  const [viewedStep, setViewedStep] = useState(initialStep ?? currentIndex);
 
   function handleStepClick(event: React.MouseEvent<HTMLButtonElement>) {
     const { step } = event.currentTarget.dataset;
@@ -47,11 +63,18 @@ export function DealProgressSection({
         disabled={!reached}
         aria-selected={viewing}
         className={cn(
-          "-mb-px border-b-4 px-4 pb-3 text-sm whitespace-nowrap transition-colors first:pl-0",
-          viewing ? "text-primary font-bold" : "font-semibold",
-          reached
-            ? "border-brand text-brand"
-            : "border-transparent text-ink/50",
+          "-mb-px border-b-4 whitespace-nowrap transition-colors",
+          activeTabOnly
+            ? viewing
+              ? "border-brand pb-3 text-base font-semibold text-brand"
+              : "border-transparent pb-3 text-base font-normal text-ink-soft"
+            : cn(
+                "px-4 pb-3 text-sm first:pl-0",
+                viewing ? "text-primary font-bold" : "font-semibold",
+                reached
+                  ? "border-brand text-brand"
+                  : "border-transparent text-ink/50",
+              ),
         )}
       >
         {step}
@@ -61,25 +84,35 @@ export function DealProgressSection({
 
   return (
     <section className={className}>
-      <div className="flex items-baseline gap-4">
-        <h2 className="text-xl font-bold text-ink">Deal Progress</h2>
-        <p className="text-sm text-muted-500">
-          Step {viewedStep + 1} of {details.steps.length}
-        </p>
-      </div>
+      {!hideHeading && (
+        <div className="flex items-baseline gap-4">
+          <h2 className="text-xl font-bold text-ink">Deal Progress</h2>
+          <p className="text-sm text-muted-500">
+            Step {viewedStep + 1} of {details.steps.length}
+          </p>
+        </div>
+      )}
 
-      <div className="mt-4 border-b border-line">
-        <div className="no-scrollbar flex overflow-x-auto">
+      <div className={hideHeading ? "border-b border-line" : "mt-4 border-b border-line"}>
+        <div
+          className={
+            activeTabOnly
+              ? "no-scrollbar flex gap-10 overflow-x-auto"
+              : "no-scrollbar flex overflow-x-auto"
+          }
+        >
           {details.steps.map(renderStepTab)}
         </div>
       </div>
 
       {viewedStep === 0 ? (
-        <IdVerificationPanel
-          renterRequirements={details.renterRequirements}
-          landlordRequirements={details.landlordRequirements}
-          className="mt-6"
-        />
+        (documentsPanel ?? (
+          <IdVerificationPanel
+            renterRequirements={details.renterRequirements}
+            landlordRequirements={details.landlordRequirements}
+            className="mt-6"
+          />
+        ))
       ) : viewedStep === 1 ? (
         <RentersContractPanel
           documents={details.contractDocuments}

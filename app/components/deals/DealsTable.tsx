@@ -46,8 +46,6 @@ export function DealsTable({ deals, onView }: DealsTableProps) {
           <ListingStatusPill status={deal.status} />
         </div>
         <div className="flex items-center justify-end text-line">
-          {/* TODO: open the deal workspace for this listing once the portal
-              deal-detail page exists. */}
           <button
             type="button"
             data-id={deal.id}

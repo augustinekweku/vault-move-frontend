@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import type { PortalDeal } from "~/types";
 import { DealsToolbar } from "~/components/deals/DealsToolbar";
 import { DealsTable } from "~/components/deals/DealsTable";
@@ -33,8 +34,9 @@ function dealMatches(
 
 /** Toolbar + table + pagination of the portal Deal Room page. Search and
  *  the two filters narrow the loaded rows; viewing drills into the deal
- *  workspace once the portal deal-detail page exists. */
+ *  workspace. */
 export function DealsSection({ deals }: { deals: PortalDeal[] }) {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -50,8 +52,7 @@ export function DealsSection({ deals }: { deals: PortalDeal[] }) {
   }
 
   function handleView(id: string) {
-    // TODO: open the deal workspace for this listing instead.
-    void id;
+    navigate(`/dashboard/deal-room/${id}`);
   }
 
   function handlePageChange(next: number) {
