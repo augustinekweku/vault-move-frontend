@@ -27,7 +27,7 @@ export async function loader({}: Route.LoaderArgs) {
  *  searchable, filterable listings table with pagination. */
 export default function Listings({ loaderData }: Route.ComponentProps) {
   return (
-    <div className="flex flex-col gap-6 p-4 sm:p-6">
+    <div className="flex flex-1 flex-col gap-6 p-4 sm:p-6">
       <DashboardStats stats={PORTAL_LISTINGS_STATS} />
       <ListingsSection listings={loaderData} />
     </div>

@@ -1,6 +1,6 @@
 /** Copy + option lists for the landlord/agent/developer create-listing
  *  wizard. Static until the listings API is live. */
-import type { ListingDraft, PortalListing, Stat } from "~/types";
+import type { ListingDraft, PortalListing, PortalOffer, Stat } from "~/types";
 
 /** The eight wizard steps in order. */
 export const CREATE_LISTING_STEPS = [
@@ -283,5 +283,76 @@ export const MOCK_PORTAL_LISTINGS: PortalListing[] = [
     priceLabel: "GHC 3500.00",
     propertyType: "Apartment",
     views: 12,
+  },
+];
+
+/** Summary strip, footer note and page count for the portal Offers page —
+ *  mock until the offers API is live. */
+export const OFFERS_FOOTER_NOTE = "Showing 1-6 Offers";
+
+export const OFFERS_TOTAL_PAGES = 2;
+
+/** Portal Offers table rows — one per listed property with its received
+ *  offer count. */
+export const MOCK_PORTAL_OFFERS: PortalOffer[] = [
+  {
+    id: "listing-1",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+    offers: 12,
+  },
+  {
+    id: "listing-2",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+    offers: 12,
+  },
+  {
+    id: "listing-3",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+    offers: 12,
+  },
+  {
+    id: "listing-4",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+    offers: 12,
+  },
+  {
+    id: "listing-5",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+    offers: 12,
+  },
+  {
+    id: "listing-6",
+    image: PORTAL_LISTING_IMAGE,
+    title: "Willow Apartments",
+    location: "Adjiringanor",
+    status: "active",
+    priceLabel: "GHC 3500.00",
+    propertyType: "Apartment",
+    offers: 12,
   },
 ];

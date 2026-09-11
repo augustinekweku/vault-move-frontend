@@ -2,8 +2,8 @@ import { useState } from "react";
 import type { PortalListing } from "~/types";
 import { ListingsToolbar } from "~/components/listings/ListingsToolbar";
 import { ListingsTable } from "~/components/listings/ListingsTable";
-import { ListingsPagination } from "~/components/listings/ListingsPagination";
-import { LISTINGS_TOTAL_PAGES } from "~/data/listing";
+import { TablePagination } from "~/components/common/TablePagination";
+import { LISTINGS_FOOTER_NOTE, LISTINGS_TOTAL_PAGES } from "~/data/listing";
 
 const STATUS_FILTER_VALUES: Record<string, PortalListing["status"]> = {
   Active: "active",
@@ -65,7 +65,7 @@ export function ListingsSection({ listings }: { listings: PortalListing[] }) {
   );
 
   return (
-    <section aria-label="Your listings">
+    <section aria-label="Your listings" className="flex flex-1 flex-col">
       <ListingsToolbar
         query={query}
         statusFilter={statusFilter}
@@ -74,9 +74,13 @@ export function ListingsSection({ listings }: { listings: PortalListing[] }) {
         onFilterChange={handleFilterChange}
       />
       <ListingsTable listings={visible} onDelete={handleDelete} />
-      <ListingsPagination
+      {/* Grows to pin the footer to the bottom of the content well. */}
+      <div aria-hidden className="min-h-10 flex-1" />
+      <TablePagination
         page={page}
         totalPages={LISTINGS_TOTAL_PAGES}
+        note={LISTINGS_FOOTER_NOTE}
+        navLabel="Listings pages"
         onPageChange={handlePageChange}
       />
     </section>

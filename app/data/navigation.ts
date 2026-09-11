@@ -111,9 +111,8 @@ export const PORTAL_MAIN_MENU: SideMenuLink[] = [
   },
   {
     label: "Offers",
-    href: "/dashboard",
+    href: "/dashboard/offers",
     icon: "/icons/offers.svg",
-    placeholder: true,
   },
   { label: "Deal Room", href: "/deal-room", icon: "/icons/deal-room.svg" },
   {

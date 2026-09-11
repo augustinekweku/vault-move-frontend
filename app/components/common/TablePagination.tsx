@@ -1,10 +1,13 @@
 import { cn } from "~/lib/utils";
 import { ChevronDownIcon } from "~/components/ui/icons";
-import { LISTINGS_FOOTER_NOTE } from "~/data/listing";
 
-interface ListingsPaginationProps {
+interface TablePaginationProps {
   page: number;
   totalPages: number;
+  /** Range note on the left, e.g. "Showing 1-6 Offers". */
+  note: string;
+  /** Accessible label of the page nav, e.g. "Offers pages". */
+  navLabel: string;
   onPageChange: (page: number) => void;
 }
 
@@ -12,14 +15,18 @@ function pageNumbers(totalPages: number): number[] {
   return Array.from({ length: totalPages }, (_, i) => i + 1);
 }
 
-/** Table footer of the portal Listings page: the range note on the left,
- *  prev / numbered / next controls on the right. Page switches are visual
- *  until the listings API paginates (see the section TODO). */
-export function ListingsPagination({
+/** Shared footer of the portal tables (Listings, Offers): the range note on
+ *  the left, prev / numbered / next controls on the right, split from the
+ *  rows by a top hairline. Sections push it to the bottom of the content
+ *  well with a flex spacer, so it sits at the viewport bottom on short
+ *  pages. Page switches are visual until each API paginates. */
+export function TablePagination({
   page,
   totalPages,
+  note,
+  navLabel,
   onPageChange,
-}: ListingsPaginationProps) {
+}: TablePaginationProps) {
   function handlePageClick(event: React.MouseEvent<HTMLButtonElement>) {
     onPageChange(Number(event.currentTarget.dataset.page));
   }
@@ -50,9 +57,9 @@ export function ListingsPagination({
     "flex size-8 items-center justify-center rounded-md border border-line text-muted-500 transition-colors hover:border-brand hover:text-brand disabled:opacity-40 disabled:hover:border-line disabled:hover:text-muted-500";
 
   return (
-    <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-      <p className="text-sm text-muted-500">{LISTINGS_FOOTER_NOTE}</p>
-      <nav aria-label="Listings pages" className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line-soft pt-4">
+      <p className="text-sm text-muted-500">{note}</p>
+      <nav aria-label={navLabel} className="flex items-center gap-2">
         <button
           type="button"
           data-page={page - 1}

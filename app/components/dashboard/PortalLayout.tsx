@@ -47,7 +47,7 @@ export default function PortalLayout() {
           icon={getPortalIcon(title)}
           onMenuClick={openMobileMenu}
         />
-        <main className="flex-1">
+        <main className="flex flex-1 flex-col">
           <Outlet />
         </main>
       </div>

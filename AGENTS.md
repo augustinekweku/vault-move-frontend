@@ -40,7 +40,8 @@ app/
     ui/                   # primitives: Button, IconButton, Input, Select, DateField,
                           # Tabs, Accordion, Badge, Container, SectionHeading, Toast,
                           # Modal, icons.tsx
-    common/               # PageHero, ContactForm, WaitlistSection, LegalDocContent
+    common/               # PageHero, ContactForm, WaitlistSection, LegalDocContent,
+                          # TablePagination (portal tables)
     layout/               # SiteLayout, Navbar, TopBar, MobileMenu, Footer, Logo
     home/  about/  contact/  faq/  privacy/  portals/  resources/
     auth/                 # AuthLayout, SignUpFlow, ProfileSetupFlow, SelectUserType, login/signup forms
@@ -49,7 +50,8 @@ app/
                           # DashboardStats, RecentListings, ProfileStatusCard, MessagesCard,
                           # EmptyState, SavedPropertiesSection, AccountSection, CompleteProfileModal
     landlord/             # LandlordHeader, LandlordStats
-    listings/             # portal Listings page: toolbar, table, pagination
+    listings/             # portal Listings page: toolbar, table
+    offers/               # portal Offers page: toolbar, table
     deal-room/            # deal list + deal-detail step panels
     enquiry/              # renter + portal enquiries: tabs, chat, viewing, offers
     property/             # cards, search, filters, MapView, details sections
@@ -71,7 +73,7 @@ public/
 | `SiteLayout` (marketing nav/footer) | `/`, buy, rent, map-view, about, contact, portals, faq, resources, resources/:articleId, properties/:propertyId, properties/:propertyId/contact, landlords/:landlordId, privacy, terms, escrow-terms |
 | None (each page wraps `AuthLayout`) | signup, login, setup-profile |
 | None (standalone onboarding page, no `AuthLayout`) | select-user-type (portal audience picker; Continue → signup) |
-| `PortalLayout` (landlord/agent/developer side menu) | dashboard, dashboard/listings, dashboard/listings/:propertyId/preview, dashboard/create-listing, dashboard/enquiries |
+| `PortalLayout` (landlord/agent/developer side menu) | dashboard, dashboard/listings, dashboard/listings/:propertyId/preview, dashboard/create-listing, dashboard/enquiries, dashboard/offers |
 | `DashboardLayout` (signed-in nav) | deal-room, deal-room/:dealId, saved-properties, my-account |
 
 Dashboard routes are **not auth-guarded** yet — `/dashboard` assumes a signed-in landlord/agent/developer, the other dashboard routes assume a signed-in buyer/renter.

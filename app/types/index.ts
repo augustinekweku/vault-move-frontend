@@ -400,6 +400,19 @@ export interface PortalListing {
   views: number;
 }
 
+/** One row of the portal Offers table: the property summary, rent label,
+ *  type and the received-offer count. */
+export interface PortalOffer {
+  id: string;
+  image: string;
+  title: string;
+  location: string;
+  status: PortalListingStatus;
+  priceLabel: string;
+  propertyType: string;
+  offers: number;
+}
+
 /** A landlord-scheduled viewing: display-ready date/time labels. */
 export interface ScheduledViewing {
   id: string;

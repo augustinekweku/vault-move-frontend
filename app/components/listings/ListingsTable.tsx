@@ -47,7 +47,7 @@ export function ListingsTable({ listings, onDelete }: ListingsTableProps) {
         <div>
           <ListingStatusPill status={listing.status} />
         </div>
-        <p className="text-sm font-bold text-gray-900">{listing.priceLabel}</p>
+        <p className="text-sm font-bold text-muted-700">{listing.priceLabel}</p>
         <p className="truncate text-sm text-muted-500">
           {listing.propertyType}
         </p>
